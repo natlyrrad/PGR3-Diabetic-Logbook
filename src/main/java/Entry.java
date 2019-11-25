@@ -1,6 +1,4 @@
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
 public class Entry extends JPanel {
     JLabel label1 = new JLabel();
@@ -20,8 +18,9 @@ public class Entry extends JPanel {
         info.setText(data);
     }
 
-    public void getInfo(){
+    public String getInfo(){
         System.out.println(info.getText());                 //store data
+        return null;
     }
 
 }
