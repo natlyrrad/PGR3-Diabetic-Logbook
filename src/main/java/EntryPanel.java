@@ -66,9 +66,12 @@ public class EntryPanel extends JPanel {
 
 
                 Connection conn = connectDB.connect();//set the connect
+                String Simple_table="CREATE TABLE IF NOT EXISTS patient(id SERIAL primary key,Date date NOT NULL, Time time NOT NULL,bsl integer)";
+                CreateTable.create(Simple_table,conn);
+
                 long id = 0;
                 try {
-                    PreparedStatement stmt = conn.prepareStatement("INSERT INTO patients(date,time,bsl)" + "VALUES(?,?,?)", Statement.RETURN_GENERATED_KEYS);
+                    PreparedStatement stmt = conn.prepareStatement("INSERT INTO patient(date,time,bsl)" + "VALUES(?,?,?)", Statement.RETURN_GENERATED_KEYS);
                     stmt.setDate(1, sqlDate);
                     stmt.setTime(2, sqltime);
                     stmt.setInt(3, ibsl); //insert date into the table
@@ -91,6 +94,8 @@ public class EntryPanel extends JPanel {
                 }
             }
         });
+
+
 
         //button actions to get local time and date
         localDate.addActionListener(new ActionListener(){
