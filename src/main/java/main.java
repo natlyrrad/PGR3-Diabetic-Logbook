@@ -1,7 +1,7 @@
 import javax.swing.*;
 
 
-public class Main {
+public class main {
     public static void main(String[] args) {
         //create new frame
         JFrame frame= new JFrame("Blood Sugar Level Input");
