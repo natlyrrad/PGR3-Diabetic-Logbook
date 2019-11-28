@@ -1,6 +1,6 @@
 package drawingUI.detailsPage;
 
-import drawingUI.calendarPage.logtypePanel;
+import drawingUI.logPage.logtypePanel;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,11 +1,13 @@
 
+import drawingUI.emailPage.EmailUIController;
+
 import javax.swing.*;
 
 
     public class Main {
         public static void main(String[] args) {
 
-            JFrame email_frame= new JFrame(gc); // Create a new JFrame
+            JFrame email_frame= new JFrame(); // Create a new JFrame
             email_frame.setSize(500,300);
 
             EmailUIController uiemail = new EmailUIController(email_frame);
