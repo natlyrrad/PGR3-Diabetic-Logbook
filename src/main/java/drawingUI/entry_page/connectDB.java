@@ -1,3 +1,5 @@
+package drawingUI.entry_page;
+
 import java.sql.*;
 
 public class connectDB {

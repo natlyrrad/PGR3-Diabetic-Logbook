@@ -1,3 +1,5 @@
+package drawingUI.entry_page;
+
 import javax.swing.*;
 
 public class Entry extends JPanel {

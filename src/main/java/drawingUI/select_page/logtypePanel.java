@@ -1,4 +1,6 @@
-package drawingUI;
+package drawingUI.select_page;
+
+import drawingUI.entry_page.EntryPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,6 +37,18 @@ public class logtypePanel extends JPanel {
         method1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                //Here is the frame for the actual log itself
+                //create new frame
+                JFrame frame= new JFrame("Blood Sugar Level Input");
+                frame.setSize(700,300);
+                frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+                //add panel to frame
+                EntryPanel mainPanel = new EntryPanel();
+                frame.getContentPane().add(mainPanel);
+
+                frame.setVisible(true);
             }
         });
 

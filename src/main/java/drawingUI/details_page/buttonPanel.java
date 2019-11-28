@@ -1,5 +1,8 @@
 package drawingUI.details_page;
 
+import drawingUI.email_page.EmailUIController;
+import drawingUI.select_page.LogUIController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,7 +10,9 @@ import java.awt.event.ActionListener;
 
 public class buttonPanel extends JPanel {
 
-    JButton buttonLogin = new JButton("Login");
+    JButton buttonLogin = new JButton("Enter Details");
+
+    static GraphicsConfiguration gc; // Class field containing config info
 
     public buttonPanel(){
         JPanel newPanel = new JPanel(new GridBagLayout());
@@ -23,7 +28,14 @@ public class buttonPanel extends JPanel {
         buttonLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("You have logged in!!");
+                JFrame log_frame= new JFrame(gc); // Create a new JFrame
+                log_frame.setSize(500,300);
+
+                LogUIController uilog = new LogUIController(log_frame);
+
+                log_frame.setVisible(true);
+                // This next line closes the program when the frame is closed
+                log_frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             }
         });
 
