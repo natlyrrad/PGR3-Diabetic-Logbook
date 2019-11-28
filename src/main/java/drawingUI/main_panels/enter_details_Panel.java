@@ -2,7 +2,7 @@ package drawingUI.main_panels;
 
 import drawingUI.details_page.buttonPanel;
 import drawingUI.details_page.detailsPanel;
-import drawingUI.logtypePanel;
+import drawingUI.select_page.logtypePanel;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,5 +1,7 @@
 
 
+import drawingUI.email_page.EmailUIController;
+import drawingUI.entry_page.EntryPanel;
 import javax.swing.*;
 
 
@@ -17,6 +19,3 @@ import javax.swing.*;
             frame.setVisible(true);
         }
     }
-
-    
-
