@@ -1,4 +1,4 @@
-package drawingUI.entry_page;
+package SQLDatabase;
 
 import java.sql.*;
 

@@ -1,6 +1,6 @@
-package drawingUI.email_page;
+package drawingUI.emailPage;
 
-import drawingUI.details_page.DetailsUIController;
+import drawingUI.detailsPage.DetailsUIController;
 
 import javax.swing.*;
 import java.awt.*;

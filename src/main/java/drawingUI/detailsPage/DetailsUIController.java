@@ -1,7 +1,6 @@
-package drawingUI.details_page;
+package drawingUI.detailsPage;
 
-import drawingUI.select_page.logtypePanel;
-import drawingUI.main_panels.enter_details_Panel;
+import drawingUI.calendarPage.logtypePanel;
 
 import javax.swing.*;
 

@@ -1,6 +1,4 @@
-package drawingUI.main_panels;
-
-import drawingUI.email_page.emailPanel;
+package drawingUI.emailPage;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,6 +1,6 @@
-package drawingUI.select_page;
+package drawingUI.calendarPage;
 
-import drawingUI.entry_page.EntryPanel;
+import drawingUI.entryPage.EntryPanel;
 
 import javax.swing.*;
 import java.awt.*;

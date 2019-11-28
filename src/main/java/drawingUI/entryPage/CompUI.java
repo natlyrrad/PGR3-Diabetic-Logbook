@@ -1,4 +1,6 @@
-//public class CompUI {
+package drawingUI.entryPage;//public class drawingUI.entry_page.CompUI {
+
+import SQLDatabase.connectDB;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;

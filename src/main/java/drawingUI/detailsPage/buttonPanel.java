@@ -1,7 +1,6 @@
-package drawingUI.details_page;
+package drawingUI.detailsPage;
 
-import drawingUI.email_page.EmailUIController;
-import drawingUI.select_page.LogUIController;
+import drawingUI.calendarPage.LogUIController;
 
 import javax.swing.*;
 import java.awt.*;

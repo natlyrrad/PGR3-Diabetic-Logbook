@@ -1,7 +1,7 @@
 
 
-import drawingUI.email_page.EmailUIController;
-import drawingUI.entry_page.EntryPanel;
+import drawingUI.entryPage.CompUI;
+
 import javax.swing.*;
 
 

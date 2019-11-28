@@ -1,6 +1,4 @@
-package drawingUI.email_page;
-
-import drawingUI.main_panels.enter_email_Panel;
+package drawingUI.emailPage;
 
 import javax.swing.*;
 

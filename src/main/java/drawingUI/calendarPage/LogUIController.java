@@ -1,6 +1,4 @@
-package drawingUI.select_page;
-
-import drawingUI.main_panels.select_log_Panel;
+package drawingUI.calendarPage;
 
 import javax.swing.*;
 

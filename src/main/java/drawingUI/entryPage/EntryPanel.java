@@ -1,4 +1,6 @@
-package drawingUI.entry_page;
+package drawingUI.entryPage;
+
+import SQLDatabase.connectDB;
 
 import javax.swing.*;
 import java.awt.*;

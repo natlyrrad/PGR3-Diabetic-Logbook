@@ -1,4 +1,4 @@
-package drawingUI.entry_page;
+package drawingUI.entryPage;
 
 import java.sql.*;
 

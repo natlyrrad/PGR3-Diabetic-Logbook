@@ -1,4 +1,4 @@
-package drawingUI.details_page;
+package drawingUI.detailsPage;
 
 import javax.swing.*;
 import java.awt.*;
