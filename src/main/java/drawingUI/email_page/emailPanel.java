@@ -1,5 +1,7 @@
 package drawingUI.email_page;
 
+import drawingUI.details_page.DetailsUIController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,6 +12,8 @@ public class emailPanel extends JPanel {
     JLabel elabel = new JLabel("Enter email: ");
     JTextField etext = new JTextField(20);
     JButton buttonLogin = new JButton("Login");
+
+    static GraphicsConfiguration gc;
 
     public emailPanel() {
         // https://www.codejava.net/java-se/swing/jpanel-basic-tutorial-and-examples
@@ -30,10 +34,19 @@ public class emailPanel extends JPanel {
         constraints.gridwidth = 2;
         constraints.anchor = GridBagConstraints.CENTER;
 
+
+
         buttonLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                JFrame details_frame= new JFrame(gc); // Create a new JFrame
+                details_frame.setSize(500,700);
 
+                DetailsUIController uidetails = new DetailsUIController(details_frame);
+
+                details_frame.setVisible(true);
+                // This next line closes the program when the frame is closed
+                details_frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             }
         });
 
