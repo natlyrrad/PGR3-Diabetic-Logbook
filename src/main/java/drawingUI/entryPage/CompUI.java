@@ -17,11 +17,11 @@ import java.sql.*;
 
     public class CompUI extends JPanel {
         //create all components
-        protected CompEntry date = new CompEntry();
-        protected CompEntry time = new CompEntry();
-        protected CompEntry bsl = new CompEntry();
-        protected CompEntry Carbs = new CompEntry();
-        protected CompEntry Meds = new CompEntry();
+        protected Entry date = new Entry();
+        protected Entry time = new Entry();
+        protected Entry bsl = new Entry();
+        protected Entry Carbs = new Entry();
+        protected Entry Meds = new Entry();
         protected JButton back = new JButton("Back");
         protected JButton enter = new JButton("Enter");
         protected JButton localDate = new JButton("Current Date");
