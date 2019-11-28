@@ -5,7 +5,7 @@ import javax.swing.*;
 
 
     public class Main {
-        public static void main(String[] args) {
+        public static void main(String[] args) throws Exception{
 
             JFrame email_frame= new JFrame(); // Create a new JFrame
             email_frame.setSize(500,300);

@@ -13,4 +13,6 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    implementation 'jakarta.mail:jakarta.mail-api:1.6.4'
+    implementation 'com.sun.mail:jakarta.mail:1.6.4'
 }
