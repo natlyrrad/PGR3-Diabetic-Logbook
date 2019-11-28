@@ -20,5 +20,18 @@ public class Main {
         // This next line closes the program when the frame is closed
         email_frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
+
+       //Here is the frame for the actual log itself
+        //create new frame
+        JFrame frame= new JFrame("Blood Sugar Level Input");
+        frame.setSize(700,300);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        //add panel to frame
+        EntryPanel mainPanel = new EntryPanel();
+        frame.getContentPane().add(mainPanel);
+
+        frame.setVisible(true);
+
     }
 }
