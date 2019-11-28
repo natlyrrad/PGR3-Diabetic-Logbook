@@ -1,4 +1,4 @@
-package drawingUI.calendarPage;
+package drawingUI.logPage;
 
 import javax.swing.*;
 

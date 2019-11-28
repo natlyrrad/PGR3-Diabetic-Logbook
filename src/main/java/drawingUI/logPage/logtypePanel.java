@@ -1,4 +1,4 @@
-package drawingUI.calendarPage;
+package drawingUI.logPage;
 
 import drawingUI.entryPage.EntryPanel;
 
@@ -66,6 +66,16 @@ public class logtypePanel extends JPanel {
         method2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //create new frame
+                JFrame frame= new JFrame("Blood Sugar Level Input");
+                frame.setSize(700,300);
+                frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+                //add panel to frame
+                CompUI mainPanel = new CompUI();
+                frame.getContentPane().add(mainPanel);
+
+                frame.setVisible(true);
             }
         });
 
