@@ -1,7 +1,7 @@
 package SQLDatabase;
 
 public class connectAzure {
-    public static void connectAzure() {
-        System.out.println("Enter code here");
+    private static void connectAzure() {
+        //To be implemented
     }
 }
