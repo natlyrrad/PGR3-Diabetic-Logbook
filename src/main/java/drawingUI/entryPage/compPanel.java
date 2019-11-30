@@ -15,7 +15,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.sql.*;
 
-    public class CompUI extends JPanel {
+    public class compPanel extends JPanel {
         //create all components
         protected Entry date = new Entry();
         protected Entry time = new Entry();
@@ -33,7 +33,7 @@ import java.sql.*;
         protected JPanel panel4 = new JPanel();
         protected JPanel sliderPanel = new JPanel();
 
-        public CompUI(){
+        public compPanel(){
             //set labels of entries
             date.newEntry("Date: ");
             time.newEntry("Time: ");

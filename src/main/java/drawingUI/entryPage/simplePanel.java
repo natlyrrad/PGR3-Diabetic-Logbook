@@ -13,7 +13,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.sql.*;
 
-public class EntryPanel extends JPanel {
+public class simplePanel extends JPanel {
     //create all components
     protected Entry date = new Entry();
     protected Entry time = new Entry();
@@ -27,7 +27,7 @@ public class EntryPanel extends JPanel {
     protected JPanel panel3 = new JPanel();
     protected JPanel panel4 = new JPanel();
 
-    public EntryPanel(){
+    public simplePanel(){
         //set labels of entries
         date.newEntry("Date: ");
         time.newEntry("Time: ");

@@ -1,7 +1,8 @@
 package drawingUI.logPage;
 
-import drawingUI.entryPage.CompUI;
-import drawingUI.entryPage.EntryPanel;
+import drawingUI.entryPage.compPanel;
+import drawingUI.entryPage.entryPanel;
+import drawingUI.entryPage.simplePanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -46,7 +47,7 @@ public class logtypePanel extends JPanel {
                 frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
                 //add panel to frame
-                EntryPanel mainPanel = new EntryPanel();
+                entryPanel mainPanel = new entryPanel();
                 frame.getContentPane().add(mainPanel);
 
                 frame.setVisible(true);
@@ -73,7 +74,7 @@ public class logtypePanel extends JPanel {
                 frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
                 //add panel to frame
-                CompUI mainPanel = new CompUI();
+                compPanel mainPanel = new compPanel();
                 frame.getContentPane().add(mainPanel);
 
                 frame.setVisible(true);
