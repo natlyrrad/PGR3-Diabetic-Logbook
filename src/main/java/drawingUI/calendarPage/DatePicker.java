@@ -14,30 +14,41 @@ public class DatePicker extends JPanel
     String day = "";
     JButton[] button = new JButton[49];
 
+    JLabel clabel = new JLabel("Date: ");
+    JTextField ctext = new JTextField(20);
+
     public DatePicker(JFrame parent) {
         JPanel newPanel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.insets = new Insets(0, 0, 0, 0);
-        ////////////////////////////////////////////////////////////////////////////////
+
+        JPanel p3 = new JPanel(new GridLayout(1, 1));
+        clabel.setFont(new Font("Serif", Font.BOLD, 16));
+        p3.add(clabel);
+        p3.add(l);
+        p3.add(ctext);
 
         String[] header = { "Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat" };
         JPanel p1 = new JPanel(new GridLayout(7, 7));
-        p1.setPreferredSize(new Dimension(500, 500));
+        p1.setPreferredSize(new Dimension(500, 400));
 
         for (int x = 0; x < button.length; x++) {
             final int selection = x;
             button[x] = new JButton();
             button[x].setFocusPainted(false);
             button[x].setBackground(Color.white);
+            button[x].setFont(new Font("Serif", Font.BOLD, 20));
             if (x > 6)
                 button[x].addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent ae) {
                         day = button[selection].getActionCommand();
+                        ctext.setText(setPickedDate());
                     }
                 });
             if (x < 7) {
                 button[x].setText(header[x]);
                 button[x].setForeground(Color.red);
+                button[x].setFont(new Font("Serif", Font.BOLD, 16));
             }
             p1.add(button[x]);
         }
@@ -63,10 +74,14 @@ public class DatePicker extends JPanel
 
         constraints.gridx = 0;
         constraints.gridy = 0;
-        newPanel.add(p1, constraints);
+        newPanel.add(p3, constraints);
 
         constraints.gridx = 0;
         constraints.gridy = 1;
+        newPanel.add(p1, constraints);
+
+        constraints.gridx = 0;
+        constraints.gridy = 2;
         newPanel.add(p2, constraints);
 
         displayDate();
