@@ -1,8 +1,14 @@
 
+import drawingUI.emailPage.EmailUIController;
+
 import javax.swing.*;
+import java.awt.*;
 
 
-    public class Main {
+public class Main {
+
+    static GraphicsConfiguration gc;
+
         public static void main(String[] args) {
 
             JFrame email_frame= new JFrame(gc); // Create a new JFrame

@@ -1,5 +1,6 @@
 package drawingUI.logPage;
 
+import drawingUI.entryPage.CompUI;
 import drawingUI.entryPage.EntryPanel;
 
 import javax.swing.*;
