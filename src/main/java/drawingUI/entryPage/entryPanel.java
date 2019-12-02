@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import drawingUI.entryPage.Entry;
@@ -17,10 +18,10 @@ public class entryPanel extends JPanel implements ActionListener{               
     //create all components
     JLabel date = new JLabel();
     Entry time = new Entry();
-    JButton back = new JButton("Back");
+    JButton back = new JButton("< Back");
     JButton enter = new JButton("Enter");
     JButton localTime = new JButton("Current Time");
-    JRadioButton simple = new JRadioButton("Simple Method");
+    JRadioButton simple = new JRadioButton("Simple Method", true);
     JRadioButton comp = new JRadioButton("Comprehensive Method");
     JRadioButton inten = new JRadioButton("Intensive Method");
 
@@ -34,6 +35,7 @@ public class entryPanel extends JPanel implements ActionListener{               
 
     public entryPanel(){
         //set labels of entries
+        date.setText("  Date:   " + LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yy")));
         time.newEntry("Time: ");
 
         //button actions for back and enter
@@ -102,7 +104,6 @@ public class entryPanel extends JPanel implements ActionListener{               
         });
 
 
-
         //button actions to get local time
         localTime.addActionListener(new ActionListener(){
             @Override
@@ -112,33 +113,88 @@ public class entryPanel extends JPanel implements ActionListener{               
             }
         });
 
+        //choosing input method
+        simple.addActionListener(this);
+        comp.addActionListener(this);
+        inten.addActionListener(this);
 
+        //grouping method radiobuttons
+        ButtonGroup methods = new ButtonGroup();
+        methods.add(simple);
+        methods.add(comp);
+        methods.add(inten);
+        panel3.add(simple);
+        panel3.add(comp);
+        panel3.add(inten);
+
+        JPanel metPanel = new JPanel(new GridLayout(0,1));
+        metPanel.add(simple);
+        metPanel.add(comp);
+        metPanel.add(inten);
 
         //add components with layout
-        panel1.add(back);
-        panel2.add(date);
-        panel2.add(time);
-        panel3.add(localTime);
-        panel4.add(enter);
+        //https://examples.javacodegeeks.com/desktop-java/swing/java-swing-layout-example/
+        GridBagLayout layout = new GridBagLayout();
+        this.setLayout(layout);
+        GridBagConstraints c = new GridBagConstraints();
+        c.insets = new Insets(10, 10, 10, 10);          //From maria
 
-        GridLayout layout = new GridLayout(4,1);
-        setLayout(layout);
-        add(panel1);
-        add(panel2);
-        add(panel3);
-        add(panel4);
+
+        // position components
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 0;
+        add(back, c);
+
+        c.gridx = 1;
+        c.gridy = 1;
+        add(date, c);
+
+        c.gridx = 1;
+        c.gridy = 2;
+        add(time, c);
+
+        c.gridx = 2;
+        c.gridy = 2;
+        add(localTime, c);
+
+        c.gridx = 3;
+        c.gridy = 1;
+        c.gridheight = 2;
+        add(metPanel, c);
+
+        c.gridx = 1;
+        c.gridy = 3;
+        c.gridheight = 1;
+        c.gridwidth = 3;
+        add(p1, c);
+        add(p2, c);
+        p1.setVisible(true);
+        p2.setVisible(false);
+
+        c.gridx = 3;
+        c.gridy = 4;
+        add(enter, c);
+
     }
+
     //radio buttons to select method
     @Override
-    public void actionPerformed(ActionEvent actionEvent) {
+    public void actionPerformed(ActionEvent e) {
         if(simple.isSelected()){
-            JOptionPane.showMessageDialog(this,"You are Male.");
+//            JOptionPane.showMessageDialog(this,"You are Male.");
+//            System.out.println("You are Male");
+            p1.setVisible(true);
+            p2.setVisible(false);
         }
         if(comp.isSelected()){
-            JOptionPane.showMessageDialog(this,"You are Female.");
+//            JOptionPane.showMessageDialog(this,"You are Female.");
+            p2.setVisible(true);
+            p1.setVisible(false);
         }
         if(inten.isSelected()){
-            JOptionPane.showMessageDialog(this,"Intensive");
+//            JOptionPane.showMessageDialog(this,"Intensive");
+
         }
     }
 

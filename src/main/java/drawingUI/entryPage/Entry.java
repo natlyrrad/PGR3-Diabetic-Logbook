@@ -1,6 +1,7 @@
 package drawingUI.entryPage;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class Entry extends JPanel {
     JLabel label1 = new JLabel();
@@ -8,6 +9,8 @@ public class Entry extends JPanel {
     JTextField info = new JTextField(10);
 
     public Entry(){
+        FlowLayout layout = new FlowLayout(FlowLayout.LEFT);
+        this.setLayout(layout);
         add(label1);
         add(info);
     }
