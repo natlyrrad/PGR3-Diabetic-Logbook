@@ -1,10 +1,10 @@
-package drawingUI.detailsPage;
-
+package drawingUI.detailsPage; //Part of the detailsPage Package
+//Java classes imports (JDK)
 import javax.swing.*;
 import java.awt.*;
 
 public class doctorTab extends JPanel {
-
+    // Declare all the components included on the tab
     JLabel emaillabel = new JLabel("Email: ");
     JTextField emailtext = new JTextField(20);
 
@@ -15,7 +15,7 @@ public class doctorTab extends JPanel {
     JTextField phonetext = new JTextField(20);
 
     public doctorTab(){
-        // https://www.codejava.net/java-se/swing/jpanel-basic-tutorial-and-examples
+        /* Reference 1 - https://www.codejava.net/java-se/swing/jpanel-basic-tutorial-and-examples */
         JPanel newPanel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.fill = GridBagConstraints.HORIZONTAL;

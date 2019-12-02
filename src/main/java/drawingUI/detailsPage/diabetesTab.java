@@ -1,10 +1,10 @@
-package drawingUI.detailsPage;
-
+package drawingUI.detailsPage;//Part of the detailsPage Package
+//Java classes imports (JDK)
 import javax.swing.*;
 import java.awt.*;
 
 public class diabetesTab extends JPanel {
-
+    // Declare all the components that will be included in the tab
     JLabel typelabel = new JLabel("Select Type of Diabetes: ");
     JRadioButton type1 = new JRadioButton("Type 1");
     JRadioButton type2 = new JRadioButton("Type 2");
@@ -21,7 +21,7 @@ public class diabetesTab extends JPanel {
     JRadioButton admin3 = new JRadioButton("Pump");
 
     public diabetesTab(){
-        // https://www.codejava.net/java-se/swing/jpanel-basic-tutorial-and-examples
+        /* Reference 1 - https://www.codejava.net/java-se/swing/jpanel-basic-tutorial-and-examples */
         JPanel newPanel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.fill = GridBagConstraints.HORIZONTAL;
