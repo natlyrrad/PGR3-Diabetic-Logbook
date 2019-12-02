@@ -19,7 +19,7 @@ public class calendarPanel extends JPanel {
     public calendarPanel() {
         JPanel newPanel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
-        constraints.insets = new Insets(10, 10, 10, 10);
+        constraints.insets = new Insets(5, 5, 5, 5);
 
         constraints.gridx = 0;
         constraints.gridy = 0;

@@ -20,12 +20,10 @@ public class DatePicker extends JPanel
     public DatePicker(JFrame parent) {
         JPanel newPanel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
-        constraints.insets = new Insets(0, 0, 0, 0);
+        constraints.insets = new Insets(5, 5, 5, 5);
 
         JPanel p3 = new JPanel(new GridLayout(1, 1));
-        clabel.setFont(new Font("Serif", Font.BOLD, 16));
         p3.add(clabel);
-        p3.add(l);
         p3.add(ctext);
 
         String[] header = { "Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat" };
@@ -37,7 +35,7 @@ public class DatePicker extends JPanel
             button[x] = new JButton();
             button[x].setFocusPainted(false);
             button[x].setBackground(Color.white);
-            button[x].setFont(new Font("Serif", Font.BOLD, 20));
+            button[x].setFont(new Font("Dialog", Font.BOLD, 20));
             if (x > 6)
                 button[x].addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent ae) {
@@ -47,8 +45,8 @@ public class DatePicker extends JPanel
                 });
             if (x < 7) {
                 button[x].setText(header[x]);
-                button[x].setForeground(Color.red);
-                button[x].setFont(new Font("Serif", Font.BOLD, 16));
+                button[x].setForeground(Color.blue);
+                button[x].setFont(new Font("Dialog", Font.BOLD, 16));
             }
             p1.add(button[x]);
         }
@@ -62,6 +60,7 @@ public class DatePicker extends JPanel
             }
         });
         p2.add(previous);
+        l.setFont(new Font("Dialog", Font.BOLD, 14));
         p2.add(l);
         JButton next = new JButton("Next >>");
         next.addActionListener(new ActionListener() {
