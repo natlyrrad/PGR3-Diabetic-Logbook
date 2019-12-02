@@ -1,6 +1,7 @@
 package drawingUI.entryPage;//public class drawingUI.entry_page.CompUI {
 
 import SQLDatabase.connectDB;
+import jdk.nashorn.internal.objects.NativeRegExpExecResult;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -13,19 +14,17 @@ import java.sql.*;
 
     public class compPanel extends JPanel {
         //create all components
-
-        protected Entry bsl = new Entry();
         protected Entry Carbs = new Entry();
         protected Entry Meds = new Entry();
         protected JSlider Exerciselevel = new JSlider(1,10);
-        protected JLabel exercise = new JLabel("Exercise Level:");
-        protected JPanel sliderPanel = new JPanel();
+        protected JLabel exercise = new JLabel("  Exercise Level:");
 
         public compPanel(){
             //set labels of entries
-            bsl.newEntry("Blood Sugar Level: ");
             Carbs.newEntry("Carbohydrates(g): ");
             Meds.newEntry ("Medication/ Insulin: ");
+            Exerciselevel.setMinorTickSpacing(1);
+            Exerciselevel.setPaintTicks(true);
 
             ChangeListener ExerciselevelCL = new ChangeListener() {   //slider to indicate level of activity
                 @Override
@@ -38,7 +37,6 @@ import java.sql.*;
             //add components with layout
             GridLayout layout = new GridLayout(0,1);
             this.setLayout(layout);
-            add(bsl);
             add(Carbs);
             add(Meds);
             add(exercise);

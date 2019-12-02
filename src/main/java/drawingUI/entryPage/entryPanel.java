@@ -27,15 +27,12 @@ public class entryPanel extends JPanel implements ActionListener{               
 
     simplePanel p1 = new simplePanel();
     compPanel p2 = new compPanel();
+    public intenPanel p3 = new intenPanel();
 
-    JPanel panel1 = new JPanel();
-    JPanel panel2 = new JPanel();
-    JPanel panel3 = new JPanel();
-    JPanel panel4 = new JPanel();
 
     public entryPanel(){
         //set labels of entries
-        date.setText("  Date:   " + LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yy")));
+        date.setText("  Date:   " + LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yy")));       //change into fetching date
         time.newEntry("Time: ");
 
         //button actions for back and enter
@@ -123,10 +120,8 @@ public class entryPanel extends JPanel implements ActionListener{               
         methods.add(simple);
         methods.add(comp);
         methods.add(inten);
-        panel3.add(simple);
-        panel3.add(comp);
-        panel3.add(inten);
 
+        //create metPanel
         JPanel metPanel = new JPanel(new GridLayout(0,1));
         metPanel.add(simple);
         metPanel.add(comp);
@@ -168,12 +163,24 @@ public class entryPanel extends JPanel implements ActionListener{               
         c.gridheight = 1;
         c.gridwidth = 3;
         add(p1, c);
-        add(p2, c);
         p1.setVisible(true);
+
+        c.gridx = 1;
+        c.gridy = 4;
+        c.gridheight = 1;
+        c.gridwidth = 3;
+        add(p2, c);
         p2.setVisible(false);
 
+        c.gridx = 1;
+        c.gridy = 5;
+        c.gridheight = 1;
+        c.gridwidth = 3;
+        add(p3, c);
+        p3.setVisible(false);
+
         c.gridx = 3;
-        c.gridy = 4;
+        c.gridy = 6;
         add(enter, c);
 
     }
@@ -186,15 +193,19 @@ public class entryPanel extends JPanel implements ActionListener{               
 //            System.out.println("You are Male");
             p1.setVisible(true);
             p2.setVisible(false);
+            p3.setVisible(false);
         }
         if(comp.isSelected()){
 //            JOptionPane.showMessageDialog(this,"You are Female.");
+            p1.setVisible(true);
             p2.setVisible(true);
-            p1.setVisible(false);
+            p3.setVisible(false);
         }
         if(inten.isSelected()){
 //            JOptionPane.showMessageDialog(this,"Intensive");
-
+            p1.setVisible(true);
+            p2.setVisible(true);
+            p3.setVisible(true);
         }
     }
 

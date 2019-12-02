@@ -20,8 +20,6 @@ public class simplePanel extends JPanel {
 
     public simplePanel() {
         //set labels of entries
-//        date.newEntry("Date: ");
-//        time.newEntry("Time: ");
         bsl.newEntry("Blood Sugar Level: ");
 //
 //        //button actions for back and enter
@@ -90,22 +88,6 @@ public class simplePanel extends JPanel {
 //            }
 //        });
 //
-//
-//        //button actions to get local time and date
-//        localDate.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                String d = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yy"));
-//                date.setInfo(d);
-//            }
-//        });
-//        localTime.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                String t = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm"));
-//                time.setInfo(t);            //collect data to db
-//            }
-//        });
 //
 //
         FlowLayout layout = new FlowLayout(FlowLayout.LEFT);

@@ -43,7 +43,7 @@ public class logtypePanel extends JPanel {
                 //Here is the frame for the actual log itself
                 //create new frame
                 JFrame frame= new JFrame("Blood Sugar Level Input");
-                frame.setSize(700,500);
+                frame.setSize(700,750);
                 frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
                 //add panel to frame
