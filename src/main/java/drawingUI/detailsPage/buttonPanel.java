@@ -1,6 +1,6 @@
 package drawingUI.detailsPage;
 
-import drawingUI.logPage.LogUIController;
+import drawingUI.calendarPage.CalendarUIController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,14 +27,19 @@ public class buttonPanel extends JPanel {
         buttonLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFrame log_frame= new JFrame(gc); // Create a new JFrame
-                log_frame.setSize(500,300);
+                JFrame cal_frame= new JFrame(gc); // Create a new JFrame
+                cal_frame.setSize(600,700);
 
-                LogUIController uilog = new LogUIController(log_frame);
+                CalendarUIController uical = new CalendarUIController(cal_frame);
 
-                log_frame.setVisible(true);
+                cal_frame.setVisible(true);
                 // This next line closes the program when the frame is closed
-                log_frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                cal_frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+                //http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm
+                Component component = (Component) e.getSource();
+                JFrame frame = (JFrame) SwingUtilities.getRoot(component);
+                frame.setVisible(false);
             }
         });
 

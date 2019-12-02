@@ -34,8 +34,6 @@ public class emailPanel extends JPanel {
         constraints.gridwidth = 2;
         constraints.anchor = GridBagConstraints.CENTER;
 
-
-
         buttonLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -47,6 +45,11 @@ public class emailPanel extends JPanel {
                 details_frame.setVisible(true);
                 // This next line closes the program when the frame is closed
                 details_frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+                //http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm
+                Component component = (Component) e.getSource();
+                JFrame frame = (JFrame) SwingUtilities.getRoot(component);
+                frame.setVisible(false);
             }
         });
 

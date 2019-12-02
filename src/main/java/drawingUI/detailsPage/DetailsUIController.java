@@ -17,7 +17,7 @@ public class DetailsUIController
 
     public DetailsUIController(JFrame frame)
     {
-        frame.getContentPane().add(new enter_details_Panel(dpanel, butpanel, lpanel));
+        frame.getContentPane().add(new enter_details_Panel(dpanel, butpanel));
     }
 
 
