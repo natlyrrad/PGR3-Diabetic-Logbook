@@ -40,6 +40,9 @@ public class emailPanel extends JPanel {
              and set the email page as invisible*/
             @Override
             public void actionPerformed(ActionEvent e) {
+                String email = etext.getText();
+                System.out.println(email);
+
                 //Open a Details UI frame when the button is clicked
                 JFrame details_frame= new JFrame(gc); // Create a new JFrame
                 details_frame.setSize(500,700);
