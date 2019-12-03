@@ -1,4 +1,7 @@
-package drawingUI.calendarPage;
+package drawingUI.calendarPage; //Part of the calendarPage Package
+//Java classes imports (JDK)
+import javax.swing.*;
+import java.awt.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,9 +11,7 @@ public class pick_date_Panel extends JPanel {
     public pick_date_Panel(calendarPanel cpanel)
     {
         setLayout(new GridLayout(1, 1));
-
-        //https://stackoverflow.com/questions/5345609/java-align-jlabel-in-center-of-jpanel
-
+        cpanel.setLayout(new BoxLayout(cpanel, BoxLayout.X_AXIS));
         add(cpanel);
     }
 
