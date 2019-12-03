@@ -15,20 +15,14 @@ import java.time.format.DateTimeFormatter;
 import java.sql.*;
 
 public class simplePanel extends JPanel {
+
     //create component
-    protected Entry bsl = new Entry();
+    protected Entry bsl = new Entry("Blood Sugar Level: ");
 
     public simplePanel() {
         //set labels of entries
-        bsl.newEntry("Blood Sugar Level: ");
-//
+
 //        //button actions for back and enter
-//        back.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                System.out.println("Back to view");     //change once other pages are ready
-//            }
-//        });
 //        enter.addActionListener(new ActionListener() {
 //            @Override
 //            public void actionPerformed(ActionEvent e) {
@@ -92,7 +86,7 @@ public class simplePanel extends JPanel {
 //
         FlowLayout layout = new FlowLayout(FlowLayout.LEFT);
         this.setLayout(layout);
-        setBorder(BorderFactory.createLineBorder(Color.black));
+//        setBorder(BorderFactory.createLineBorder(Color.black));
         add(bsl);
 
     }

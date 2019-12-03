@@ -12,51 +12,84 @@ import drawingUI.entryPage.entryPanel;
 public class intenPanel extends JPanel{
     //create all components
     JLabel food = new JLabel("  Food diary: ");
-    protected Entry item = new Entry();
-    JButton addItem = new JButton("+");
+    protected Entry item = new Entry(" Enter food and amount:  ");
+    JButton addItem = new JButton("Add food type");
     JPanel itemPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-    JLabel comments = new JLabel("  Additional Comments: ");
-    JTextArea textbox = new JTextArea(1, 1);
+    int counter;
+    protected Entry med = new Entry("Enter Medication/ Insulin and dose: ");
 
 
     public intenPanel(){
         //set labels of entries
-        item.newEntry(" Enter food and amount:  ");
 
         //set up itemPanel
-        GridLayout itemLayout = new GridLayout(0,1);
-        itemPanel.setLayout(itemLayout);
-        itemPanel.add(item);
-        itemPanel.add(addItem);
+//        GridLayout itemLayout = new GridLayout(0,1);
+//        itemPanel.setLayout(itemLayout);
 
+        GridBagLayout layout = new GridBagLayout();
+        itemPanel.setLayout(layout);
+        GridBagConstraints c = new GridBagConstraints();
+        c.anchor = GridBagConstraints.WEST;
+        c.insets = new Insets(1, 1, 1, 10);          //From maria
+
+        // position components
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 0;
+        itemPanel.add(addItem, c);
+
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 1;
+        itemPanel.add(item, c);
+
+        counter = 1;
         //button addItem
         addItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                itemPanel.remove(addItem);
-                System.out.println("remove button");
-                itemPanel.add(item);
-                System.out.println("add entry");
+                itemPanel.removeAll();
+                System.out.println("remove all");
+                counter = counter +1;
                 itemPanel.add(addItem);
+                for(int i=0; i<counter; i++){
+                    c.fill = GridBagConstraints.HORIZONTAL;
+                    c.gridx = 0;
+                    c.gridy = i+2;
+                    System.out.println(i);
+                    itemPanel.add(new Entry(" Enter food and amount:  "), c);
+                }
+                itemPanel.revalidate();
+                itemPanel.repaint();
+                itemPanel.setVisible(true);
+
+                System.out.println("add entry");
+
+
             }
         });
 
         //add components with layout
-        GridLayout layout = new GridLayout(0,1);
-        this.setLayout(layout);
+        GridLayout grid = new GridLayout(0,1);
+        this.setLayout(grid);
+        add(med);
         add(food);
         add(itemPanel);
-        add(comments);
-        add(textbox);
 
-
-        //textArea
-        //https://stackoverflow.com/questions/42690425/jtextarea-border-in-java-swing
-        Border border = BorderFactory.createLineBorder(Color.BLACK);
-        textbox.setBorder(BorderFactory.createCompoundBorder(border,
-                BorderFactory.createEmptyBorder(10, 10, 10, 10)));
 
         setBorder(BorderFactory.createLineBorder(Color.black));
 
     }
 }
+
+
+//senalka these are for you
+//JLabel comments = new JLabel("  Additional Comments: ");
+//JTextArea textbox = new JTextArea(1, 1);
+//    //textArea
+//    //https://stackoverflow.com/questions/42690425/jtextarea-border-in-java-swing
+//    Border border = BorderFactory.createLineBorder(Color.BLACK);
+//        textbox.setBorder(BorderFactory.createCompoundBorder(border,
+//                BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+//        add(comments);
+//        add(textbox);

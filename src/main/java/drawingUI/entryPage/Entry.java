@@ -8,14 +8,15 @@ public class Entry extends JPanel {
 //    DocumentListener date_l;
     JTextField info = new JTextField(10);
 
-    public Entry(){
+    public Entry(String des){
         FlowLayout layout = new FlowLayout(FlowLayout.LEFT);
         this.setLayout(layout);
         add(label1);
         add(info);
+        label1.setText(des);
     }
 
-    public void newEntry(String prompt){
+    public void renameEntry(String prompt){
         label1.setText(prompt);
     }
 

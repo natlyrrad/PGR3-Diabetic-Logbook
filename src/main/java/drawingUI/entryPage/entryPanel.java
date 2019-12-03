@@ -17,7 +17,7 @@ import drawingUI.entryPage.Entry;
 public class entryPanel extends JPanel implements ActionListener{                        //shows date, select time, button to pick method, back and enter
     //create all components
     JLabel date = new JLabel();
-    Entry time = new Entry();
+    Entry time = new Entry("Time: ");
     JButton back = new JButton("< Back");
     JButton enter = new JButton("Enter");
     JButton localTime = new JButton("Current Time");
@@ -33,7 +33,6 @@ public class entryPanel extends JPanel implements ActionListener{               
     public entryPanel(){
         //set labels of entries
         date.setText("  Date:   " + LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yy")));       //change into fetching date
-        time.newEntry("Time: ");
 
         //button actions for back and enter
         back.addActionListener(new ActionListener(){
@@ -204,7 +203,7 @@ public class entryPanel extends JPanel implements ActionListener{               
         if(inten.isSelected()){
 //            JOptionPane.showMessageDialog(this,"Intensive");
             p1.setVisible(true);
-            p2.setVisible(true);
+            p2.setVisible(false);
             p3.setVisible(true);
         }
     }
