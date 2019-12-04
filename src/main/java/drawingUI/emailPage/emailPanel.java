@@ -40,7 +40,10 @@ public class emailPanel extends JPanel {
              and set the email page as invisible*/
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Create a string that includes what is typed as the email.
                 String email = etext.getText();
+                
+                // DELETE IN FINAL VERSION!!!!!!!!!!!!! ONLY FOR TESTING! //
                 System.out.println(email);
 
                 //Open a Details UI frame when the button is clicked
