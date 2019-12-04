@@ -51,7 +51,7 @@ public class DatePicker extends JPanel
                 });
             if (x < 7) { // If the selection is a header, then set the text as the corresponding header
                 button[x].setText(header[x]);
-                button[x].setForeground(Color.blue); // set color as blue
+                button[x].setForeground(Color.red); // set color as red
                 button[x].setFont(new Font("Dialog", Font.BOLD, 16)); // edit font
             }
             // Add the components (buttons) to the second panel
