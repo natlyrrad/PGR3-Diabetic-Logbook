@@ -41,11 +41,11 @@ public class emailPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String email = etext.getText();
-                System.out.println(email);
+                System.out.println("email: "+ email);
 
                 //Open a Details UI frame when the button is clicked
                 JFrame details_frame= new JFrame(gc); // Create a new JFrame
-                details_frame.setSize(500,500);
+                details_frame.setSize(500,450);
 
                 DetailsUIController uidetails = new DetailsUIController(details_frame);
 

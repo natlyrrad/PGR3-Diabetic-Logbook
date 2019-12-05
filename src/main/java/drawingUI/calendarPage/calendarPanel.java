@@ -38,7 +38,7 @@ public class calendarPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 // Reopen the Details page
                 JFrame details_frame= new JFrame(gc); // Create a new JFrame
-                details_frame.setSize(500,700);
+                details_frame.setSize(500,450);
 
                 DetailsUIController uidetails = new DetailsUIController(details_frame);
 
