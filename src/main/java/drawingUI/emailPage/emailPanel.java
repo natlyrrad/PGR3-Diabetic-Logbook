@@ -40,8 +40,7 @@ public class emailPanel extends JPanel {
              and set the email page as invisible*/
             @Override
             public void actionPerformed(ActionEvent e) {
-                String email = etext.getText();
-                System.out.println("email: "+ email);
+                setEmail();
 
                 //Open a Details UI frame when the button is clicked
                 JFrame details_frame= new JFrame(gc); // Create a new JFrame
@@ -73,6 +72,12 @@ public class emailPanel extends JPanel {
         // add the panel to this frame
         add(newPanel);
         /* end of reference 1 */
+    }
+
+    public void setEmail()
+    {
+        String email = etext.getText();
+        System.out.println("email: "+ email);
     }
 
 }

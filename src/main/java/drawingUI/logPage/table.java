@@ -5,6 +5,9 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class table extends JPanel {
 
@@ -35,6 +38,7 @@ public class table extends JPanel {
 
         for (int x = 0; x < field.length; x++) {
             field[x] = new JTextField(20);
+            field[x].setEditable(false);
             field[x].setBackground(Color.white);
             if ((x % 8 == 0) && (x > 7))
             {
@@ -84,9 +88,15 @@ public class table extends JPanel {
         });
         p2.add(previous);
 
-        //Date date = new Date();
-       // System.out.println(dateFormat.format(date));
-        //ltext.setText(dateFormat.format(date));
+        // Reference 6 - https://stackoverflow.com/questions/16285019/loading-date-into-jtextfield
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        ltext.setText(dateFormat.format(date));
+
+        DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+        Date time = new Date();
+        ttext.setText(timeFormat.format(time));
+        /* end of reference 6*/
 
         p2.add(l);
         p2.add(ltext);
