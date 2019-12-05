@@ -1,4 +1,4 @@
-package drawingUI.logPage;
+package drawingUI.NotUsed;
 
 import drawingUI.entryPage.CompUI;
 import drawingUI.entryPage.EntryPanel;

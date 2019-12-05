@@ -1,4 +1,4 @@
-package drawingUI.logPage;
+package drawingUI.NotUsed;
 
 import javax.swing.*;
 import java.awt.*;

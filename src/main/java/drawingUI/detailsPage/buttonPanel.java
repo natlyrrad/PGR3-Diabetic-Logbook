@@ -1,6 +1,7 @@
 
 package drawingUI.detailsPage; //Part of the detailsPage Package
 import drawingUI.calendarPage.CalendarUIController; // Imports the calendar page
+import drawingUI.logPage.LogUIController;
 //Java classes imports (JDK)
 import javax.swing.*;
 import java.awt.*;
@@ -30,14 +31,14 @@ public class buttonPanel extends JPanel {
         buttonLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFrame cal_frame= new JFrame(gc); // Create a new JFrame
-                cal_frame.setSize(600,700);
+                JFrame logframe= new JFrame(); // Create a new JFrame
+                logframe.setSize(900,700);
 
-                CalendarUIController uical = new CalendarUIController(cal_frame);
+                LogUIController uilog = new LogUIController(logframe);
 
-                cal_frame.setVisible(true);
-                // This next line closes the program when the frame is closed
-                cal_frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                logframe.setVisible(true);
+                //This next line closes the program when the frame is closed
+                logframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
                 /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
                 Component component = (Component) e.getSource(); // Get the source of the current component (panel)
