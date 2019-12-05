@@ -1,31 +1,29 @@
 package drawingUI.entryPage;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import drawingUI.entryPage.entryPanel;
 
 public class intenPanel extends JPanel{
     //create all components
+    protected entry meds = new entry(" Enter Medication/ Insulin and dose: ");
     JLabel food = new JLabel("  Food diary: ");
-    protected Entry item = new Entry(" Enter food and amount:  ");
+    protected entry item = new entry(" Enter food and amount:  ");
     JButton addItem = new JButton("Add food type");
     JPanel itemPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
     int counter;
-    protected Entry med = new Entry("Enter Medication/ Insulin and dose: ");
 
 
     public intenPanel(){
-        //set labels of entries
+        //
+        GridBagLayout grid = new GridBagLayout();
+        this.setLayout(grid);
+        GridBagConstraints gridc = new GridBagConstraints();
+        gridc.anchor = GridBagConstraints.WEST;
+        gridc.insets = new Insets(1, 1, 1, 10);
 
         //set up itemPanel
-//        GridLayout itemLayout = new GridLayout(0,1);
-//        itemPanel.setLayout(itemLayout);
-
         GridBagLayout layout = new GridBagLayout();
         itemPanel.setLayout(layout);
         GridBagConstraints c = new GridBagConstraints();
@@ -44,6 +42,7 @@ public class intenPanel extends JPanel{
         itemPanel.add(item, c);
 
         counter = 1;
+
         //button addItem
         addItem.addActionListener(new ActionListener() {
             @Override
@@ -57,7 +56,7 @@ public class intenPanel extends JPanel{
                     c.gridx = 0;
                     c.gridy = i+2;
                     System.out.println(i);
-                    itemPanel.add(new Entry(" Enter food and amount:  "), c);
+                    itemPanel.add(new entry(" Enter food and amount:  "), c);
                 }
                 itemPanel.revalidate();
                 itemPanel.repaint();
@@ -65,20 +64,34 @@ public class intenPanel extends JPanel{
 
                 System.out.println("add entry");
 
+                gridc.gridx = 0;
+                gridc.gridy = 2;
+                gridc.gridheight = counter;
 
             }
         });
 
         //add components with layout
-        GridLayout grid = new GridLayout(0,1);
-        this.setLayout(grid);
-        add(med);
-        add(food);
-        add(itemPanel);
+        gridc.fill = GridBagConstraints.HORIZONTAL;
+        gridc.gridx = 0;
+        gridc.gridy = 0;
+        add(meds, gridc);
 
+        gridc.fill = GridBagConstraints.HORIZONTAL;
+        gridc.gridx = 0;
+        gridc.gridy = 1;
+        add(food, gridc);
 
-        setBorder(BorderFactory.createLineBorder(Color.black));
+        gridc.fill = GridBagConstraints.HORIZONTAL;
+        gridc.gridx = 0;
+        gridc.gridy = 2;
+        add(itemPanel, gridc);
 
+//        setBorder(BorderFactory.createLineBorder(Color.black));
+    }
+    public void getData(){
+        meds.getInfo();
+//        food.getInfo();
     }
 }
 

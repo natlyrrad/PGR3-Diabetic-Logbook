@@ -1,32 +1,26 @@
 package drawingUI.entryPage;//public class drawingUI.entry_page.CompUI {
 
-import SQLDatabase.connectDB;
-import jdk.nashorn.internal.objects.NativeRegExpExecResult;
-
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.text.ParseException;
-import java.sql.*;
 
-    public class compPanel extends JPanel {
+public class compPanel extends JPanel {
         //create all components
-        protected Entry meds = new Entry("Medication/ Insulin: ");
-        protected Entry carbs = new Entry("Carbohydrates(g): ");
+        protected entry med = new entry(" Medication/ Insulin: ");
+        protected entry carbs = new entry(" Carbohydrates(g): ");
 
         public compPanel(){
 
             //add components with layout
             GridLayout layout = new GridLayout(0,1);
             this.setLayout(layout);
-            add(meds);
+            layout.setVgap(10);
+            add(med);
             add(carbs);
-
-            setBorder(BorderFactory.createLineBorder(Color.black));
-
+//            setBorder(BorderFactory.createLineBorder(Color.black));
+        }
+        public void getData(){
+            med.getInfo();
+            carbs.getInfo();
         }
     }
 

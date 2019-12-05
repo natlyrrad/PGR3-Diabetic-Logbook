@@ -3,12 +3,12 @@ package drawingUI.entryPage;
 import javax.swing.*;
 import java.awt.*;
 
-public class Entry extends JPanel {
+public class entry extends JPanel {
     JLabel label1 = new JLabel();
 //    DocumentListener date_l;
     JTextField info = new JTextField(10);
 
-    public Entry(String des){
+    public entry(String des){
         FlowLayout layout = new FlowLayout(FlowLayout.LEFT);
         this.setLayout(layout);
         add(label1);
