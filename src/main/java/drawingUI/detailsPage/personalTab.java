@@ -70,4 +70,22 @@ public class personalTab extends JPanel {
         add(newPanel);
     }
 
+    public void getPersonal()
+    {
+        String first = fnametext.getText();
+        System.out.println(first);
+
+        String last = lnametext.getText();
+        System.out.println(last);
+
+        String email = emailtext.getText();
+        System.out.println(email);
+
+        String address = addresstext.getText();
+        System.out.println(address);
+
+        String phone = phonetext.getText();
+        System.out.println(phone);
+    }
+
 }
