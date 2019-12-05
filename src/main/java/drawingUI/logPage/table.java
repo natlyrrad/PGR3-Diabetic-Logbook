@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class table extends JPanel {
@@ -25,6 +26,10 @@ public class table extends JPanel {
     JTextField ltext = new JTextField(5);
     JLabel t = new JLabel("Time: ", JLabel.CENTER);
     JTextField ttext = new JTextField(5);
+
+    int day = java.util.Calendar.getInstance().get(Calendar.DAY_OF_MONTH); // Get current Day
+    int month = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH); // Get current Month
+    int year = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);; // Get current Year
 
     public table(JFrame parent)
     {
@@ -83,7 +88,12 @@ public class table extends JPanel {
         JButton previous = new JButton("<< Previous");
         previous.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
-
+                day --;
+                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
+                        "dd/MM/yyyy");
+                java.util.Calendar cal = java.util.Calendar.getInstance();
+                cal.set(year, month, day);
+                ltext.setText(sdf.format(cal.getTime()));
             }
         });
         p2.add(previous);
@@ -105,7 +115,12 @@ public class table extends JPanel {
         JButton next = new JButton("Next >>");
         next.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
-
+                day ++;
+                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
+                        "dd/MM/yyyy");
+                java.util.Calendar cal = java.util.Calendar.getInstance();
+                cal.set(year, month, day);
+                ltext.setText(sdf.format(cal.getTime()));
             }
         });
         p2.add(next);
