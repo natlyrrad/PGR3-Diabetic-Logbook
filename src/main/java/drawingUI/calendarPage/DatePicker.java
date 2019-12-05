@@ -1,5 +1,8 @@
 package drawingUI.calendarPage; //Part of the calendarPage Package
 //Java classes imports (JDK)
+import drawingUI.logPage.LogUIController;
+import drawingUI.logPage.table;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -47,6 +50,24 @@ public class DatePicker extends JPanel
                     public void actionPerformed(ActionEvent ae) {
                         day = button[selection].getActionCommand(); // the day = day number selected
                         ctext.setText(setPickedDate()); // call the setPickedDate method below to display the date
+
+                        JFrame logframe= new JFrame(); // Create a new JFrame
+                        logframe.setSize(900,700);
+
+                        LogUIController uilog = new LogUIController(logframe);
+
+                        logframe.setVisible(true);
+                        //This next line closes the program when the frame is closed
+                        logframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+                        table.ltext.setText(setPickedDate());
+
+                        /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
+                        Component component = (Component) ae.getSource(); // Get the source of the current component (panel)
+                        // declare JFrame currently open as "frame"
+                        JFrame frame = (JFrame) SwingUtilities.getRoot(component);
+                        frame.setVisible(false); // set current open frame as invisible
+                        /* end of reference 2 */
                     }
                 });
             if (x < 7) { // If the selection is a header, then set the text as the corresponding header

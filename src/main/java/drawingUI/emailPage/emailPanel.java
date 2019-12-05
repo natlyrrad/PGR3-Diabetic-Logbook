@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 public class emailPanel extends JPanel {
     //Declare classes, labels, text fields, and buttons
     JLabel elabel = new JLabel("Enter email: ");
-    JTextField etext = new JTextField(20);  // text field of size 20
+    public static JTextField etext = new JTextField(20);  // text field of size 20
     JButton buttonLogin = new JButton("Login");
 
     static GraphicsConfiguration gc;

@@ -23,9 +23,9 @@ public class table extends JPanel {
 
     JTextField[] field = new JTextField[64];
     JLabel l = new JLabel("Date: ", JLabel.CENTER);
-    JTextField ltext = new JTextField(5);
+    public static JTextField ltext = new JTextField(5);
     JLabel t = new JLabel("Time: ", JLabel.CENTER);
-    JTextField ttext = new JTextField(5);
+    public static JTextField ttext = new JTextField(5);
 
     int day = java.util.Calendar.getInstance().get(Calendar.DAY_OF_MONTH); // Get current Day
     int month = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH); // Get current Month

@@ -1,24 +1,26 @@
 package drawingUI.detailsPage; //Part of the detailsPage Package
 //Java classes imports (JDK)
+import drawingUI.emailPage.emailPanel;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class personalTab extends JPanel {
     // Declare all the components included on the tab
     JLabel fnamelabel = new JLabel("First Name: ");
-    JTextField fnametext = new JTextField(20);
+    public static JTextField fnametext = new JTextField(20);
 
     JLabel lnamelabel = new JLabel("Last Name: ");
-    JTextField lnametext = new JTextField(20);
+    public static JTextField lnametext = new JTextField(20);
 
     JLabel emaillabel = new JLabel("Email: ");
-    JTextField emailtext = new JTextField(20);
+    public static JTextField emailtext = new JTextField(20);
 
     JLabel addresslabel = new JLabel("Address: ");
-    JTextField addresstext = new JTextField(20);
+    public static JTextField addresstext = new JTextField(20);
 
     JLabel phonelabel = new JLabel("Emergency Phone: ");
-    JTextField phonetext = new JTextField(20);
+    public static JTextField phonetext = new JTextField(20);
 
     public personalTab(){
         /* Reference 1 - https://www.codejava.net/java-se/swing/jpanel-basic-tutorial-and-examples */
@@ -49,6 +51,7 @@ public class personalTab extends JPanel {
         newPanel.add(emaillabel, constraints);
 
         constraints.gridx = 1;
+        emailtext.setText(emailPanel.etext.getText());
         newPanel.add(emailtext, constraints);
 
         //Address Field -----------------------------------------------------------------------------

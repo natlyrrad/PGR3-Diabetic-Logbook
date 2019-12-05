@@ -6,13 +6,13 @@ import java.awt.*;
 public class doctorTab extends JPanel {
     // Declare all the components included on the tab
     JLabel emaillabel = new JLabel("Email: ");
-    JTextField emailtext = new JTextField(20);
+    public static JTextField emailtext = new JTextField(20);
 
     JLabel addresslabel = new JLabel("Address: ");
-    JTextField addresstext = new JTextField(20);
+    public static JTextField addresstext = new JTextField(20);
 
     JLabel phonelabel = new JLabel("Emergency Phone: ");
-    JTextField phonetext = new JTextField(20);
+    public static JTextField phonetext = new JTextField(20);
 
     public doctorTab(){
         /* Reference 1 - https://www.codejava.net/java-se/swing/jpanel-basic-tutorial-and-examples */
