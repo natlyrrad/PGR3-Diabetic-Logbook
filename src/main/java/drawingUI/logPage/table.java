@@ -88,6 +88,10 @@ public class table extends JPanel {
         JButton previous = new JButton("<< Previous");
         previous.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
+                String str = ltext.getText();
+                String[] a = str.split("/");
+                String nday = a[0];
+                day = Integer.valueOf(nday);
                 day --;
                 java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
                         "dd/MM/yyyy");
@@ -112,9 +116,14 @@ public class table extends JPanel {
         p2.add(ltext);
         p2.add(t);
         p2.add(ttext);
+
         JButton next = new JButton("Next >>");
         next.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
+                String str = ltext.getText();
+                String[] a = str.split("/");
+                String nday = a[0];
+                day = Integer.valueOf(nday);
                 day ++;
                 java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
                         "dd/MM/yyyy");
