@@ -8,6 +8,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static drawingUI.calendarPage.DatePicker.dlabel;
+import static drawingUI.logPage.table.ltext;
+
 public class loghistory extends JPanel {
 
     static GraphicsConfiguration gc; // Class field containing config info

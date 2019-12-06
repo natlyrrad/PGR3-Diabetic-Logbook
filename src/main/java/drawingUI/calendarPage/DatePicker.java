@@ -29,8 +29,8 @@ public class DatePicker extends JPanel
     String day = "";
     JButton[] button = new JButton[49]; // Declare an array of 49 buttons (grid of 7x7)
 
-    JLabel clabel = new JLabel("Today's Date: ");
-    JLabel dlabel = new JLabel();
+    public static JLabel clabel = new JLabel("Today's Date: ");
+    public static JLabel dlabel = new JLabel();
 
     public DatePicker() {
         /* Reference 1 - taken from https://www.codejava.net/java-se/swing/jpanel-basic-tutorial-and-examples */
