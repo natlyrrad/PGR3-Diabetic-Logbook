@@ -13,8 +13,12 @@ public class DetailsUIController
 
     public DetailsUIController(JFrame frame)
     {
+        /* Reference 3 - taken from https://stackoverflow.com/questions/5345609/java-align-jlabel-in-center-of-jpanel */
+        dpanel.setLayout(new BoxLayout(dpanel, BoxLayout.X_AXIS)); //Sets the panel at the center
+        /* end of reference 3 */
+
         // Generate the contents of the combined details panel and button into the frame
-        frame.getContentPane().add(new enter_details_Panel(dpanel));
+        frame.getContentPane().add(dpanel);
     }
 
 

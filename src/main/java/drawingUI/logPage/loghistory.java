@@ -1,6 +1,7 @@
 package drawingUI.logPage;
 
 import drawingUI.calendarPage.CalendarUIController;
+import drawingUI.detailsPage.DetailsUIController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,10 +14,13 @@ public class loghistory extends JPanel {
 
     FlowLayout flayout = new FlowLayout();
 
+    // Declare the buttons included on the panel
+    JButton btgraph = new JButton("Graph");
     JButton calendar = new JButton("Calendar");
     JButton delete = new JButton("Delete");
     JButton newrow = new JButton("New");
     JButton Questionnaire = new JButton( " Questionnaire");
+    JButton btedit = new JButton("Edit Details");
 
     public loghistory(){
         JPanel newPanel = new JPanel(new GridBagLayout());
@@ -31,7 +35,7 @@ public class loghistory extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e){
                 JFrame cal_frame= new JFrame(gc); // Create a new JFrame
-                cal_frame.setSize(600,700);
+                cal_frame.setSize(600,400);
 
                 CalendarUIController uical = new CalendarUIController(cal_frame);
 
@@ -65,6 +69,40 @@ public class loghistory extends JPanel {
         });
         bp.add(newrow, constraints);
 
+        btgraph.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Add action of the graph button (will take to graph panel)
+            }
+        });
+        bp.add(btgraph, constraints);
+
+        /* Button Action: the "edit details button will take the user back to the details page
+         with the filled in text fields previously entered, and will set the calendar frame
+         as invisible */
+        btedit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Reopen the Details page
+                JFrame details_frame= new JFrame(gc); // Create a new JFrame
+                details_frame.setSize(500,450);
+
+                DetailsUIController uidetails = new DetailsUIController(details_frame);
+
+                details_frame.setVisible(true);
+                // This next line closes the program when the frame is closed
+                details_frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+                /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
+                Component component = (Component) e.getSource(); // Get the source of the current component (panel)
+                // declare JFrame currently open as "frame"
+                JFrame frame = (JFrame) SwingUtilities.getRoot(component);
+                frame.setVisible(false); // set current open frame as invisible
+                /* end of reference 2 */
+            }
+        });
+        bp.add(btedit, constraints);
+
         constraints.gridx = 3;
         Questionnaire.addActionListener(new ActionListener(){
             @Override
@@ -77,11 +115,7 @@ public class loghistory extends JPanel {
         bp.setComponentOrientation(
                 ComponentOrientation.LEFT_TO_RIGHT);
         ///////////////////////////////////////////////////////////////////////////////////////
-
-        JFrame f= new JFrame(gc); // Create a new JFrame
-        f.setSize(800,400);
-
-        table t = new table(f);
+        table t = new table();
 
         constraints.gridx = 0;
         constraints.gridy = 0;
