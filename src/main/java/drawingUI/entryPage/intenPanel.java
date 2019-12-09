@@ -1,97 +1,120 @@
 package drawingUI.entryPage;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
 
-public class intenPanel extends JPanel{
-    //create all components
-    protected entry meds = new entry(" Enter Medication/ Insulin and dose: ");
-    JLabel food = new JLabel("  Food diary: ");
-    protected entry item = new entry(" Enter food and amount:  ");
-    JButton addItem = new JButton("Add food type");
-    JPanel itemPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-    int counter;
+public class intenPanel<first> extends JPanel{
+    // components for med
+    JPanel medlog = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    JLabel mlabel = new JLabel("Insulin type: ");
+    JLabel dlabel = new JLabel("Dose (units): ");
+    String[] mstring = {"Rapid-acting", "Short-acting", "Immediate-acting", "Long-acting"};
+    JComboBox meds = new JComboBox(mstring);
+    JTextField dose = new JTextField(5);
+
+    // components for food diary
+    JPanel fdPanel = new JPanel(new GridBagLayout());
+    FoodPanel fPanel = new FoodPanel();
+    JLabel fdlabel = new JLabel("Food diary:");
+    JButton addFood = new JButton("Add food type");
+
+    //ArrayLists to collect data
+    int counter = 0;
+    ArrayList<String[]> foodList = new ArrayList<>();
+    ArrayList<FoodPanel> entryList = new ArrayList<>();
 
 
     public intenPanel(){
-        //
-        GridBagLayout grid = new GridBagLayout();
-        this.setLayout(grid);
-        GridBagConstraints gridc = new GridBagConstraints();
-        gridc.anchor = GridBagConstraints.WEST;
-        gridc.insets = new Insets(1, 1, 1, 10);
+        //medLog layout
+        medlog.add(mlabel);
+        medlog.add(meds);
+        medlog.add(dlabel);
+        medlog.add(dose);
 
-        //set up itemPanel
-        GridBagLayout layout = new GridBagLayout();
-        itemPanel.setLayout(layout);
+        //fdPanel layout
         GridBagConstraints c = new GridBagConstraints();
-        c.anchor = GridBagConstraints.WEST;
+        c.fill = GridBagConstraints.HORIZONTAL;
         c.insets = new Insets(1, 1, 1, 10);          //From maria
 
-        // position components
-        c.fill = GridBagConstraints.HORIZONTAL;
+        entryList.add(new FoodPanel());
+
         c.gridx = 0;
         c.gridy = 0;
-        itemPanel.add(addItem, c);
+        fdPanel.add(entryList.get(0), c);
 
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 1;
-        itemPanel.add(item, c);
+        //intenpanel layout
+        GridBagLayout gblayout = new GridBagLayout();
+        this.setLayout(gblayout);
+        GridBagConstraints c1 = new GridBagConstraints();
+//        c1.fill = GridBagConstraints.HORIZONTAL;
+        c1.anchor = GridBagConstraints.FIRST_LINE_START;
+        c1.insets = new Insets(5, 0, 5, 10);          //From maria
 
-        counter = 1;
+//        c1.fill = GridBagConstraints.HORIZONTAL;
+        c1.gridx = 0;
+        c1.gridy = 0;
+        add(medlog, c1);
 
-        //button addItem
-        addItem.addActionListener(new ActionListener() {
+        c1.gridy = 1;
+        add(fdlabel, c1);
+
+        c1.gridy = 2;
+        add(addFood, c1);
+
+        c1.gridy = 3;
+        c1.gridheight = 5;
+        add(fdPanel, c1);
+
+        //add food button
+        addFood.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                itemPanel.removeAll();
-                System.out.println("remove all");
-                counter = counter +1;
-                itemPanel.add(addItem);
-                for(int i=0; i<counter; i++){
-                    c.fill = GridBagConstraints.HORIZONTAL;
+                counter = counter + 1;
+//                //obtain and save all info in array
+//                for(int i=0; i<counter; i++){
+//                    foodList.add(i, entryList.get(i).getData());
+//                }
+                entryList.add(counter, new FoodPanel());
+
+                fdPanel.removeAll();
+                for(int i=0; i<(counter+1); i++){
                     c.gridx = 0;
-                    c.gridy = i+2;
-                    System.out.println(i);
-                    itemPanel.add(new entry(" Enter food and amount:  "), c);
+                    c.gridy = i+1;
+                    fdPanel.add(entryList.get(i), c);
                 }
-                itemPanel.revalidate();
-                itemPanel.repaint();
-                itemPanel.setVisible(true);
 
-                System.out.println("add entry");
 
-                gridc.gridx = 0;
-                gridc.gridy = 2;
-                gridc.gridheight = counter;
-
+                fdPanel.revalidate();
+                fdPanel.repaint();
+                fdPanel.setVisible(true);
             }
         });
 
-        //add components with layout
-        gridc.fill = GridBagConstraints.HORIZONTAL;
-        gridc.gridx = 0;
-        gridc.gridy = 0;
-        add(meds, gridc);
 
-        gridc.fill = GridBagConstraints.HORIZONTAL;
-        gridc.gridx = 0;
-        gridc.gridy = 1;
-        add(food, gridc);
+        Border border = BorderFactory.createLineBorder(Color.BLACK);
+        this.setBorder(border);
+        medlog.setBorder(border);
+        fdPanel.setBorder(border);
 
-        gridc.fill = GridBagConstraints.HORIZONTAL;
-        gridc.gridx = 0;
-        gridc.gridy = 2;
-        add(itemPanel, gridc);
-
-//        setBorder(BorderFactory.createLineBorder(Color.black));
     }
-    public void getData(){
-        meds.getInfo();
-//        food.getInfo();
+
+    public void getMed(){
+        for(int i=0; i<(counter+1); i++){
+            String[] m = {meds.getSelectedItem().toString(), dose.getText()};
+            System.out.println(Arrays.toString(m));
+        }
+    }
+
+    public void getFood(){
+        for(int i=0; i<(counter+1); i++){
+            foodList.add(i, entryList.get(i).getData());
+            System.out.println(Arrays.toString(foodList.get(i)));
+        }
     }
 }
 
