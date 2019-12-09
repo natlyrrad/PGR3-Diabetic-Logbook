@@ -143,7 +143,6 @@ public class EntryPanel extends JPanel implements ActionListener{               
     public void actionPerformed(ActionEvent e) {
         if(simple.isSelected()){
 //            JOptionPane.showMessageDialog(this,"You are Male.");
-//            System.out.println("You are Male");
             p2.setVisible(false);
             p3.setVisible(false);
             met = 0;
