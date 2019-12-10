@@ -1,18 +1,22 @@
 package drawingUI.entryPage;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class Entry extends JPanel {
     JLabel label1 = new JLabel();
 //    DocumentListener date_l;
     JTextField info = new JTextField(10);
 
-    public Entry(){
+    public Entry(String des){
+        FlowLayout layout = new FlowLayout(FlowLayout.LEFT);
+        this.setLayout(layout);
         add(label1);
         add(info);
+        label1.setText(des);
     }
 
-    public void newEntry(String prompt){
+    public void renameEntry(String prompt){
         label1.setText(prompt);
     }
 
@@ -21,8 +25,9 @@ public class Entry extends JPanel {
     }
 
     public String getInfo(){
-        System.out.println(info.getText());                 //store data
-        return null;
+        String data = info.getText();
+        System.out.println(data);                 //store data
+        return data;
     }
 
 }
