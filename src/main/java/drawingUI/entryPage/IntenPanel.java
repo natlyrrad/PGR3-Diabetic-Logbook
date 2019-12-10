@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class intenPanel<first> extends JPanel{
+public class IntenPanel<first> extends JPanel{
     // components for med
     JPanel medlog = new JPanel(new FlowLayout(FlowLayout.LEFT));
     JLabel mlabel = new JLabel("Insulin type: ");
@@ -29,7 +29,7 @@ public class intenPanel<first> extends JPanel{
     ArrayList<FoodPanel> entryList = new ArrayList<>();
 
 
-    public intenPanel(){
+    public IntenPanel(){
         //medLog layout
         medlog.add(mlabel);
         medlog.add(meds);

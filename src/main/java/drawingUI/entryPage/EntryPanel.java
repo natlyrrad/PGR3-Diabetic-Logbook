@@ -21,8 +21,8 @@ public class EntryPanel extends JPanel implements ActionListener{               
     JRadioButton inten = new JRadioButton("Intensive Method");
     int met = 0;
 
-    compPanel p2 = new compPanel();
-    public intenPanel p3 = new intenPanel();
+    CompPanel p2 = new CompPanel();
+    public IntenPanel p3 = new IntenPanel();
 
 
     public EntryPanel(){

@@ -4,12 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
 
-public class compPanel extends JPanel {
+public class CompPanel extends JPanel {
         //create all components
         protected Entry med = new Entry(" Medication/ Insulin: ");
         protected Entry carbs = new Entry(" Carbohydrates(g): ");
 
-        public compPanel(){
+        public CompPanel(){
             //add components with layout
             GridLayout layout = new GridLayout(0,1);
             this.setLayout(layout);
