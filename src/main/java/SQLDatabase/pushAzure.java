@@ -28,10 +28,16 @@ public class pushAzure {
         }
     }
 
-    public static void pushUserDetails() {
-        String userDetails = "INSERT INTO userDetails (firstName, lastName) " +
-                "VALUES ('Java', 'Test');";
+    public static void pushUserDetails(String userDetails) {
+        String[] userArray = userDetails.split(";");
+        String queryStatement = String.format("INSERT INTO userDetails " +
+                "VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');", userArray[0],
+                userArray[1], userArray[2], userArray[3], userArray[4], userArray[5], userArray[6],
+                userArray[7], userArray[8], userArray[9], userArray[10]);
 
-        push(userDetails);
+        push(queryStatement);
     }
 }
+
+//SQLDatabase.pushAzure.pushUserDetails("here;now;@mail.com;SSS777;123;Type 1;insuline type;pen;@doctor;FFF" +
+//        ";333");
