@@ -2,14 +2,12 @@ package drawingUI.logPage;
 
 import drawingUI.calendarPage.CalendarUIController;
 import drawingUI.detailsPage.DetailsUIController;
+import drawingUI.entryPage.EntryUIController;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import static drawingUI.calendarPage.DatePicker.dlabel;
-import static drawingUI.logPage.table.ltext;
 
 public class loghistory extends JPanel {
 
@@ -24,6 +22,7 @@ public class loghistory extends JPanel {
     JButton newrow = new JButton("New");
     JButton Questionnaire = new JButton( " Questionnaire");
     JButton btedit = new JButton("Edit Details");
+    table t = new table();
 
     public loghistory(){
         JPanel newPanel = new JPanel(new GridBagLayout());
@@ -54,7 +53,7 @@ public class loghistory extends JPanel {
                 /* end of reference 2 */
             }
         });
-        bp.add(calendar, constraints);
+        bp.add(calendar);
 
         delete.addActionListener(new ActionListener(){
             @Override
@@ -62,15 +61,24 @@ public class loghistory extends JPanel {
                 System.out.println("Deleting row of data");
             }
         });
-        bp.add(delete, constraints);
+        bp.add(delete);
 
         newrow.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                System.out.println("Add new row");
+                EntryUIController frame = new EntryUIController();
+                System.out.println(t.ltext.getText());
+                frame.show(t.ltext.getText());
+
+                /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
+                Component component = (Component) e.getSource(); // Get the source of the current component (panel)
+                // declare JFrame currently open as "frame"
+                JFrame f = (JFrame) SwingUtilities.getRoot(component);
+                f.setVisible(false); // set current open frame as invisible
+                /* end of reference 2 */
             }
         });
-        bp.add(newrow, constraints);
+        bp.add(newrow);
 
         btgraph.addActionListener(new ActionListener() {
             @Override
@@ -78,7 +86,7 @@ public class loghistory extends JPanel {
                 // Add action of the graph button (will take to graph panel)
             }
         });
-        bp.add(btgraph, constraints);
+        bp.add(btgraph);
 
         /* Button Action: the "edit details button will take the user back to the details page
          with the filled in text fields previously entered, and will set the calendar frame
@@ -104,7 +112,7 @@ public class loghistory extends JPanel {
                 /* end of reference 2 */
             }
         });
-        bp.add(btedit, constraints);
+        bp.add(btedit);
 
         constraints.gridx = 3;
         Questionnaire.addActionListener(new ActionListener(){
@@ -113,12 +121,9 @@ public class loghistory extends JPanel {
                 System.out.println("View questionnaire");
             }
         });
-        bp.add(Questionnaire, constraints);
+        bp.add(Questionnaire);
 
-        bp.setComponentOrientation(
-                ComponentOrientation.LEFT_TO_RIGHT);
         ///////////////////////////////////////////////////////////////////////////////////////
-        table t = new table();
 
         constraints.gridx = 0;
         constraints.gridy = 0;

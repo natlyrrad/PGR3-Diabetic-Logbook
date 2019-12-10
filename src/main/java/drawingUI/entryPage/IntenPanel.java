@@ -104,10 +104,8 @@ public class IntenPanel<first> extends JPanel{
     }
 
     public void getMed(){
-        for(int i=0; i<(counter+1); i++){
-            String[] m = {meds.getSelectedItem().toString(), dose.getText()};
-            System.out.println(Arrays.toString(m));
-        }
+        String[] m = {meds.getSelectedItem().toString(), dose.getText()};
+        System.out.println(Arrays.toString(m));
     }
 
     public void getFood(){
@@ -118,14 +116,3 @@ public class IntenPanel<first> extends JPanel{
     }
 }
 
-
-//senalka these are for you
-//JLabel comments = new JLabel("  Additional Comments: ");
-//JTextArea textbox = new JTextArea(1, 1);
-//    //textArea
-//    //https://stackoverflow.com/questions/42690425/jtextarea-border-in-java-swing
-//    Border border = BorderFactory.createLineBorder(Color.BLACK);
-//        textbox.setBorder(BorderFactory.createCompoundBorder(border,
-//                BorderFactory.createEmptyBorder(10, 10, 10, 10)));
-//        add(comments);
-//        add(textbox);

@@ -1,6 +1,6 @@
 package drawingUI.NotUsed;
 
-import drawingUI.entryPage.ShowEntryFrame;
+import drawingUI.entryPage.EntryUIController;
 import drawingUI.entryPage.CompPanel;
 
 import javax.swing.*;
@@ -38,8 +38,8 @@ public class logtypePanel extends JPanel {
         method1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ShowEntryFrame b = new ShowEntryFrame();
-                b.show();
+                EntryUIController b = new EntryUIController();
+//                b.show();
             }
         });
 

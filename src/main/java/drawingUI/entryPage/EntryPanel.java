@@ -1,5 +1,7 @@
 package drawingUI.entryPage;
 
+import drawingUI.logPage.LogUIController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,7 +10,11 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+
 public class EntryPanel extends JPanel implements ActionListener{                        //shows date, select time, button to pick method, back and enter
+
+    static GraphicsConfiguration gc; // Class field containing config info
+
     //create all components
     JLabel date = new JLabel();
     Entry time = new Entry(" Time: ");
@@ -27,13 +33,31 @@ public class EntryPanel extends JPanel implements ActionListener{               
 
     public EntryPanel(){
         //set labels of entries
-        date.setText("   Date:   " + LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yy")));       //change into fetching date
+        date.setForeground(Color.red);
+        date.setFont(new Font("Dialog", Font.BOLD, 13));
+
 
         //button actions for back and enter
         back.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                System.out.println("Back to view");     //change once other pages are ready
+
+                //return to log page without storing any details
+                JFrame logFrame= new JFrame(gc); // Create a new JFrame
+                logFrame.setSize(900,700);
+
+                LogUIController uihis = new LogUIController(logFrame);
+
+                logFrame.setVisible(true);
+                // This next line closes the program when the frame is closed
+                logFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+                /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
+                Component component = (Component) e.getSource(); // Get the source of the current component (panel)
+                // declare JFrame currently open as "frame"
+                JFrame frame = (JFrame) SwingUtilities.getRoot(component);
+                frame.setVisible(false); // set current open frame as invisible
+                /* end of reference 2 */
             }
         });
         enter.addActionListener(new ActionListener(){
@@ -50,6 +74,23 @@ public class EntryPanel extends JPanel implements ActionListener{               
                     p3.getMed();
                     p3.getFood();
                 }
+
+                //return to log page
+                JFrame logFrame= new JFrame(gc); // Create a new JFrame
+                logFrame.setSize(900,700);
+
+                LogUIController uihis = new LogUIController(logFrame);
+
+                logFrame.setVisible(true);
+                // This next line closes the program when the frame is closed
+                logFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+                /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
+                Component component = (Component) e.getSource(); // Get the source of the current component (panel)
+                // declare JFrame currently open as "frame"
+                JFrame frame = (JFrame) SwingUtilities.getRoot(component);
+                frame.setVisible(false); // set current open frame as invisible
+                /* end of reference 2 */
             }
         });
 
@@ -94,30 +135,30 @@ public class EntryPanel extends JPanel implements ActionListener{               
         c.gridy = 0;
         add(back, c);
 
-        c.gridx = 1;
+        c.gridx = 0;
         c.gridy = 1;
         add(date, c);
 
-        c.gridx = 1;
+        c.gridx = 0;
         c.gridy = 2;
         add(time, c);
 
-        c.gridx = 2;
+        c.gridx = 1;
         c.gridy = 2;
         add(localTime, c);
 
-        c.gridx = 3;
+        c.gridx = 2;
         c.gridy = 1;
         c.gridheight = 2;
         add(metPanel, c);
 
-        c.gridx = 1;
+        c.gridx = 0;
         c.gridy = 3;
         c.gridheight = 1;
         c.gridwidth = 3;
         add(bsl, c);
 
-        c.gridx = 1;
+        c.gridx = 0;
         c.gridy = 4;
         c.gridheight = 1;
         c.gridwidth = 3;
@@ -125,14 +166,14 @@ public class EntryPanel extends JPanel implements ActionListener{               
         p2.setVisible(false);
 
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 1;
+        c.gridx = 0;
         c.gridy = 5;
         c.gridheight = 1;
         c.gridwidth = 3;
         add(p3, c);
         p3.setVisible(false);
 
-        c.gridx = 3;
+        c.gridx = 2;
         c.gridy = 6;
         add(enter, c);
 
