@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+import javaMailAPI.jakartaMailAPI;
 import static SQLDatabase.pullAzure.pullUserID;
 import static SQLDatabase.pushAzure.pushEntryDetails;
 import static drawingUI.emailPage.emailPanel.etext;
@@ -36,6 +37,8 @@ public class EntryPanel extends JPanel implements ActionListener{               
 
     CompPanel p2 = new CompPanel();
     public IntenPanel p3 = new IntenPanel();
+
+    //set patient id
     public String id = pullUserID(etext.getText());
 
 
@@ -78,7 +81,18 @@ public class EntryPanel extends JPanel implements ActionListener{               
                 String m1 = String.join(";" , id, dt, bsl.getInfo(), "", "", "");
                 String m2 = String.join(";" , id, dt, bsl.getInfo(), p2.getFood(), p2.getMed(), "");
                 String m3 = String.join(";" , id, dt, bsl.getInfo(), p3.getFood(), p3.getMed(), "");
-
+                
+                //Alert if blood sugar level is high
+                //int ibsl= Integer.parseInt(bsl.getInfo());
+                //if(ibsl>9){
+                //    jakartaMailAPI email=new jakartaMailAPI();
+                //    try {
+                //        email.sendMail(doctorTab.emailText.getText());
+                //    } catch (Exception ex) {
+                //        ex.printStackTrace();
+                //    }
+                //}
+                
                 //push details under different condition
                 if (met == 0){
                     pushEntryDetails(m1);
