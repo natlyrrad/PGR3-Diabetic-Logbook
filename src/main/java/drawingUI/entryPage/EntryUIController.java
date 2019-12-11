@@ -16,9 +16,8 @@ public class EntryUIController {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
     }
-    public void show(String date){
+    public void show(){
         frame.setVisible(true);
-        mainPanel.date.setText("  Date:  " + date );
     }
 
 }

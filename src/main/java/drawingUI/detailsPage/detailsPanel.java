@@ -1,22 +1,26 @@
 package drawingUI.detailsPage; //Part of the detailsPage Package
 //Java classes imports (JDK)
+import drawingUI.emailPage.emailPanel;
 import drawingUI.logPage.LogUIController;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import static SQLDatabase.pushAzure.pushUserDetails;
+import static drawingUI.emailPage.emailPanel.etext;
 
 public class detailsPanel extends JPanel
 {
+    public String id = etext.getText();
+
     // Declares a new Jbutton
     JButton buttonLogin = new JButton("Enter Details");
 
     static GraphicsConfiguration gc; // Class field containing config info
 
     // Constructor of panel with all tabs included as parameters
-    public detailsPanel(personalTab ptab, diabetesTab dtab, doctorTab doctab)
-    {
+    public detailsPanel(personalTab ptab, diabetesTab dtab, doctorTab doctab) {
         JPanel newPanel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.anchor = GridBagConstraints.WEST;
@@ -45,10 +49,11 @@ public class detailsPanel extends JPanel
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Following called methods will store the input selections into strings
-                ptab.getPersonal();
-                dtab.getDiabetes();
-                doctab.getDoctor();
+                String detail = String.join(";", ptab.getPersonal(), dtab.getDiabetes(), doctab.getDoctor());
+                System.out.println(detail);
+                pushUserDetails(detail);
 
+                //create new frame to loghistory
                 JFrame logframe= new JFrame(); // Create a new JFrame
                 logframe.setSize(750,700);
 

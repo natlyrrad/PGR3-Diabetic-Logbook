@@ -10,7 +10,7 @@ public class pushAzure {
     public static String user = "logBookAdmin"; // update me
     public static String password = "fTG*U@QL"; // update me
     public static String url = String.format("jdbc:sqlserver://%s:1433;database=%s;user=%s;password=%s;encrypt=true;"
-            + "hostNameInCertificate=*.database.windows.net;loginTimeout=30;", hostName, dbName, user, password);
+            + "hostNameInCertificate=*.database.windows.net;loginTimeout=5;", hostName, dbName, user, password);
 
     public static void push(String query) {
         Connection connection;
@@ -41,11 +41,10 @@ public class pushAzure {
     }
 
     public static void pushEntryDetails(String entryDetails) {
-        String[] entryArray = entryDetails.split(";");
+        String[] entryArray = entryDetails.split(";", -2);
         String queryStatement = String.format("INSERT INTO entryDetails " +
-                        "VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');", entryArray[0],
-                entryArray[1], entryArray[2], entryArray[3], entryArray[4], entryArray[5], entryArray[6],
-                entryArray[7], entryArray[8]);
+                        "VALUES ('%s', '%s', '%s', '%s', '%s', '%s');", entryArray[0],
+                entryArray[1], entryArray[2], entryArray[3], entryArray[4], entryArray[5]);
 
         push(queryStatement);
     }

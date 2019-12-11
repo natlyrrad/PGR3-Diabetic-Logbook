@@ -11,7 +11,7 @@ public class pullAzure {
     public static String user = "logBookAdmin"; // update me
     public static String password = "fTG*U@QL"; // update me
     public static String url = String.format("jdbc:sqlserver://%s:1433;database=%s;user=%s;password=%s;encrypt=true;"
-            + "hostNameInCertificate=*.database.windows.net;loginTimeout=30;", hostName, dbName, user, password);
+            + "hostNameInCertificate=*.database.windows.net;loginTimeout=5;", hostName, dbName, user, password);
 
     public static boolean verifyEmail(String email) {
 //        System.out.println(SQLDatabase.pullAzure.verifyEmail("dasdadasd"));
@@ -39,10 +39,95 @@ public class pullAzure {
         return verifyStatus;
     }
 
-    public static void pullEntryDetails(String userID) {
+    public static String pullUserID(String email) {                                            //to fetch user id for pulling/ pushing
+        Connection connection;
+        String userID = "";
+
+        try {
+            connection = DriverManager.getConnection(url);
+
+            // Create and execute a SELECT SQL statement.
+            String selectSql = String.format("SELECT * FROM userDetails WHERE userEmail='%s'", email);
+
+            try (Statement statement = connection.createStatement();
+                 ResultSet resultSet = statement.executeQuery(selectSql)) {
+
+                while (resultSet.next()) {
+
+                    userID = resultSet.getString(1);
+                }
+
+                connection.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(userID);
+        return userID;
+    }
+
+    public static String pullDoctorEmail(String id) {                                            //to fetch user id for pulling/ pushing
+        Connection connection;
+        String doctorEmail = "";
+
+        try {
+            connection = DriverManager.getConnection(url);
+
+            // Create and execute a SELECT SQL statement.
+            String selectSql = String.format("SELECT * FROM userDetails WHERE userID='%s'", id);
+
+            try (Statement statement = connection.createStatement();
+                 ResultSet resultSet = statement.executeQuery(selectSql)) {
+
+                while (resultSet.next()) {
+
+                    doctorEmail = resultSet.getString(10);
+                }
+
+                connection.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(doctorEmail);
+        return doctorEmail;
+    }
+
+    public static String pullPersonalDetails(String userID) {                              //for users to edit personal details
 //        SQLDatabase.pullAzure.pullEntryDetails("12");
         Connection connection;
         boolean verifyStatus = false;
+        String res = "";
+
+        try {
+            connection = DriverManager.getConnection(url);
+
+            // Create and execute a SELECT SQL statement.
+            String selectSql = String.format("SELECT * FROM entryDetails WHERE userID='%s'", userID);          //change destination
+
+            try (Statement statement = connection.createStatement();
+                 ResultSet resultSet = statement.executeQuery(selectSql)) {
+
+                while (resultSet.next()){
+                    for (int i = 1; i < 12; i++) {
+                        res += resultSet.getString(i) + ";";
+                    }
+                    System.out.println(res);
+                }
+
+                connection.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+
+    public static String pullEntryDetails(String userID) {                              //to display log history
+//        SQLDatabase.pullAzure.pullEntryDetails("12");
+        Connection connection;
+        boolean verifyStatus = false;
+        String res = "";
 
         try {
             connection = DriverManager.getConnection(url);
@@ -54,11 +139,10 @@ public class pullAzure {
                  ResultSet resultSet = statement.executeQuery(selectSql)) {
 
                 while (resultSet.next()) {
-                    System.out.println(resultSet.getString(2) + ";"
-                            + resultSet.getString(3) + ";" + resultSet.getString(4) + ";"
-                    + resultSet.getString(5) + ";" + resultSet.getString(6) + ";"
-                            + resultSet.getString(7) + ";" + resultSet.getString(8) + ";"
-                    + resultSet.getString(9));
+                    for (int i = 2; i < 10; i++) {
+                        res += resultSet.getString(i) + ";";
+                    }
+                    System.out.println(res);
                 }
 
                 connection.close();
@@ -66,6 +150,7 @@ public class pullAzure {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return res;
     }
 }
 

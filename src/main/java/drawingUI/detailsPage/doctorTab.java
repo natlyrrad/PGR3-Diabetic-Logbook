@@ -6,13 +6,13 @@ import java.awt.*;
 public class doctorTab extends JPanel {
     // Declare all the components included on the tab
     JLabel emaillabel = new JLabel("Email: ");
-    public static JTextField emailtext = new JTextField(20);
+    public static JTextField emailText = new JTextField(20);
 
     JLabel addresslabel = new JLabel("Address: ");
-    public static JTextField addresstext = new JTextField(20);
+    public static JTextField addressText = new JTextField(20);
 
     JLabel phonelabel = new JLabel("Emergency Phone: ");
-    public static JTextField phonetext = new JTextField(20);
+    public static JTextField phoneText = new JTextField(20);
 
     public doctorTab(){
         /* Reference 1 - https://www.codejava.net/java-se/swing/jpanel-basic-tutorial-and-examples */
@@ -27,7 +27,7 @@ public class doctorTab extends JPanel {
         newPanel.add(emaillabel, constraints);
 
         constraints.gridx = 1;
-        newPanel.add(emailtext, constraints);
+        newPanel.add(emailText, constraints);
 
         //Address Field -----------------------------------------------------------------------------
         constraints.gridx = 0;
@@ -35,7 +35,7 @@ public class doctorTab extends JPanel {
         newPanel.add(addresslabel, constraints);
 
         constraints.gridx = 1;
-        newPanel.add(addresstext, constraints);
+        newPanel.add(addressText, constraints);
 
         //Phone Number Field -----------------------------------------------------------------------------
         constraints.gridx = 0;
@@ -43,21 +43,19 @@ public class doctorTab extends JPanel {
         newPanel.add(phonelabel, constraints);
 
         constraints.gridx = 1;
-        newPanel.add(phonetext, constraints);
+        newPanel.add(phoneText, constraints);
 
         add(newPanel);
     }
 
-    public void getDoctor()
+    public String getDoctor()
     {
-        String emailDoc = emailtext.getText();
-        System.out.println("Email Doc: "+ emailDoc);
+        String emailDoc = emailText.getText();
+        String addressDoc = addressText.getText();
+        String phoneDoc = phoneText.getText();
+        String doc = String.join(";", emailDoc, addressDoc, phoneDoc);
 
-        String addressDoc = addresstext.getText();
-        System.out.println("Address Doc: "+ addressDoc);
-
-        String phoneDoc = phonetext.getText();
-        System.out.println("Phone Doc: "+ phoneDoc);
+        return doc;
     }
 
 }

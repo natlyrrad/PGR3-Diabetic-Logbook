@@ -1,5 +1,8 @@
 package drawingUI.entryPage;
 
+import drawingUI.detailsPage.detailsPanel;
+import drawingUI.detailsPage.doctorTab;
+import drawingUI.emailPage.emailPanel;
 import drawingUI.logPage.LogUIController;
 
 import javax.swing.*;
@@ -10,6 +13,10 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+import javaMailAPI.jakartaMailAPI;
+import static SQLDatabase.pullAzure.*;
+import static SQLDatabase.pushAzure.pushEntryDetails;
+import static drawingUI.emailPage.emailPanel.etext;
 import static drawingUI.logPage.table.ltext;
 
 
@@ -32,12 +39,16 @@ public class EntryPanel extends JPanel implements ActionListener{               
     CompPanel p2 = new CompPanel();
     public IntenPanel p3 = new IntenPanel();
 
+    //set patient id
+    public String id = pullUserID(etext.getText());
+
 
     public EntryPanel(){
         //set labels of entries
+        date.setText("  Date: " + ltext.getText());
         date.setForeground(Color.red);
         date.setFont(new Font("Dialog", Font.BOLD, 13));
-        date.setText(ltext.getText());
+
 
         //button actions for back and enter
         back.addActionListener(new ActionListener(){
@@ -65,16 +76,36 @@ public class EntryPanel extends JPanel implements ActionListener{               
         enter.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                System.out.println(date.getText());
-                time.getInfo();
-                bsl.getInfo();
-
+                //set date time as one single entry
+                String dt = ltext.getText() + " " + time.getInfo();
+                //create three strings for three conditions
+                String m1 = String.join(";" , id, dt, bsl.getInfo(), "", "", "");
+                String m2 = String.join(";" , id, dt, bsl.getInfo(), p2.getFood(), p2.getMed(), "");
+                String m3 = String.join(";" , id, dt, bsl.getInfo(), p3.getFood(), p3.getMed(), "");
+                
+                //Alert if blood sugar level is high
+                int ibsl= Integer.parseInt(bsl.getInfo());
+                if(ibsl>9){
+                    jakartaMailAPI email=new jakartaMailAPI();
+                    try {
+                        email.sendMail(pullDoctorEmail(id));
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                }
+                
+                //push details under different condition
+                if (met == 0){
+                    pushEntryDetails(m1);
+                    System.out.println(m1);
+                }
                 if (met == 1){
-                    p2.getData();
+                    pushEntryDetails(m2);
+                    System.out.println(m2);
                 }
                 if (met == 2){
-                    p3.getMed();
-                    p3.getFood();
+                    pushEntryDetails(m3);
+                    System.out.println(m3);
                 }
 
                 //return to log page

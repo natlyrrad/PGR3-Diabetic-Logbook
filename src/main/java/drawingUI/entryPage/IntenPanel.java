@@ -25,7 +25,7 @@ public class IntenPanel<first> extends JPanel{
 
     //ArrayLists to collect data
     int counter = 0;
-    ArrayList<String[]> foodList = new ArrayList<>();
+    ArrayList<String> foodList = new ArrayList<>();
     ArrayList<FoodPanel> entryList = new ArrayList<>();
 
 
@@ -55,7 +55,6 @@ public class IntenPanel<first> extends JPanel{
         c1.anchor = GridBagConstraints.FIRST_LINE_START;
         c1.insets = new Insets(5, 0, 5, 10);          //From maria
 
-//        c1.fill = GridBagConstraints.HORIZONTAL;
         c1.gridx = 0;
         c1.gridy = 0;
         add(medlog, c1);
@@ -75,12 +74,9 @@ public class IntenPanel<first> extends JPanel{
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 counter = counter + 1;
-//                //obtain and save all info in array
-//                for(int i=0; i<counter; i++){
-//                    foodList.add(i, entryList.get(i).getData());
-//                }
                 entryList.add(counter, new FoodPanel());
 
+                //remove all then add new components
                 fdPanel.removeAll();
                 for(int i=0; i<(counter+1); i++){
                     c.gridx = 0;
@@ -88,7 +84,7 @@ public class IntenPanel<first> extends JPanel{
                     fdPanel.add(entryList.get(i), c);
                 }
 
-
+                //revalidate and display new fdPanel
                 fdPanel.revalidate();
                 fdPanel.repaint();
                 fdPanel.setVisible(true);
@@ -103,16 +99,18 @@ public class IntenPanel<first> extends JPanel{
 
     }
 
-    public void getMed(){
-        String[] m = {meds.getSelectedItem().toString(), dose.getText()};
-        System.out.println(Arrays.toString(m));
+    String getMed(){
+        String m = meds.getSelectedItem().toString() +";" + dose.getText();
+        return m;
     }
 
-    public void getFood(){
+    String getFood(){
+        String listString = new String();
         for(int i=0; i<(counter+1); i++){
             foodList.add(i, entryList.get(i).getData());
-            System.out.println(Arrays.toString(foodList.get(i)));
+            listString += (foodList.get(i) + ", ");
         }
+        return listString;
     }
 }
 

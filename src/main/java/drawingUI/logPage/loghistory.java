@@ -1,5 +1,6 @@
 package drawingUI.logPage;
 
+import drawingUI.Graph.PlotGraph;
 import drawingUI.calendarPage.CalendarUIController;
 import drawingUI.detailsPage.DetailsUIController;
 import drawingUI.entryPage.EntryUIController;
@@ -8,6 +9,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import static drawingUI.emailPage.emailPanel.etext;
 
 public class loghistory extends JPanel {
 
@@ -67,8 +70,7 @@ public class loghistory extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e){
                 EntryUIController frame = new EntryUIController();
-                System.out.println(t.ltext.getText());
-                frame.show(t.ltext.getText());
+                frame.show();
 
                 /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
                 Component component = (Component) e.getSource(); // Get the source of the current component (panel)
@@ -83,8 +85,26 @@ public class loghistory extends JPanel {
         btgraph.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Add action of the graph button (will take to graph panel)
-            }
+//                JFrame g_frame= new JFrame(gc); // Create a new JFrame
+//                g_frame.setSize(600,400);
+//
+//                PlotGraph uigraph = new PlotGraph("title", "id:123");
+//
+//                g_frame.add(uigraph);
+//                g_frame.setVisible(true);
+//                // This next line closes the program when the frame is closed
+//                g_frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+                PlotGraph chart = new PlotGraph("title", SQLDatabase.pullAzure.pullUserID(etext.getText()));
+                chart.pack();
+                chart.setVisible(true);
+
+                /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
+                Component component = (Component) e.getSource(); // Get the source of the current component (panel)
+                // declare JFrame currently open as "frame"
+                JFrame frame = (JFrame) SwingUtilities.getRoot(component);
+                frame.setVisible(false); // set current open frame as invisible
+                /* end of reference 2 */            }
         });
         bp.add(btgraph);
 

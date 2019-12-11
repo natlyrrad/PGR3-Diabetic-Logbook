@@ -26,7 +26,6 @@ public class Entry extends JPanel {
 
     public String getInfo(){
         String data = info.getText();
-        System.out.println(data);                 //store data
         return data;
     }
 

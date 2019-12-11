@@ -23,8 +23,8 @@ public class FoodPanel extends JPanel {
 
     }
 
-    public String[] getData(){
-        String[] fa= {foods.getSelectedItem().toString(), amount.getText()};
+    public String getData(){
+        String fa= foods.getSelectedItem().toString() + ":" + amount.getText();
         return fa;
     }
 }
