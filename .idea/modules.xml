@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/PGR3-Diabetic-Logbook.pgr3logbook.main.iml" filepath="$PROJECT_DIR$/.idea/modules/PGR3-Diabetic-Logbook.pgr3logbook.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/PGR3-Diabetic-Logbook.pgr3logbook.test.iml" filepath="$PROJECT_DIR$/.idea/modules/PGR3-Diabetic-Logbook.pgr3logbook.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/pgr3logbook.iml" filepath="$PROJECT_DIR$/.idea/modules/pgr3logbook.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/pgr3logbook.main.iml" filepath="$PROJECT_DIR$/.idea/modules/pgr3logbook.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/pgr3logbook.test.iml" filepath="$PROJECT_DIR$/.idea/modules/pgr3logbook.test.iml" />

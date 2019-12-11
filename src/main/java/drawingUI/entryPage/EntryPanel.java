@@ -10,6 +10,9 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+import static SQLDatabase.pushAzure.pushEntryDetails;
+import static drawingUI.logPage.table.ltext;
+
 
 public class EntryPanel extends JPanel implements ActionListener{                        //shows date, select time, button to pick method, back and enter
 
@@ -33,6 +36,7 @@ public class EntryPanel extends JPanel implements ActionListener{               
 
     public EntryPanel(){
         //set labels of entries
+        date.setText("   Date: " + ltext.getText());
         date.setForeground(Color.red);
         date.setFont(new Font("Dialog", Font.BOLD, 13));
 
@@ -63,16 +67,22 @@ public class EntryPanel extends JPanel implements ActionListener{               
         enter.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                System.out.println(date.getText());
-                time.getInfo();
-                bsl.getInfo();
+                String m1 = String.join(";" ,ltext.getText(), time.getInfo(), bsl.getInfo());
+                String m2 = String.join(";" ,ltext.getText(), time.getInfo(), bsl.getInfo(), p2.getMed(), p2.getFood());
+                String m3 = String.join(";" ,ltext.getText(), time.getInfo(), bsl.getInfo(), p3.getMed(), p3.getFood());
 
+
+                if (met == 0){
+//                    pushEntryDetails(m1);
+                    System.out.println(m1);
+                }
                 if (met == 1){
-                    p2.getData();
+//                    pushEntryDetails(m2);
+                    System.out.println(m2);
                 }
                 if (met == 2){
-                    p3.getMed();
-                    p3.getFood();
+//                    pushEntryDetails(m3);
+                    System.out.println(m3);
                 }
 
                 //return to log page

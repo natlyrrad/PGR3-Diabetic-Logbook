@@ -67,8 +67,7 @@ public class loghistory extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e){
                 EntryUIController frame = new EntryUIController();
-                System.out.println(t.ltext.getText());
-                frame.show(t.ltext.getText());
+                frame.show();
 
                 /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
                 Component component = (Component) e.getSource(); // Get the source of the current component (panel)
