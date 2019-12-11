@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+import javaMailAPI.jakartaMailAPI;
 import static SQLDatabase.pullAzure.pullUserID;
 import static SQLDatabase.pushAzure.pushEntryDetails;
 import static drawingUI.emailPage.emailPanel.etext;
