@@ -1,7 +1,11 @@
 
+import SQLDatabase.pullAzure;
 import drawingUI.emailPage.EmailUIController;
 import javax.swing.*;
 import java.awt.*;
+
+import static drawingUI.emailPage.emailPanel.etext;
+import static drawingUI.emailPage.emailPanel.setEmail;
 
 public class Main {
 
@@ -12,6 +16,7 @@ public class Main {
             email_frame.setSize(500,300); // set size of frame
             //Create a new class object that contains the email frame UI
             EmailUIController uiemail = new EmailUIController(email_frame);
+
             //Set frame as VISIBLE
             email_frame.setVisible(true);
             //This next line closes the program when the frame is closed

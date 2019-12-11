@@ -1,5 +1,6 @@
 package drawingUI.emailPage; //Includes the class in the emailPage package
 import drawingUI.detailsPage.DetailsUIController; //imports Details page
+import drawingUI.logPage.LogUIController;
 //Java classes imports (JDK)
 import javax.swing.*;
 import java.awt.*;
@@ -40,24 +41,45 @@ public class emailPanel extends JPanel {
              and set the email page as invisible*/
             @Override
             public void actionPerformed(ActionEvent e) {
-                setEmail();
+                boolean email_verify = SQLDatabase.pullAzure.verifyEmail(setEmail());
 
-                //Open a Details UI frame when the button is clicked
-                JFrame details_frame= new JFrame(gc); // Create a new JFrame
-                details_frame.setSize(500,450);
+                if (email_verify == false)
+                {
+                    //Open a Details UI frame when the button is clicked
+                    JFrame details_frame = new JFrame(gc); // Create a new JFrame
+                    details_frame.setSize(500, 450);
 
-                DetailsUIController uidetails = new DetailsUIController(details_frame);
+                    DetailsUIController uidetails = new DetailsUIController(details_frame);
 
-                details_frame.setVisible(true);
-                // This next line closes the program when the frame is closed
-                details_frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                    details_frame.setVisible(true);
+                    // This next line closes the program when the frame is closed
+                    details_frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-                /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
-                Component component = (Component) e.getSource(); // Get the source of the current component (panel)
-                // declare JFrame currently open as "frame"
-                JFrame frame = (JFrame) SwingUtilities.getRoot(component);
-                frame.setVisible(false); // set current open frame as invisible
-                /* end of reference 2 */
+                    /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
+                    Component component = (Component) e.getSource(); // Get the source of the current component (panel)
+                    // declare JFrame currently open as "frame"
+                    JFrame frame = (JFrame) SwingUtilities.getRoot(component);
+                    frame.setVisible(false); // set current open frame as invisible
+                    /* end of reference 2 */
+                }
+                else if (email_verify == true)
+                {
+                    JFrame logframe= new JFrame(); // Create a new JFrame
+                    logframe.setSize(900,700);
+
+                    LogUIController uilog = new LogUIController(logframe);
+
+                    logframe.setVisible(true);
+                    //This next line closes the program when the frame is closed
+                    logframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+                    /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
+                    Component component = (Component) e.getSource(); // Get the source of the current component (panel)
+                    // declare JFrame currently open as "frame"
+                    JFrame frame = (JFrame) SwingUtilities.getRoot(component);
+                    frame.setVisible(false); // set current open frame as invisible
+                    /* end of reference 2 */
+                }
             }
         });
         // add button to the panel
@@ -74,10 +96,12 @@ public class emailPanel extends JPanel {
         /* end of reference 1 */
     }
 
-    public void setEmail()
+    public String setEmail()
     {
         String email = etext.getText();
         System.out.println("email: "+ email);
+
+        return email;
     }
 
 }
