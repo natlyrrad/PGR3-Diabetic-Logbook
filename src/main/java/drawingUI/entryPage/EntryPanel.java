@@ -77,11 +77,11 @@ public class EntryPanel extends JPanel implements ActionListener{               
             @Override
             public void actionPerformed(ActionEvent e){
                 //set date time as one single entry
-                String dt = ltext.getText() + time.getInfo();
+                String dt = ltext.getText() + " " + time.getInfo();
                 //create three strings for three conditions
-                String m1 = String.join(";" , id, dt, bsl.getInfo(), " ", " ");
-                String m2 = String.join(";" , id, dt, bsl.getInfo(), p2.getMed(), p2.getFood());
-                String m3 = String.join(";" , id, dt, bsl.getInfo(), p3.getMed(), p3.getFood());
+                String m1 = String.join(";" , id, dt, bsl.getInfo(), "", "", "");
+                String m2 = String.join(";" , id, dt, bsl.getInfo(), p2.getFood(), p2.getMed(), "");
+                String m3 = String.join(";" , id, dt, bsl.getInfo(), p3.getFood(), p3.getMed(), "");
                 
                 //Alert if blood sugar level is high
                 int ibsl= Integer.parseInt(bsl.getInfo());
@@ -97,15 +97,15 @@ public class EntryPanel extends JPanel implements ActionListener{               
                 
                 //push details under different condition
                 if (met == 0){
-//                    pushEntryDetails(m1);
+                    pushEntryDetails(m1);
                     System.out.println(m1);
                 }
                 if (met == 1){
-//                    pushEntryDetails(m2);
+                    pushEntryDetails(m2);
                     System.out.println(m2);
                 }
                 if (met == 2){
-//                    pushEntryDetails(m3);
+                    pushEntryDetails(m3);
                     System.out.println(m3);
                 }
 
