@@ -1,5 +1,6 @@
 package drawingUI.logPage;
 
+import QuestPage.Questionnaire;
 import drawingUI.Graph.PlotGraph;
 import drawingUI.calendarPage.CalendarUIController;
 import drawingUI.detailsPage.DetailsUIController;
@@ -138,8 +139,28 @@ public class loghistory extends JPanel {
         Questionnaire.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
+
+
                 System.out.println("View questionnaire");
+
+                JFrame details_frame= new JFrame(gc); // Create a new JFrame
+                details_frame.setSize(500,450);
+
+                QuestPage.Questionnaire q = new Questionnaire();
+                q.setVisible(true);
+                details_frame.add(q);
+                details_frame.setVisible(true);
+                // This next line closes the program when the frame is closed
+                details_frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+                /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
+                Component component = (Component) e.getSource(); // Get the source of the current component (panel)
+                // declare JFrame currently open as "frame"
+                JFrame frame = (JFrame) SwingUtilities.getRoot(component);
+                frame.setVisible(false); // set current open frame as invisible
+                /* end of reference 2 */
             }
+
         });
         bp.add(Questionnaire);
 
