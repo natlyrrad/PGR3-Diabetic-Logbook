@@ -5,7 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 
 import static drawingUI.emailPage.emailPanel.etext;
-import static drawingUI.emailPage.emailPanel.setEmail;
+
 
 public class Main {
 
