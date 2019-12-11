@@ -19,4 +19,5 @@ dependencies {
     runtimeOnly group: 'com.microsoft.sqlserver', name: 'mssql-jdbc', version: '7.0.0.jre8'
     implementation 'jakarta.mail:jakarta.mail-api:1.6.4'
     implementation 'com.sun.mail:jakarta.mail:1.6.4'
+    implementation 'jfree:jfreechart:1.0.13'
 }
