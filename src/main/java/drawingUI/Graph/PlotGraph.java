@@ -54,7 +54,7 @@ public class PlotGraph extends ApplicationFrame {
             // iterate through the java resultset
             while (rs.next())
             {
-                String datetime= rs.getString(1);
+                String datetime= rs.getString(2);
                 int bsl = rs.getInt(3);
 
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
