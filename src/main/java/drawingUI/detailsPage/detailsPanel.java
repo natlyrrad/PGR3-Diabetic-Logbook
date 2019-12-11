@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import static SQLDatabase.pushAzure.pushUserDetails;
 
 public class detailsPanel extends JPanel
 {
@@ -45,10 +46,11 @@ public class detailsPanel extends JPanel
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Following called methods will store the input selections into strings
-                ptab.getPersonal();
-                dtab.getDiabetes();
-                doctab.getDoctor();
+                String detail = String.join(";", ptab.getPersonal(), dtab.getDiabetes(), doctab.getDoctor());
+                System.out.println(detail);
+                pushUserDetails(detail);
 
+                //create new frame to loghistory
                 JFrame logframe= new JFrame(); // Create a new JFrame
                 logframe.setSize(900,700);
 

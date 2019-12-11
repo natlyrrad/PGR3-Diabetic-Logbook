@@ -73,15 +73,15 @@ public class EntryPanel extends JPanel implements ActionListener{               
 
 
                 if (met == 0){
-//                    pushEntryDetails(m1);
+                    pushEntryDetails(m1);
                     System.out.println(m1);
                 }
                 if (met == 1){
-//                    pushEntryDetails(m2);
+                    pushEntryDetails(m2);
                     System.out.println(m2);
                 }
                 if (met == 2){
-//                    pushEntryDetails(m3);
+                    pushEntryDetails(m3);
                     System.out.println(m3);
                 }
 

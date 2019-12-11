@@ -2,6 +2,7 @@ package drawingUI.detailsPage;//Part of the detailsPage Package
 //Java classes imports (JDK)
 import javax.swing.*;
 import java.awt.*;
+import java.util.Enumeration;
 
 public class diabetesTab extends JPanel {
     // Declare all the components that will be included in the tab
@@ -20,6 +21,10 @@ public class diabetesTab extends JPanel {
     JRadioButton admin2 = new JRadioButton("Injection");
     JRadioButton admin3 = new JRadioButton("Pump");
 
+    ButtonGroup bg1 = new ButtonGroup();
+    ButtonGroup bg2 = new ButtonGroup();
+    ButtonGroup bg3 = new ButtonGroup();
+
     public diabetesTab(){
         /* Reference 1 - https://www.codejava.net/java-se/swing/jpanel-basic-tutorial-and-examples */
         JPanel newPanel = new JPanel(new GridBagLayout());
@@ -28,9 +33,8 @@ public class diabetesTab extends JPanel {
         constraints.insets = new Insets(10, 10, 10, 10);
 
         //Diabetes Type Selection Field ----------------------------------------------------------------
-        ButtonGroup bg = new ButtonGroup();
-        bg.add(type1);
-        bg.add(type2);
+        bg1.add(type1);
+        bg1.add(type2);
 
         constraints.gridx = 0;
         constraints.gridy = 2;
@@ -46,7 +50,6 @@ public class diabetesTab extends JPanel {
         type1.setSelected(true);
 
         //Insulin Type Selection Field ----------------------------------------------------------------
-        ButtonGroup bg2 = new ButtonGroup();
         bg2.add(insulin1);
         bg2.add(insulin2);
         bg2.add(insulin3);
@@ -73,7 +76,6 @@ public class diabetesTab extends JPanel {
         insulin1.setSelected(true);
 
         //Insulin Adminstration Type Selection Field ----------------------------------------------------------------
-        ButtonGroup bg3 = new ButtonGroup();
         bg3.add(admin1);
         bg3.add(admin2);
         bg3.add(admin3);
@@ -97,68 +99,31 @@ public class diabetesTab extends JPanel {
         add(newPanel);
     }
 
-    public void getDiabetes()
+    public String getDiabetes()
     {
-        int i = 0;
-        if (type1.isSelected() == true)
-        {
-            i = 1;
-            String dbtype = "Type 1";
-            System.out.println("Diabetes Type: "+ dbtype);
-        }
-        else if (type2.isSelected() == true)
-        {
-            i = 2;
-            String dbtype = "Type 2";
-            System.out.println("Diabetes Type: "+ dbtype);
-        }
-        ///////////////////////////////////////////////////////////////////////////////////////////////
-        int j = 0;
-        if (insulin1.isSelected() == true)
-        {
-            j = 1;
-            String intype = "Rapid-acting insulin";
-            System.out.println("Insulin Type: "+ intype);
-        }
-        else if (insulin2.isSelected() == true)
-        {
-            j = 2;
-            String intype = "Short-acting insulin";
-            System.out.println("Insulin Type: "+ intype);
-        }
-        else if (insulin3.isSelected() == true)
-        {
-            j = 3;
-            String intype = "Intermediate-acting insulin";
-            System.out.println("Insulin Type: "+ intype);
-        }
-        else if (insulin4.isSelected() == true)
-        {
-            j = 4;
-            String intype = "Long-acting insulin";
-            System.out.println("Insulin Type: "+ intype);
-        }
-        ///////////////////////////////////////////////////////////////////////////////////////////////
-        int k = 0;
-        if (admin1.isSelected() == true)
-        {
-            k = 1;
-            String intype = "Pen";
-            System.out.println("Administration Type: "+ intype);
-        }
-        else if (admin2.isSelected() == true)
-        {
-            k = 2;
-            String intype = "Injection";
-            System.out.println("Administration Type: "+ intype);
-        }
-        else if (admin3.isSelected() == true)
-        {
-            k = 3;
-            String intype = "Pump";
-            System.out.println("Administration Type: "+ intype);
+        //get type of diabetes
+        String a = getSelectedButtonText(bg1);
+        //get insulin type
+        String b = getSelectedButtonText(bg2);
+        //get injection type
+        String c = getSelectedButtonText(bg1);
+
+        String d = String.join(";", a, b, c);
+        return d;
+    }
+
+    //https://stackoverflow.com/questions/201287/how-do-i-get-which-jradiobutton-is-selected-from-a-buttongroup
+    public String getSelectedButtonText(ButtonGroup buttonGroup) {
+        for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
+            AbstractButton button = buttons.nextElement();
+
+            if (button.isSelected()) {
+                return button.getText();
+            }
         }
 
+        return null;
     }
+    //end of reference
 }
 

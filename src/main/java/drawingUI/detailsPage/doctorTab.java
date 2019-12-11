@@ -48,16 +48,14 @@ public class doctorTab extends JPanel {
         add(newPanel);
     }
 
-    public void getDoctor()
+    public String getDoctor()
     {
         String emailDoc = emailtext.getText();
-        System.out.println("Email Doc: "+ emailDoc);
-
         String addressDoc = addresstext.getText();
-        System.out.println("Address Doc: "+ addressDoc);
-
         String phoneDoc = phonetext.getText();
-        System.out.println("Phone Doc: "+ phoneDoc);
+        String doc = String.join(";", emailDoc, addressDoc, phoneDoc);
+
+        return doc;
     }
 
 }

@@ -73,22 +73,17 @@ public class personalTab extends JPanel {
         add(newPanel);
     }
 
-    public void getPersonal()
+    public String getPersonal()
     {
         String first = fnametext.getText();
-        System.out.println("First Name: "+ first);
-
         String last = lnametext.getText();
-        System.out.println("Last Name: "+ last);
-
         String email = emailtext.getText();
-        System.out.println("Email: "+ email);
-
         String address = addresstext.getText();
-        System.out.println("Address: "+ address);
-
         String phone = phonetext.getText();
-        System.out.println("Phone: "+ phone);
+
+        String person = String.join(";", first, last, email, address, phone);
+
+        return person;
     }
 
 }
