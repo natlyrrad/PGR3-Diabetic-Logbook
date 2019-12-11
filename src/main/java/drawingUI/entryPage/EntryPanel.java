@@ -1,6 +1,7 @@
 package drawingUI.entryPage;
 
 import drawingUI.detailsPage.detailsPanel;
+import drawingUI.detailsPage.doctorTab;
 import drawingUI.emailPage.emailPanel;
 import drawingUI.logPage.LogUIController;
 
@@ -83,15 +84,16 @@ public class EntryPanel extends JPanel implements ActionListener{               
                 String m3 = String.join(";" , id, dt, bsl.getInfo(), p3.getMed(), p3.getFood());
                 
                 //Alert if blood sugar level is high
-                //int ibsl= Integer.parseInt(bsl.getInfo());
-                //if(ibsl>9){
+                int ibsl= Integer.parseInt(bsl.getInfo());
+                if(ibsl>9){
                 //    jakartaMailAPI email=new jakartaMailAPI();
                 //    try {
                 //        email.sendMail(doctorTab.emailText.getText());
                 //    } catch (Exception ex) {
                 //        ex.printStackTrace();
                 //    }
-                //}
+                    System.out.println(doctorTab.emailText.getText());
+                }
                 
                 //push details under different condition
                 if (met == 0){
