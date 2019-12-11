@@ -39,6 +39,33 @@ public class pullAzure {
         return verifyStatus;
     }
 
+    public static int pullUserID(String email) {
+        Connection connection;
+        int userID = 0;
+
+        try {
+            connection = DriverManager.getConnection(url);
+
+            // Create and execute a SELECT SQL statement.
+            String selectSql = String.format("SELECT * FROM userDetails WHERE userEmail='%s'", email);
+
+            try (Statement statement = connection.createStatement();
+                 ResultSet resultSet = statement.executeQuery(selectSql)) {
+
+                while (resultSet.next()) {
+
+                    userID = resultSet.getInt(1);
+                }
+
+                connection.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(userID);
+        return userID;
+    }
+
     public static void pullEntryDetails(String userID) {
 //        SQLDatabase.pullAzure.pullEntryDetails("12");
         Connection connection;
