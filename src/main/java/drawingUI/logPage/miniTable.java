@@ -3,10 +3,11 @@ package drawingUI.logPage;
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
 
-public class miniTable extends JPanel {
+public class miniTable extends JTable {
     String[] header = { "Time","Blood sugar(MMol/L)", "Food Type", "Amount(g)"};
     Object[][] data  = new Object[1][header.length];
 
@@ -18,7 +19,6 @@ public class miniTable extends JPanel {
 
         String[] types = {"Complex Carbs (fibre)", "Simple Carbs (sugar)",
                 "Fats", "Protein", "Fruit & Veg", "Dairy"};
-
         data[0][2] = types;
         data[0][3] = amount;
 
@@ -51,13 +51,17 @@ public class miniTable extends JPanel {
             }
         };
 
-        /* Reference 7- https://docs.oracle.com/javase/tutorial/uiswing/components/table.html */
-        JTable table = new JTable();
-        JScrollPane scrollPane = new JScrollPane(table);
-        table.setFillsViewportHeight(true);
-        /* end of reference 7 */
+        setModel(modelo);
 
-        table.setModel(modelo);
+        TableColumn column = null;
+        for (int i = 0; i < 4; i++) {
+            column = getColumnModel().getColumn(i);
+            if (i == 2) {
+                column.setPreferredWidth(200); //third column is bigger
+            } else {
+                column.setPreferredWidth(100);
+            }
+        }
 
         /* We create a cell Renderer to display the data of the multivalue fields*/
         TableCellRenderer jTableCellRenderer = new TableCellRenderer() {
@@ -102,13 +106,11 @@ public class miniTable extends JPanel {
                 }
             }
         }; /* Finally we apply the new cellRenderer to the whole table */
-        TableColumnModel tcm = table.getColumnModel();
+        TableColumnModel tcm = getColumnModel();
         for(int it = 0; it < tcm.getColumnCount(); it++){
             tcm.getColumn(it).setCellRenderer(jTableCellRenderer);
         }
         /* end of reference */
-
-        add(scrollPane);
     }
 
 }

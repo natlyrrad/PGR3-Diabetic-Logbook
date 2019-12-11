@@ -67,16 +67,15 @@ public class DatePicker extends JPanel
                         day = button[selection].getActionCommand(); // the day = day number selected
                         dlabel.setText(setPickedDate()); // call the setPickedDate method below to display the date
 
-                        JFrame logframe = new JFrame(); // Create a new JFrame
-                        logframe.setSize(900, 700);
+                        //create new frame to loghistory
+                        JFrame logframe= new JFrame(); // Create a new JFrame
+                        logframe.setSize(800,900);
 
                         LogUIController uilog = new LogUIController(logframe);
 
                         logframe.setVisible(true);
                         //This next line closes the program when the frame is closed
                         logframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-                        table.ltext.setText(setPickedDate());
 
                         /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
                         Component component = (Component) ae.getSource(); // Get the source of the current component (panel)

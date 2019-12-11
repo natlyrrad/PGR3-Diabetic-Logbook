@@ -26,6 +26,8 @@ public class table extends JPanel {
     int month = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH); // Get current Month
     int year = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);; // Get current Year
 
+    String[] header = { "Time","Blood sugar(MMol/L)", "Food Type", "Amount(g)"};
+
     public table()
     {
         JPanel newPanel = new JPanel(new GridBagLayout());
@@ -39,18 +41,20 @@ public class table extends JPanel {
         p1.add(ttext);
 
         JPanel p2 = new JPanel(new GridLayout(5, 1));
-        p2.setPreferredSize(new Dimension(700, 600));
+        p2.setPreferredSize(new Dimension(500, 500));
 
         String[] amounts = {"50", "10", "150", "54", "85", "65"};
 
         for (int i=0; i<5; i++)
         {
             miniTable mtable = new miniTable("12:25", "5.5", amounts);
-            p2.add(mtable);
+            JScrollPane scrollPane = new JScrollPane(mtable);
+            mtable.setFillsViewportHeight(true);
+            p2.add(scrollPane);
         }
 
         JPanel p3 = new JPanel(new GridLayout(1, 1));
-        p3.setPreferredSize(new Dimension(700, 100));
+        p3.setPreferredSize(new Dimension(500, 100));
 
         JTextArea textbox = new JTextArea("Additional comments: ",50, 60);
         Border border = BorderFactory.createLineBorder(Color.BLACK);

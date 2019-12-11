@@ -44,9 +44,9 @@ public class emailPanel extends JPanel {
              and set the email page as invisible*/
             @Override
             public void actionPerformed(ActionEvent e) {
-                // boolean email_verify = SQLDatabase.pullAzure.verifyEmail(setEmail());
+                boolean email_verify = SQLDatabase.pullAzure.verifyEmail(setEmail());
 
-                boolean email_verify = false;
+                //boolean email_verify = false;
 
                 if (email_verify == false)
                 {
@@ -70,7 +70,7 @@ public class emailPanel extends JPanel {
                 else if (email_verify == true)
                 {
                     JFrame logframe= new JFrame(); // Create a new JFrame
-                    logframe.setSize(900,700);
+                    logframe.setSize(500,700);
 
                     LogUIController uilog = new LogUIController(logframe);
 
