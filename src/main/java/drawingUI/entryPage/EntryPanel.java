@@ -36,6 +36,8 @@ public class EntryPanel extends JPanel implements ActionListener{               
 
     CompPanel p2 = new CompPanel();
     public IntenPanel p3 = new IntenPanel();
+
+    //set patient id
     public String id = pullUserID(etext.getText());
 
 
