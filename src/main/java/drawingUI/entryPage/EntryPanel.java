@@ -54,16 +54,15 @@ public class EntryPanel extends JPanel implements ActionListener{               
         back.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
+                //create new frame to loghistory
+                JFrame logframe= new JFrame(); // Create a new JFrame
+                logframe.setSize(800,900);
 
-                //return to log page without storing any details
-                JFrame logFrame= new JFrame(gc); // Create a new JFrame
-                logFrame.setSize(900,700);
+                LogUIController uilog = new LogUIController(logframe);
 
-                LogUIController uihis = new LogUIController(logFrame);
-
-                logFrame.setVisible(true);
-                // This next line closes the program when the frame is closed
-                logFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                logframe.setVisible(true);
+                //This next line closes the program when the frame is closed
+                logframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
                 /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
                 Component component = (Component) e.getSource(); // Get the source of the current component (panel)
@@ -110,7 +109,7 @@ public class EntryPanel extends JPanel implements ActionListener{               
 
                 //return to log page
                 JFrame logFrame= new JFrame(gc); // Create a new JFrame
-                logFrame.setSize(900,700);
+                logFrame.setSize(800,900);
 
                 LogUIController uihis = new LogUIController(logFrame);
 

@@ -28,6 +28,8 @@ public class pushAzure {
         }
     }
 
+    // "tan;darryl;0123;sadsadnsa;d"
+
     public static void pushUserDetails(String userDetails) {
         String[] userArray = userDetails.split(";");
         String queryStatement = String.format("INSERT INTO userDetails " +

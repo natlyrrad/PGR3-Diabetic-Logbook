@@ -46,6 +46,8 @@ public class emailPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 boolean email_verify = SQLDatabase.pullAzure.verifyEmail(setEmail());
 
+                //boolean email_verify = false;
+
                 if (email_verify == false)
                 {
                     //Open a Details UI frame when the button is clicked
@@ -68,7 +70,7 @@ public class emailPanel extends JPanel {
                 else if (email_verify == true)
                 {
                     JFrame logframe= new JFrame(); // Create a new JFrame
-                    logframe.setSize(900,700);
+                    logframe.setSize(800,900);
 
                     LogUIController uilog = new LogUIController(logframe);
 
