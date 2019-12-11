@@ -62,8 +62,9 @@ public class Questionnaire extends JPanel {
         });
 
         for (int i = 0; i < 12; i++) {
+            constraints.fill = GridBagConstraints.BOTH;
+            constraints.gridy = i;
             for( int j = 0;j <14;j++) {
-                constraints.gridy = j;
                 QN.add(new JComboBox(options));
             }
         }
@@ -122,6 +123,11 @@ public class Questionnaire extends JPanel {
         constraints.gridx = 0;
         constraints.gridy = 14;
         QN.add(q12,constraints);
+
+
+        constraints.gridx = 14;
+        constraints.gridy = 14;
+        QN.add(back,constraints);
 
 
         add(QN);
