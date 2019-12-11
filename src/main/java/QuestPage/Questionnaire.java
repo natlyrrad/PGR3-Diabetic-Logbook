@@ -62,8 +62,10 @@ public class Questionnaire extends JPanel {
         });
 
         for (int i = 0; i < 12; i++) {
-            constraints.gridy = 1;
-            QN.add(new JComboBox(options));
+            for( int j = 0;j <14;j++) {
+                constraints.gridy = j;
+                QN.add(new JComboBox(options));
+            }
         }
         constraints.gridx = 0;
         constraints.gridy = 1;
