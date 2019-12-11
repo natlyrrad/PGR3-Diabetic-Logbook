@@ -39,9 +39,9 @@ public class pullAzure {
         return verifyStatus;
     }
 
-    public static int pullUserID(String email) {
+    public static String pullUserID(String email) {
         Connection connection;
-        int userID = 0;
+        String userID = "";
 
         try {
             connection = DriverManager.getConnection(url);
@@ -54,7 +54,7 @@ public class pullAzure {
 
                 while (resultSet.next()) {
 
-                    userID = resultSet.getInt(1);
+                    userID = resultSet.getString(1);
                 }
 
                 connection.close();

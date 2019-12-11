@@ -1,5 +1,7 @@
 package drawingUI.entryPage;
 
+import drawingUI.detailsPage.detailsPanel;
+import drawingUI.emailPage.emailPanel;
 import drawingUI.logPage.LogUIController;
 
 import javax.swing.*;
@@ -10,7 +12,9 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+import static SQLDatabase.pullAzure.pullUserID;
 import static SQLDatabase.pushAzure.pushEntryDetails;
+import static drawingUI.emailPage.emailPanel.etext;
 import static drawingUI.logPage.table.ltext;
 
 
@@ -32,6 +36,7 @@ public class EntryPanel extends JPanel implements ActionListener{               
 
     CompPanel p2 = new CompPanel();
     public IntenPanel p3 = new IntenPanel();
+    public String id = pullUserID(etext.getText());
 
 
     public EntryPanel(){
@@ -70,9 +75,9 @@ public class EntryPanel extends JPanel implements ActionListener{               
                 //set date time as one single entry
                 String dt = ltext.getText() + time.getInfo();
                 //create three strings for three conditions
-                String m1 = String.join(";" , dt, bsl.getInfo(), " ", " ");
-                String m2 = String.join(";" , dt, bsl.getInfo(), p2.getMed(), p2.getFood());
-                String m3 = String.join(";" , dt, bsl.getInfo(), p3.getMed(), p3.getFood());
+                String m1 = String.join(";" , id, dt, bsl.getInfo(), " ", " ");
+                String m2 = String.join(";" , id, dt, bsl.getInfo(), p2.getMed(), p2.getFood());
+                String m3 = String.join(";" , id, dt, bsl.getInfo(), p3.getMed(), p3.getFood());
 
                 //push details under different condition
                 if (met == 0){

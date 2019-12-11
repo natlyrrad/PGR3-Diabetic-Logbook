@@ -6,6 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import static SQLDatabase.pullAzure.pullUserID;
+
 // States this class as an extension of JPanel, meaning it is a panel
 public class emailPanel extends JPanel {
     //Declare classes, labels, text fields, and buttons
@@ -100,8 +103,11 @@ public class emailPanel extends JPanel {
     {
         String email = etext.getText();
         System.out.println("email: "+ email);
-
         return email;
+    }
+
+    public String userID(){
+        return pullUserID(etext.getText());
     }
 
 }
