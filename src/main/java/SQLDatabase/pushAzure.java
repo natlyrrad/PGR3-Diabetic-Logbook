@@ -41,9 +41,8 @@ public class pushAzure {
     public static void pushEntryDetails(String entryDetails) {
         String[] entryArray = entryDetails.split(";");
         String queryStatement = String.format("INSERT INTO entryDetails " +
-                        "VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');", entryArray[0],
-                entryArray[1], entryArray[2], entryArray[3], entryArray[4], entryArray[5], entryArray[6],
-                entryArray[7], entryArray[8]);
+                        "VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s');", entryArray[0],
+                entryArray[1], entryArray[2], entryArray[3], entryArray[4], entryArray[5], entryArray[6]);
 
         push(queryStatement);
     }
