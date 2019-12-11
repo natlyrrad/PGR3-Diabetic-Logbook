@@ -92,7 +92,7 @@ public class EntryPanel extends JPanel implements ActionListener{               
                 //        ex.printStackTrace();
                 //    }
                 //}
-                
+
                 //push details under different condition
                 if (met == 0){
                     pushEntryDetails(m1);
