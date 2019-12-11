@@ -14,7 +14,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 import javaMailAPI.jakartaMailAPI;
-import static SQLDatabase.pullAzure.pullUserID;
+import static SQLDatabase.pullAzure.*;
 import static SQLDatabase.pushAzure.pushEntryDetails;
 import static drawingUI.emailPage.emailPanel.etext;
 import static drawingUI.logPage.table.ltext;
@@ -86,13 +86,12 @@ public class EntryPanel extends JPanel implements ActionListener{               
                 //Alert if blood sugar level is high
                 int ibsl= Integer.parseInt(bsl.getInfo());
                 if(ibsl>9){
-                //    jakartaMailAPI email=new jakartaMailAPI();
-                //    try {
-                //        email.sendMail(doctorTab.emailText.getText());
-                //    } catch (Exception ex) {
-                //        ex.printStackTrace();
-                //    }
-                    System.out.println(doctorTab.emailText.getText());
+                    jakartaMailAPI email=new jakartaMailAPI();
+                    try {
+                        email.sendMail(pullDoctorEmail(id));
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
                 }
                 
                 //push details under different condition
