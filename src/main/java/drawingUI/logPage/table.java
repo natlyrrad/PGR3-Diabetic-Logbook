@@ -34,12 +34,14 @@ public class table extends JPanel {
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.insets = new Insets(0, 0, 0, 0);
 
+        //panel for date and time
         JPanel p1 = new JPanel(new GridLayout(1, 4));
         p1.add(l);
         p1.add(ltext);
         p1.add(t);
         p1.add(ttext);
 
+        //panel for tables
         JPanel p2 = new JPanel(new GridLayout(5, 1));
         p2.setPreferredSize(new Dimension(700, 600));
 
@@ -53,15 +55,30 @@ public class table extends JPanel {
             p2.add(scrollPane);
         }
 
+        //panel for exercise
+        JPanel pEx = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JLabel ex = new JLabel("Type of Exercise: ");
+        String[] type = {"Running", "Weights", "Other Activities"};
+        JComboBox exCombo = new JComboBox(type);
+        JLabel d = new JLabel("Duration (min): ");
+        JTextField duration = new JTextField(5);
+
+        pEx.add(ex);
+        pEx.add(exCombo);
+        pEx.add(d);
+        pEx.add(duration);
+
+        //panel for additional comments
         JPanel p3 = new JPanel(new GridLayout(1, 1));
         p3.setPreferredSize(new Dimension(700, 100));
 
-        JTextArea textbox = new JTextArea("Additional comments: ",50, 60);
+        JTextArea textbox = new JTextArea("Additional comments: ",30, 60);
         Border border = BorderFactory.createLineBorder(Color.BLACK);
         textbox.setBorder(BorderFactory.createCompoundBorder(border,
                 BorderFactory.createEmptyBorder(10, 10, 10, 10)));
         p3.add(textbox);
 
+        //panel for previous, today and next
         JPanel p4 = new JPanel(new GridLayout(1, 3));
         JButton previous = new JButton("<< Previous");
         previous.addActionListener(new ActionListener() {
@@ -125,10 +142,17 @@ public class table extends JPanel {
         constraints.gridy = 1;
         newPanel.add(p2, constraints);
 
+        constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.gridx = 0;
         constraints.gridy = 2;
+        newPanel.add(pEx, constraints);
+
+        constraints.gridx = 0;
+        constraints.gridy = 3;
         newPanel.add(p3, constraints);
 
+        constraints.anchor = GridBagConstraints.CENTER;
+        constraints.fill = GridBagConstraints.VERTICAL;
         constraints.gridx = 0;
         constraints.gridy = 4;
         newPanel.add(p4, constraints);
