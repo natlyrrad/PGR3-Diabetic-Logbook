@@ -1,10 +1,10 @@
-package drawingUI.detailsPage;
-
+package drawingUI.detailsPage;//Part of the detailsPage Package
+//Java classes imports (JDK)
 import javax.swing.*;
 import java.awt.*;
 
 public class diabetesTab extends JPanel {
-
+    // Declare all the components that will be included in the tab
     JLabel typelabel = new JLabel("Select Type of Diabetes: ");
     JRadioButton type1 = new JRadioButton("Type 1");
     JRadioButton type2 = new JRadioButton("Type 2");
@@ -21,7 +21,7 @@ public class diabetesTab extends JPanel {
     JRadioButton admin3 = new JRadioButton("Pump");
 
     public diabetesTab(){
-        // https://www.codejava.net/java-se/swing/jpanel-basic-tutorial-and-examples
+        /* Reference 1 - https://www.codejava.net/java-se/swing/jpanel-basic-tutorial-and-examples */
         JPanel newPanel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.fill = GridBagConstraints.HORIZONTAL;
@@ -97,5 +97,68 @@ public class diabetesTab extends JPanel {
         add(newPanel);
     }
 
+    public void getDiabetes()
+    {
+        int i = 0;
+        if (type1.isSelected() == true)
+        {
+            i = 1;
+            String dbtype = "Type 1";
+            System.out.println("Diabetes Type: "+ dbtype);
+        }
+        else if (type2.isSelected() == true)
+        {
+            i = 2;
+            String dbtype = "Type 2";
+            System.out.println("Diabetes Type: "+ dbtype);
+        }
+        ///////////////////////////////////////////////////////////////////////////////////////////////
+        int j = 0;
+        if (insulin1.isSelected() == true)
+        {
+            j = 1;
+            String intype = "Rapid-acting insulin";
+            System.out.println("Insulin Type: "+ intype);
+        }
+        else if (insulin2.isSelected() == true)
+        {
+            j = 2;
+            String intype = "Short-acting insulin";
+            System.out.println("Insulin Type: "+ intype);
+        }
+        else if (insulin3.isSelected() == true)
+        {
+            j = 3;
+            String intype = "Intermediate-acting insulin";
+            System.out.println("Insulin Type: "+ intype);
+        }
+        else if (insulin4.isSelected() == true)
+        {
+            j = 4;
+            String intype = "Long-acting insulin";
+            System.out.println("Insulin Type: "+ intype);
+        }
+        ///////////////////////////////////////////////////////////////////////////////////////////////
+        int k = 0;
+        if (admin1.isSelected() == true)
+        {
+            k = 1;
+            String intype = "Pen";
+            System.out.println("Administration Type: "+ intype);
+        }
+        else if (admin2.isSelected() == true)
+        {
+            k = 2;
+            String intype = "Injection";
+            System.out.println("Administration Type: "+ intype);
+        }
+        else if (admin3.isSelected() == true)
+        {
+            k = 3;
+            String intype = "Pump";
+            System.out.println("Administration Type: "+ intype);
+        }
+
+    }
 }
 

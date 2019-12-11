@@ -1,27 +1,29 @@
-package drawingUI.detailsPage;
+package drawingUI.detailsPage; //Part of the detailsPage Package
+//Java classes imports (JDK)
+import drawingUI.emailPage.emailPanel;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class personalTab extends JPanel {
-
+    // Declare all the components included on the tab
     JLabel fnamelabel = new JLabel("First Name: ");
-    JTextField fnametext = new JTextField(20);
+    public static JTextField fnametext = new JTextField(20);
 
     JLabel lnamelabel = new JLabel("Last Name: ");
-    JTextField lnametext = new JTextField(20);
+    public static JTextField lnametext = new JTextField(20);
 
     JLabel emaillabel = new JLabel("Email: ");
-    JTextField emailtext = new JTextField(20);
+    public static JTextField emailtext = new JTextField(20);
 
     JLabel addresslabel = new JLabel("Address: ");
-    JTextField addresstext = new JTextField(20);
+    public static JTextField addresstext = new JTextField(20);
 
     JLabel phonelabel = new JLabel("Emergency Phone: ");
-    JTextField phonetext = new JTextField(20);
+    public static JTextField phonetext = new JTextField(20);
 
     public personalTab(){
-        // https://www.codejava.net/java-se/swing/jpanel-basic-tutorial-and-examples
+        /* Reference 1 - https://www.codejava.net/java-se/swing/jpanel-basic-tutorial-and-examples */
         JPanel newPanel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.fill = GridBagConstraints.HORIZONTAL;
@@ -49,6 +51,7 @@ public class personalTab extends JPanel {
         newPanel.add(emaillabel, constraints);
 
         constraints.gridx = 1;
+        emailtext.setText(emailPanel.etext.getText());
         newPanel.add(emailtext, constraints);
 
         //Address Field -----------------------------------------------------------------------------
@@ -68,6 +71,24 @@ public class personalTab extends JPanel {
         newPanel.add(phonetext, constraints);
 
         add(newPanel);
+    }
+
+    public void getPersonal()
+    {
+        String first = fnametext.getText();
+        System.out.println("First Name: "+ first);
+
+        String last = lnametext.getText();
+        System.out.println("Last Name: "+ last);
+
+        String email = emailtext.getText();
+        System.out.println("Email: "+ email);
+
+        String address = addresstext.getText();
+        System.out.println("Address: "+ address);
+
+        String phone = phonetext.getText();
+        System.out.println("Phone: "+ phone);
     }
 
 }

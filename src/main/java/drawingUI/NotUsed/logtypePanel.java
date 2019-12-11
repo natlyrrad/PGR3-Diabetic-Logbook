@@ -1,7 +1,7 @@
-package drawingUI.logPage;
+package drawingUI.NotUsed;
 
-import drawingUI.entryPage.CompUI;
-import drawingUI.entryPage.EntryPanel;
+import drawingUI.entryPage.EntryUIController;
+import drawingUI.entryPage.CompPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -38,18 +38,8 @@ public class logtypePanel extends JPanel {
         method1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                //Here is the frame for the actual log itself
-                //create new frame
-                JFrame frame= new JFrame("Blood Sugar Level Input");
-                frame.setSize(700,300);
-                frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-                //add panel to frame
-                EntryPanel mainPanel = new EntryPanel();
-                frame.getContentPane().add(mainPanel);
-
-                frame.setVisible(true);
+                EntryUIController b = new EntryUIController();
+//                b.show();
             }
         });
 
@@ -73,7 +63,7 @@ public class logtypePanel extends JPanel {
                 frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
                 //add panel to frame
-                CompUI mainPanel = new CompUI();
+                CompPanel mainPanel = new CompPanel();
                 frame.getContentPane().add(mainPanel);
 
                 frame.setVisible(true);
