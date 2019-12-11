@@ -87,7 +87,7 @@ public class EntryPanel extends JPanel implements ActionListener{               
                 //if(ibsl>9){
                 //    jakartaMailAPI email=new jakartaMailAPI();
                 //    try {
-                //        email.sendMail("Rayven1998@outlook.com");
+                //        email.sendMail(doctorTab.emailText.getText());
                 //    } catch (Exception ex) {
                 //        ex.printStackTrace();
                 //    }
