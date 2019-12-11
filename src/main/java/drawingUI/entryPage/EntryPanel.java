@@ -78,7 +78,18 @@ public class EntryPanel extends JPanel implements ActionListener{               
                 String m1 = String.join(";" , id, dt, bsl.getInfo(), " ", " ");
                 String m2 = String.join(";" , id, dt, bsl.getInfo(), p2.getMed(), p2.getFood());
                 String m3 = String.join(";" , id, dt, bsl.getInfo(), p3.getMed(), p3.getFood());
-
+                
+                //Alert if blood sugar level is high
+                //int ibsl= Integer.parseInt(bsl.getInfo());
+                //if(ibsl>9){
+                //    jakartaMailAPI email=new jakartaMailAPI();
+                //    try {
+                //        email.sendMail("Rayven1998@outlook.com");
+                //    } catch (Exception ex) {
+                //        ex.printStackTrace();
+                //    }
+                //}
+                
                 //push details under different condition
                 if (met == 0){
 //                    pushEntryDetails(m1);
