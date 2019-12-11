@@ -109,7 +109,7 @@ public class EntryPanel extends JPanel implements ActionListener{               
 
                 //return to log page
                 JFrame logFrame= new JFrame(gc); // Create a new JFrame
-                logFrame.setSize(900,700);
+                logFrame.setSize(800,900);
 
                 LogUIController uihis = new LogUIController(logFrame);
 
