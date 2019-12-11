@@ -38,4 +38,34 @@ public class pullAzure {
         }
         return verifyStatus;
     }
+
+    public static void pullEntryDetails(String userID) {
+//        SQLDatabase.pullAzure.pullEntryDetails("12");
+        Connection connection;
+        boolean verifyStatus = false;
+
+        try {
+            connection = DriverManager.getConnection(url);
+
+            // Create and execute a SELECT SQL statement.
+            String selectSql = String.format("SELECT * FROM entryDetails WHERE userID='%s'", userID);
+
+            try (Statement statement = connection.createStatement();
+                 ResultSet resultSet = statement.executeQuery(selectSql)) {
+
+                while (resultSet.next()) {
+                    System.out.println(resultSet.getString(2) + ";"
+                            + resultSet.getString(3) + ";" + resultSet.getString(4) + ";"
+                    + resultSet.getString(5) + ";" + resultSet.getString(6) + ";"
+                            + resultSet.getString(7) + ";" + resultSet.getString(8) + ";"
+                    + resultSet.getString(9));
+                }
+
+                connection.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
+
