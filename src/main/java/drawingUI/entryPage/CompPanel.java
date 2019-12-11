@@ -19,7 +19,7 @@ public class CompPanel extends JPanel {
     }
 
     public String getMed(){                                     //pass on data
-        String m = "Default med, " + med.getInfo();             //get default med
+        String m = "Default med; " + med.getInfo();             //get default med
         return m;
     }
 

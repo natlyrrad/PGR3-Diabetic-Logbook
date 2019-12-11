@@ -39,10 +39,10 @@ public class pushAzure {
     }
 
     public static void pushEntryDetails(String entryDetails) {
-        String[] entryArray = entryDetails.split(";");
+        String[] entryArray = entryDetails.split(";", -2);
         String queryStatement = String.format("INSERT INTO entryDetails " +
-                        "VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s');", entryArray[0],
-                entryArray[1], entryArray[2], entryArray[3], entryArray[4], entryArray[5], entryArray[6]);
+                        "VALUES ('%s', '%s', '%s', '%s', '%s', '%s');", entryArray[0],
+                entryArray[1], entryArray[2], entryArray[3], entryArray[4], entryArray[5]);
 
         push(queryStatement);
     }

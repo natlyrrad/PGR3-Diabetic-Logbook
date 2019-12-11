@@ -100,7 +100,7 @@ public class IntenPanel<first> extends JPanel{
     }
 
     String getMed(){
-        String m = meds.getSelectedItem().toString() +":" + dose.getText();
+        String m = meds.getSelectedItem().toString() +";" + dose.getText();
         return m;
     }
 
