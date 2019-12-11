@@ -41,20 +41,20 @@ public class table extends JPanel {
         p1.add(ttext);
 
         JPanel p2 = new JPanel(new GridLayout(5, 1));
-        p2.setPreferredSize(new Dimension(500, 500));
+        p2.setPreferredSize(new Dimension(700, 600));
 
         String[] amounts = {"50", "10", "150", "54", "85", "65"};
 
         for (int i=0; i<5; i++)
         {
-            miniTable mtable = new miniTable("12:25", "5.5", amounts);
+            miniTable mtable = new miniTable("12:25", "5.5", amounts, "insulin");
             JScrollPane scrollPane = new JScrollPane(mtable);
             mtable.setFillsViewportHeight(true);
             p2.add(scrollPane);
         }
 
         JPanel p3 = new JPanel(new GridLayout(1, 1));
-        p3.setPreferredSize(new Dimension(500, 100));
+        p3.setPreferredSize(new Dimension(700, 100));
 
         JTextArea textbox = new JTextArea("Additional comments: ",50, 60);
         Border border = BorderFactory.createLineBorder(Color.BLACK);

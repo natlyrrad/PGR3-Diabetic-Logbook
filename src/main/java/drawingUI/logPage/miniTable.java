@@ -8,19 +8,20 @@ import javax.swing.table.TableColumnModel;
 import java.awt.*;
 
 public class miniTable extends JTable {
-    String[] header = { "Time","Blood sugar(MMol/L)", "Food Type", "Amount(g)"};
+    String[] header = { "Time","Blood sugar(MMol/L)", "Food Type", "Amount(g)", "Medication"};
     Object[][] data  = new Object[1][header.length];
 
-    public miniTable(String time, String sugar, String[] amount)
+    public miniTable(String time, String sugar, String[] amount, String med)
     {
         /* Reference - http://blog.marcnuri.com/displaying-a-jtable-inside-another-jtable-jtable-cellrenderer/*/
         data[0][0] = time;
         data[0][1] = sugar;
 
-        String[] types = {"Complex Carbs (fibre)", "Simple Carbs (sugar)",
+        String[] types = {"Complex Carbs (fiber)", "Simple Carbs (sugar)",
                 "Fats", "Protein", "Fruit & Veg", "Dairy"};
         data[0][2] = types;
         data[0][3] = amount;
+        data[0][4] = med;
 
         /* First we create the main model
 	    We overide the AbstractTableModel necessary methods*/
@@ -59,7 +60,7 @@ public class miniTable extends JTable {
             if (i == 2) {
                 column.setPreferredWidth(200); //third column is bigger
             } else {
-                column.setPreferredWidth(100);
+                column.setPreferredWidth(140);
             }
         }
 
