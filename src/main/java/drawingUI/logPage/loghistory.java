@@ -10,6 +10,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static drawingUI.emailPage.emailPanel.etext;
+
 public class loghistory extends JPanel {
 
     static GraphicsConfiguration gc; // Class field containing config info
@@ -93,7 +95,7 @@ public class loghistory extends JPanel {
 //                // This next line closes the program when the frame is closed
 //                g_frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-                PlotGraph chart = new PlotGraph("title", "id:123");
+                PlotGraph chart = new PlotGraph("title", SQLDatabase.pullAzure.pullUserID(etext.getText()));
                 chart.pack();
                 chart.setVisible(true);
 
