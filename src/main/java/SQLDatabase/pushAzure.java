@@ -51,3 +51,5 @@ public class pushAzure {
 
 //SQLDatabase.pushAzure.pushUserDetails("here;now;@mail.com;SSS777;123;Type 1;insuline type;pen;@doctor;FFF" +
 //        ";333");
+
+//            SQLDatabase.pushAzure.pushEntryDetails("12;2019-12-11 00:12:12;11.1;meat;12.3;Type 2;44.4;exercise;comment");
