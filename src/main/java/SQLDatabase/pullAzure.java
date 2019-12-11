@@ -11,7 +11,7 @@ public class pullAzure {
     public static String user = "logBookAdmin"; // update me
     public static String password = "fTG*U@QL"; // update me
     public static String url = String.format("jdbc:sqlserver://%s:1433;database=%s;user=%s;password=%s;encrypt=true;"
-            + "hostNameInCertificate=*.database.windows.net;loginTimeout=10;", hostName, dbName, user, password);
+            + "hostNameInCertificate=*.database.windows.net;loginTimeout=5;", hostName, dbName, user, password);
 
     public static boolean verifyEmail(String email) {
 //        System.out.println(SQLDatabase.pullAzure.verifyEmail("dasdadasd"));

@@ -48,7 +48,7 @@ public class detailsPanel extends JPanel
                 //Following called methods will store the input selections into strings
                 String detail = String.join(";", ptab.getPersonal(), dtab.getDiabetes(), doctab.getDoctor());
                 System.out.println(detail);
-                pushUserDetails(detail);
+//                pushUserDetails(detail);
 
                 //create new frame to loghistory
                 JFrame logframe= new JFrame(); // Create a new JFrame

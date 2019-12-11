@@ -36,7 +36,7 @@ public class EntryPanel extends JPanel implements ActionListener{               
 
     public EntryPanel(){
         //set labels of entries
-        date.setText("   Date: " + ltext.getText());
+        date.setText("  Date: " + ltext.getText());
         date.setForeground(Color.red);
         date.setFont(new Font("Dialog", Font.BOLD, 13));
 
@@ -67,21 +67,24 @@ public class EntryPanel extends JPanel implements ActionListener{               
         enter.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                String m1 = String.join(";" ,ltext.getText(), time.getInfo(), bsl.getInfo());
-                String m2 = String.join(";" ,ltext.getText(), time.getInfo(), bsl.getInfo(), p2.getMed(), p2.getFood());
-                String m3 = String.join(";" ,ltext.getText(), time.getInfo(), bsl.getInfo(), p3.getMed(), p3.getFood());
+                //set date time as one single entry
+                String dt = ltext.getText() + time.getInfo();
+                //create three strings for three conditions
+                String m1 = String.join(";" , dt, bsl.getInfo(), " ", " ");
+                String m2 = String.join(";" , dt, bsl.getInfo(), p2.getMed(), p2.getFood());
+                String m3 = String.join(";" , dt, bsl.getInfo(), p3.getMed(), p3.getFood());
 
-
+                //push details under different condition
                 if (met == 0){
-                    pushEntryDetails(m1);
+//                    pushEntryDetails(m1);
                     System.out.println(m1);
                 }
                 if (met == 1){
-                    pushEntryDetails(m2);
+//                    pushEntryDetails(m2);
                     System.out.println(m2);
                 }
                 if (met == 2){
-                    pushEntryDetails(m3);
+//                    pushEntryDetails(m3);
                     System.out.println(m3);
                 }
 

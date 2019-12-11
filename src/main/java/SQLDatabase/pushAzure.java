@@ -10,7 +10,7 @@ public class pushAzure {
     public static String user = "logBookAdmin"; // update me
     public static String password = "fTG*U@QL"; // update me
     public static String url = String.format("jdbc:sqlserver://%s:1433;database=%s;user=%s;password=%s;encrypt=true;"
-            + "hostNameInCertificate=*.database.windows.net;loginTimeout=30;", hostName, dbName, user, password);
+            + "hostNameInCertificate=*.database.windows.net;loginTimeout=5;", hostName, dbName, user, password);
 
     public static void push(String query) {
         Connection connection;
