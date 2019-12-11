@@ -50,7 +50,7 @@ public class detailsPanel extends JPanel
                 doctab.getDoctor();
 
                 JFrame logframe= new JFrame(); // Create a new JFrame
-                logframe.setSize(900,700);
+                logframe.setSize(750,700);
 
                 LogUIController uilog = new LogUIController(logframe);
 

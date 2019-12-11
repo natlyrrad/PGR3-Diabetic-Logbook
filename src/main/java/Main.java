@@ -4,9 +4,6 @@ import drawingUI.emailPage.EmailUIController;
 import javax.swing.*;
 import java.awt.*;
 
-import static drawingUI.emailPage.emailPanel.etext;
-import static drawingUI.emailPage.emailPanel.setEmail;
-
 public class Main {
 
     static GraphicsConfiguration gc; // Class field containing config info

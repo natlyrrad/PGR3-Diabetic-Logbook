@@ -10,6 +10,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+import static drawingUI.logPage.table.ltext;
+
 
 public class EntryPanel extends JPanel implements ActionListener{                        //shows date, select time, button to pick method, back and enter
 
@@ -35,7 +37,7 @@ public class EntryPanel extends JPanel implements ActionListener{               
         //set labels of entries
         date.setForeground(Color.red);
         date.setFont(new Font("Dialog", Font.BOLD, 13));
-
+        date.setText(ltext.getText());
 
         //button actions for back and enter
         back.addActionListener(new ActionListener(){
