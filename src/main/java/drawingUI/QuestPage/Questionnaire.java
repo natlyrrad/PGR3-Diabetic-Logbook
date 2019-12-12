@@ -1,15 +1,11 @@
-package QuestPage;
+package drawingUI.QuestPage;
 
-import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 import drawingUI.logPage.LogUIController;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-
-import javax.swing.*;
 
 
 public class Questionnaire extends JPanel {
@@ -89,22 +85,22 @@ public class Questionnaire extends JPanel {
         int count2 = 0;
         int count3 = 0;
 
-        String x = JComboBox.getSelectedItem().toString();
-        if (x == "1")
-        {
-            count1++;
-            System.out.println("The number of 1's chosen are:" + count1);
-        }
-        else if (x == "2")
-        {
-            count2++;
-            System.out.println("The number of 2's chosen are:" + count2);
-        }
-       else if (x == "3")
-        {
-            count3++;
-            System.out.println("The number of 3's chosen are:" + count3);
-        }
+//        String x = JComboBox.getSelectedItem().toString();
+//        if (x == "1")
+//        {
+//            count1++;
+//            System.out.println("The number of 1's chosen are:" + count1);
+//        }
+//        else if (x == "2")
+//        {
+//            count2++;
+//            System.out.println("The number of 2's chosen are:" + count2);
+//        }
+//       else if (x == "3")
+//        {
+//            count3++;
+//            System.out.println("The number of 3's chosen are:" + count3);
+//        }
 
 
 

@@ -1,6 +1,6 @@
 package drawingUI.logPage;
 
-import QuestPage.Questionnaire;
+import drawingUI.QuestPage.Questionnaire;
 import drawingUI.Graph.PlotGraph;
 import drawingUI.calendarPage.CalendarUIController;
 import drawingUI.detailsPage.DetailsUIController;
@@ -146,7 +146,7 @@ public class loghistory extends JPanel {
                 JFrame details_frame= new JFrame(gc); // Create a new JFrame
                 details_frame.setSize(500,450);
 
-                QuestPage.Questionnaire q = new Questionnaire();
+                drawingUI.QuestPage.Questionnaire q = new Questionnaire();
                 q.setVisible(true);
                 details_frame.add(q);
                 details_frame.setVisible(true);
