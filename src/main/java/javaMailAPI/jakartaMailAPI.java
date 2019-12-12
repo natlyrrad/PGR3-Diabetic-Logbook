@@ -32,7 +32,7 @@ public class jakartaMailAPI {
         Message message = prepareMessagae(session, myAccountEmail, recepient);
 
         Transport.send(message);
-        System.out.println("wokrs bitch");
+        System.out.println("SENT");
     }
 
     private static Message prepareMessagae(Session session, String myAccountEmail, String recepient) {
@@ -40,7 +40,7 @@ public class jakartaMailAPI {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(myAccountEmail));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(recepient));
-            message.setText("PLS WORK");
+            message.setText("Blood Sugar Level above normal amount levels.");
             return message;
         } catch (Exception e) {
             return null;
