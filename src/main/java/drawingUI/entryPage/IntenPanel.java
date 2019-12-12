@@ -94,7 +94,6 @@ public class IntenPanel<first> extends JPanel{
             }
         });
 
-
         Border border = BorderFactory.createLineBorder(Color.BLACK);
         medlog.setBorder(border);
         fdPanel.setBorder(border);

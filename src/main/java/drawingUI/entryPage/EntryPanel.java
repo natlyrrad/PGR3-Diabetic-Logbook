@@ -208,7 +208,6 @@ public class EntryPanel extends JPanel implements ActionListener{               
         c.gridx = 2;
         c.gridy = 6;
         add(enter, c);
-
     }
 
     //radio buttons to select method
@@ -233,5 +232,4 @@ public class EntryPanel extends JPanel implements ActionListener{               
             met = 2;
         }
     }
-
 }
