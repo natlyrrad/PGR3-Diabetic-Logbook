@@ -1,5 +1,7 @@
 package drawingUI.logPage;
 
+import drawingUI.entryPage.FoodPanel;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.plaf.DimensionUIResource;
@@ -12,10 +14,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class table extends JPanel {
+public class table<first> extends JPanel {
 
     JLabel l = new JLabel("Date: ");
     public static JTextField ltext = new JTextField(10);
@@ -27,6 +30,13 @@ public class table extends JPanel {
     int year = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);; // Get current Year
 
     String[] header = { "Time","Blood sugar(MMol/L)", "Food Type", "Amount(g)"};
+
+    //ArrayLists to collect data
+    int counter = 0;
+    ArrayList<String> exerciseList = new ArrayList<>();
+    ArrayList<ExercisePanel> entryList = new ArrayList<>();
+
+    JButton addExercise = new JButton("Add Exercise");
 
     public table()
     {
@@ -56,17 +66,42 @@ public class table extends JPanel {
         }
 
         //panel for exercise
-        JPanel pEx = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JLabel ex = new JLabel("Type of Exercise: ");
-        String[] type = {"Running", "Weights", "Other Activities"};
-        JComboBox exCombo = new JComboBox(type);
-        JLabel d = new JLabel("Duration (min): ");
-        JTextField duration = new JTextField(5);
+        JPanel pEx = new JPanel(new GridLayout());
 
-        pEx.add(ex);
-        pEx.add(exCombo);
-        pEx.add(d);
-        pEx.add(duration);
+        JPanel exPanel = new JPanel(new GridBagLayout());
+
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(1, 1, 1, 1);          //From maria
+
+        entryList.add(new ExercisePanel());
+
+        c.gridx = 0;
+        c.gridy = 0;
+        exPanel.add(entryList.get(0), c);
+
+        //add exercise button
+        addExercise.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                counter = counter + 1;
+                entryList.add(counter, new ExercisePanel());
+
+                //remove all then add new components
+                exPanel.removeAll();
+                for(int i=0; i<(counter+1); i++){
+                    c.gridx = 0;
+                    c.gridy = i+1;
+                    exPanel.add(entryList.get(i), c);
+                }
+
+                //revalidate and display new fdPanel
+                exPanel.revalidate();
+                exPanel.repaint();
+                exPanel.setVisible(true);
+            }
+        });
+        pEx.add(exPanel, constraints);
 
         //panel for additional comments
         JPanel p3 = new JPanel(new GridLayout(1, 1));
@@ -142,21 +177,36 @@ public class table extends JPanel {
         constraints.gridy = 1;
         newPanel.add(p2, constraints);
 
-        constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.gridx = 0;
         constraints.gridy = 2;
-        newPanel.add(pEx, constraints);
-
-        constraints.gridx = 0;
-        constraints.gridy = 3;
         newPanel.add(p3, constraints);
 
         constraints.anchor = GridBagConstraints.CENTER;
         constraints.fill = GridBagConstraints.VERTICAL;
         constraints.gridx = 0;
-        constraints.gridy = 4;
+        constraints.gridy = 3;
         newPanel.add(p4, constraints);
 
-        add(newPanel);
+        constraints.gridy = 4;
+        constraints.anchor = GridBagConstraints.WEST;
+        newPanel.add(addExercise, constraints);
+
+        constraints.gridx = 0;
+        constraints.gridy = 5;
+        newPanel.add(pEx, constraints);
+
+        JScrollPane scrollPane = new JScrollPane(newPanel,   ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setPreferredSize(new Dimension(750, 900));
+
+        add(scrollPane);
+    }
+
+    String getExercise(){
+        String listString = new String();
+        for(int i=0; i<(counter+1); i++){
+            exerciseList.add(i, entryList.get(i).dataEx());
+            listString += (exerciseList.get(i) + ", ");
+        }
+        return listString;
     }
 }

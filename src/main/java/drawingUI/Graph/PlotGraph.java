@@ -1,8 +1,12 @@
 package drawingUI.Graph;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 
+import drawingUI.logPage.LogUIController;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -10,6 +14,7 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.ApplicationFrame;
 
+import javax.swing.*;
 
 
 public class PlotGraph extends ApplicationFrame {
@@ -20,21 +25,48 @@ public class PlotGraph extends ApplicationFrame {
     public static String url = String.format("jdbc:sqlserver://%s:1433;database=%s;user=%s;password=%s;encrypt=true;"
             + "hostNameInCertificate=*.database.windows.net;loginTimeout=30;", hostName, dbName, user, password);
 
-    public PlotGraph(String title,String userid) {
+    // Declares a new Jbutton
+    JButton back = new JButton("Back");
+
+    static GraphicsConfiguration gc; // Class field containing config info
+
+    public PlotGraph(String title,String user)
+    {
         super(title);
         JFreeChart lineChart = ChartFactory.createLineChart(
                 "chartTitle",
                 "Date and time","Blood Sugar Level",
-                createDataset(userid),
+                createDataset(user),
                 PlotOrientation.VERTICAL,
                 true,true,false);
 
         ChartPanel chartPanel = new ChartPanel( lineChart );
         chartPanel.setPreferredSize( new java.awt.Dimension( 560 , 367 ) );
         setContentPane( chartPanel );
+
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //create new frame to loghistory
+                JFrame logframe= new JFrame(gc); // Create a new JFrame
+                logframe.setSize(800,1000);
+
+                LogUIController uilog = new LogUIController(logframe);
+
+                logframe.setVisible(true);
+                //This next line closes the program when the frame is closed
+                logframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+                /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
+                Component component = (Component) e.getSource(); // Get the source of the current component (panel)
+                // declare JFrame currently open as "frame"
+                JFrame frame = (JFrame) SwingUtilities.getRoot(component);
+                frame.setVisible(false); // set current open frame as invisible
+                /* end of reference 2 */
+            }
+        });
+        add(back);
     }
-
-
 
     private DefaultCategoryDataset createDataset(String userid ) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset( );

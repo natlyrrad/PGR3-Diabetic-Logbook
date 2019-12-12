@@ -27,7 +27,7 @@ public class Questionnaire extends JPanel {
             public void actionPerformed(ActionEvent e){
                 //create new frame to loghistory
                 JFrame logframe= new JFrame(); // Create a new JFrame
-                logframe.setSize(800,900);
+                logframe.setSize(800,1000);
 
                 LogUIController uilog = new LogUIController(logframe);
 
