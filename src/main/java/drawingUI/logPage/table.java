@@ -59,7 +59,7 @@ public class table extends JPanel {
         //panel for exercise
         JPanel pEx = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel ex = new JLabel("Type of Exercise: ");
-        String[] type = {"Running", "Weights", "Other Activities"};
+        String[] type = {"Select type", "Running", "Weights", "Other Activities"};
         JComboBox exCombo = new JComboBox(type);
         JLabel d = new JLabel("Duration (min): ");
         JTextField duration = new JTextField(5);
@@ -71,9 +71,9 @@ public class table extends JPanel {
 
         //panel for additional comments
         JPanel p3 = new JPanel(new GridLayout(1, 1));
-        p3.setPreferredSize(new Dimension(700, 100));
+        p3.setPreferredSize(new Dimension(700, 80));
 
-        JTextArea textbox = new JTextArea("Additional comments: ",30, 60);
+        JTextArea textbox = new JTextArea("Additional comments: (e.g. Special activities, stress level...)",20, 60);
         Border border = BorderFactory.createLineBorder(Color.BLACK);
         textbox.setBorder(BorderFactory.createCompoundBorder(border,
                 BorderFactory.createEmptyBorder(10, 10, 10, 10)));
@@ -135,6 +135,7 @@ public class table extends JPanel {
         });
         p4.add(next);
 
+        constraints.insets = new Insets(0, 0, 5, 0);
         constraints.gridx = 0;
         constraints.gridy = 0;
         newPanel.add(p1, constraints);

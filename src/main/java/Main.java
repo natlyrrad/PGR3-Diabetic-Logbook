@@ -14,9 +14,9 @@ public class Main {
             JFrame email_frame= new JFrame(gc); // Create a new JFrame that will contain the email frame
             email_frame.setSize(500,300); // set size of frame
 //            //Create a new class object that contains the email frame UI
-//        EmailUIController e = new EmailUIController(email_frame);
-            loghistory log = new loghistory();
-            email_frame.add(log);
+        EmailUIController e = new EmailUIController(email_frame);
+//            loghistory log = new loghistory();
+//            email_frame.add(log);
             //Set frame as VISIBLE
             email_frame.setVisible(true);
             //This next line closes the program when the frame is closed

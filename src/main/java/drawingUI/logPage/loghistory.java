@@ -171,6 +171,7 @@ public class loghistory extends JPanel {
         constraints.gridy = 0;
         newPanel.add(bp, constraints);
 
+        constraints.insets = new Insets(5, 10, 0, 10);
         constraints.gridx = 0;
         constraints.gridy = 2;
         constraints.gridwidth = 3;
