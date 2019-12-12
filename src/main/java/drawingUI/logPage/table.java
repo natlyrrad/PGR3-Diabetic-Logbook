@@ -24,6 +24,7 @@ public class table<first> extends JPanel {
     public static JTextField ltext = new JTextField(10);
     JLabel t = new JLabel("Time: ");
     public static JTextField ttext = new JTextField(10);
+    JButton save = new JButton("Save");
 
     int day = java.util.Calendar.getInstance().get(Calendar.DAY_OF_MONTH); // Get current Day
     int month = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH); // Get current Month
@@ -181,19 +182,26 @@ public class table<first> extends JPanel {
         constraints.gridy = 2;
         newPanel.add(p3, constraints);
 
-        constraints.anchor = GridBagConstraints.CENTER;
-        constraints.fill = GridBagConstraints.VERTICAL;
-        constraints.gridx = 0;
         constraints.gridy = 3;
-        newPanel.add(p4, constraints);
-
-        constraints.gridy = 4;
         constraints.anchor = GridBagConstraints.WEST;
         newPanel.add(addExercise, constraints);
 
         constraints.gridx = 0;
-        constraints.gridy = 5;
+        constraints.gridy = 4;
         newPanel.add(pEx, constraints);
+
+        constraints.insets = new Insets(3, 0, 7, 0);
+        constraints.fill = GridBagConstraints.VERTICAL;
+        constraints.anchor = GridBagConstraints.EAST;
+        constraints.gridx = 0;
+        constraints.gridy = 5;
+        newPanel.add(save, constraints);
+
+        constraints.insets = new Insets(0, 0, 0, 0);
+        constraints.anchor = GridBagConstraints.CENTER;
+        constraints.gridx = 0;
+        constraints.gridy = 6;
+        newPanel.add(p4, constraints);
 
         JScrollPane scrollPane = new JScrollPane(newPanel,   ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setPreferredSize(new Dimension(750, 900));
