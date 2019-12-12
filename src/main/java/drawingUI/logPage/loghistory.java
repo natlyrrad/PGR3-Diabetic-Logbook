@@ -145,7 +145,7 @@ public class loghistory extends JPanel {
                 System.out.println("View questionnaire");
 
                 JFrame details_frame= new JFrame(gc); // Create a new JFrame
-                details_frame.setSize(500,450);
+                details_frame.setSize(800,900);
 
                 drawingUI.QuestPage.Questionnaire q = new Questionnaire();
                 q.setVisible(true);
