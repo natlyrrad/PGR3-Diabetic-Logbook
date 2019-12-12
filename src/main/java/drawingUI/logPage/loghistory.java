@@ -7,6 +7,7 @@ import drawingUI.detailsPage.DetailsUIController;
 import drawingUI.entryPage.EntryUIController;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -175,6 +176,11 @@ public class loghistory extends JPanel {
         constraints.gridwidth = 3;
         constraints.anchor = GridBagConstraints.CENTER;
         newPanel.add(t, constraints);
+
+//        BorderLayout b = new BorderLayout();
+//        newPanel.setLayout(b);
+//        JScrollPane jsp = new JScrollPane(newPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,   ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+//        add(jsp);
 
         add(newPanel);
     }

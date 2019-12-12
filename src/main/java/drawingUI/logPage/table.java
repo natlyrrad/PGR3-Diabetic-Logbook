@@ -21,6 +21,7 @@ public class table extends JPanel {
     public static JTextField ltext = new JTextField(10);
     JLabel t = new JLabel("Time: ");
     public static JTextField ttext = new JTextField(10);
+    JButton save = new JButton("Save");
 
     int day = java.util.Calendar.getInstance().get(Calendar.DAY_OF_MONTH); // Get current Day
     int month = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH); // Get current Month
@@ -42,12 +43,12 @@ public class table extends JPanel {
         p1.add(ttext);
 
         //panel for tables
-        JPanel p2 = new JPanel(new GridLayout(5, 1));
-        p2.setPreferredSize(new Dimension(700, 600));
+        JPanel p2 = new JPanel(new GridLayout(4, 1));
+        p2.setPreferredSize(new Dimension(700, 500));
 
         String[] amounts = {"50", "10", "150", "54", "85", "65"};
 
-        for (int i=0; i<5; i++)
+        for (int i=0; i<4; i++)
         {
             miniTable mtable = new miniTable("12:25", "5.5", amounts, "insulin");
             JScrollPane scrollPane = new JScrollPane(mtable);
@@ -142,19 +143,28 @@ public class table extends JPanel {
         constraints.gridy = 1;
         newPanel.add(p2, constraints);
 
+        constraints.insets = new Insets(10, 0, 2, 0);
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.gridx = 0;
         constraints.gridy = 2;
         newPanel.add(pEx, constraints);
 
+        constraints.insets = new Insets(0, 0, 0, 0);
         constraints.gridx = 0;
         constraints.gridy = 3;
         newPanel.add(p3, constraints);
 
-        constraints.anchor = GridBagConstraints.CENTER;
+        constraints.insets = new Insets(3, 0, 7, 0);
         constraints.fill = GridBagConstraints.VERTICAL;
+        constraints.anchor = GridBagConstraints.EAST;
         constraints.gridx = 0;
         constraints.gridy = 4;
+        newPanel.add(save, constraints);
+
+        constraints.insets = new Insets(0, 0, 0, 0);
+        constraints.anchor = GridBagConstraints.CENTER;
+        constraints.gridx = 0;
+        constraints.gridy = 5;
         newPanel.add(p4, constraints);
 
         add(newPanel);
