@@ -4,6 +4,8 @@
     <bytecodeTargetLevel>
       <module name="PGR3-Diabetic-Logbook.pgr3logbook.main" target="1.8" />
       <module name="PGR3-Diabetic-Logbook.pgr3logbook.test" target="1.8" />
+      <module name="pgr3logbook.main" target="1.8" />
+      <module name="pgr3logbook.test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
