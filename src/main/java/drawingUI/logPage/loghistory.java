@@ -5,12 +5,14 @@ import drawingUI.Graph.PlotGraph;
 import drawingUI.calendarPage.CalendarUIController;
 import drawingUI.detailsPage.DetailsUIController;
 import drawingUI.entryPage.EntryUIController;
+import drawingUI.entryPage.FoodPanel;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import static drawingUI.emailPage.emailPanel.etext;
 
@@ -23,11 +25,11 @@ public class loghistory extends JPanel {
     // Declare the buttons included on the panel
     JButton btgraph = new JButton("Graph");
     JButton calendar = new JButton("Calendar");
-    JButton delete = new JButton("Delete");
-    JButton newrow = new JButton("New");
     JButton Questionnaire = new JButton( " Questionnaire");
     JButton btedit = new JButton("Edit Details");
-    table t = new table();
+
+    int lognum = 5;
+    table t = new table(lognum);
 
     public loghistory(){
         JPanel newPanel = new JPanel(new GridBagLayout());
@@ -59,30 +61,6 @@ public class loghistory extends JPanel {
             }
         });
         bp.add(calendar);
-
-        delete.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                System.out.println("Deleting row of data");
-            }
-        });
-        bp.add(delete);
-
-        newrow.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                EntryUIController frame = new EntryUIController();
-                frame.show();
-
-                /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
-                Component component = (Component) e.getSource(); // Get the source of the current component (panel)
-                // declare JFrame currently open as "frame"
-                JFrame f = (JFrame) SwingUtilities.getRoot(component);
-                f.setVisible(false); // set current open frame as invisible
-                /* end of reference 2 */
-            }
-        });
-        bp.add(newrow);
 
         btgraph.addActionListener(new ActionListener() {
             @Override

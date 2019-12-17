@@ -1,14 +1,10 @@
 package drawingUI.logPage;
 
+import drawingUI.entryPage.EntryUIController;
 import drawingUI.entryPage.FoodPanel;
 
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.plaf.DimensionUIResource;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,19 +14,21 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class table<first> extends JPanel {
+public class table extends JPanel {
 
     JLabel l = new JLabel("Date: ");
     public static JTextField ltext = new JTextField(10);
     JLabel t = new JLabel("Time: ");
     public static JTextField ttext = new JTextField(10);
     JButton save = new JButton("Save");
+    JButton delete = new JButton("Delete Recent");
+    JButton newrow = new JButton("New");
+
+    FlowLayout flayout = new FlowLayout();
 
     int day = java.util.Calendar.getInstance().get(Calendar.DAY_OF_MONTH); // Get current Day
     int month = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH); // Get current Month
     int year = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);; // Get current Year
-
-    String[] header = { "Time","Blood sugar(MMol/L)", "Food Type", "Amount(g)"};
 
     //ArrayLists to collect data
     int counter = 0;
@@ -39,7 +37,10 @@ public class table<first> extends JPanel {
 
     JButton addExercise = new JButton("Add Exercise");
 
-    public table()
+    int counter2 = 0;
+    int counter3 = 0;
+
+    public table(int lognum)
     {
         JPanel newPanel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
@@ -51,14 +52,16 @@ public class table<first> extends JPanel {
         p1.add(ltext);
         p1.add(t);
         p1.add(ttext);
+        p1.add(delete);
+        p1.add(newrow);
 
         //panel for tables
-        JPanel p2 = new JPanel(new GridLayout(5, 1));
+        JPanel p2 = new JPanel(new GridLayout(lognum, 1));
         p2.setPreferredSize(new Dimension(700, 600));
 
         String[] amounts = {"50", "10", "150", "54", "85", "65"};
 
-        for (int i=0; i<5; i++)
+        for (int i=0; i<lognum; i++)
         {
             miniTable mtable = new miniTable("12:25", "5.5", amounts, "insulin");
             JScrollPane scrollPane = new JScrollPane(mtable);
@@ -108,7 +111,7 @@ public class table<first> extends JPanel {
         JPanel p3 = new JPanel(new GridLayout(1, 1));
         p3.setPreferredSize(new Dimension(700, 100));
 
-        JTextArea textbox = new JTextArea("Additional comments: (special activities, stress level...)",30, 60);
+        JTextArea textbox = new JTextArea("Additional comments: ",30, 60);
         Border border = BorderFactory.createLineBorder(Color.BLACK);
         textbox.setBorder(BorderFactory.createCompoundBorder(border,
                 BorderFactory.createEmptyBorder(10, 10, 10, 10)));
@@ -170,6 +173,63 @@ public class table<first> extends JPanel {
         });
         p4.add(next);
 
+        delete.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                counter2 = counter2 + 1;
+                for(int i=0; i<(counter2+1); i++)
+                {
+                    int count = lognum - counter2;
+                    p2.removeAll();
+                    for (int j = 0; j < count; j++) {
+                        miniTable mtable = new miniTable("12:25", "5.5", amounts, "insulin");
+                        JScrollPane scrollPane = new JScrollPane(mtable);
+                        mtable.setFillsViewportHeight(true);
+                        p2.add(scrollPane);
+                    }
+                }
+                p2.revalidate();
+                p2.repaint();
+            }
+        });
+
+        newrow.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                EntryUIController frame = new EntryUIController();
+                frame.show();
+
+                /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
+                Component component = (Component) e.getSource(); // Get the source of the current component (panel)
+                // declare JFrame currently open as "frame"
+                JFrame f = (JFrame) SwingUtilities.getRoot(component);
+                f.setVisible(false); // set current open frame as invisible
+                /* end of reference 2 */
+
+                counter3 = counter3 + 1;
+                for(int i=0; i<(counter3+1); i++)
+                {
+                    int count = lognum + counter3;
+                    p2.removeAll();
+                    for (int j = 0; j < count; j++) {
+                        miniTable mtable = new miniTable("12:25", "5.5", amounts, "insulin");
+                        JScrollPane scrollPane = new JScrollPane(mtable);
+                        mtable.setFillsViewportHeight(true);
+                        p2.add(scrollPane);
+                    }
+                }
+                p2.revalidate();
+                p2.repaint();
+            }
+        });
+
+        save.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Saved!");
+            }
+        });
+
         constraints.gridx = 0;
         constraints.gridy = 0;
         newPanel.add(p1, constraints);
@@ -203,7 +263,8 @@ public class table<first> extends JPanel {
         constraints.gridy = 6;
         newPanel.add(p4, constraints);
 
-        JScrollPane scrollPane = new JScrollPane(newPanel,   ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        JScrollPane scrollPane = new JScrollPane(newPanel,
+                ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setPreferredSize(new Dimension(750, 900));
 
         add(scrollPane);

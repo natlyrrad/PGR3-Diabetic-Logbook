@@ -24,11 +24,15 @@ public class IntenPanel<first> extends JPanel{
 
     //ArrayLists to collect data
     int counter = 0;
-    ArrayList<String> foodList = new ArrayList<String>();
-    ArrayList<FoodPanel> entryList = new ArrayList<FoodPanel>();
+    ArrayList<String> foodList = new ArrayList<>();
+    ArrayList<FoodPanel> entryList = new ArrayList<>();
 
 
     public IntenPanel(){
+
+        JPanel newPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();
+
         //medLog layout
         medlog.add(mlabel);
         medlog.add(meds);
@@ -52,21 +56,21 @@ public class IntenPanel<first> extends JPanel{
         GridBagConstraints c1 = new GridBagConstraints();
 //        c1.fill = GridBagConstraints.HORIZONTAL;
         c1.anchor = GridBagConstraints.FIRST_LINE_START;
-        c1.insets = new Insets(5, 0, 5, 10);          //From maria
+        c1.insets = new Insets(1, 1, 1, 1);          //From maria
 
         c1.gridx = 0;
         c1.gridy = 0;
-        add(medlog, c1);
+        newPanel.add(medlog, c1);
 
         c1.gridy = 1;
-        add(fdlabel, c1);
+        newPanel.add(fdlabel, c1);
 
         c1.gridy = 2;
-        add(addFood, c1);
+        newPanel.add(addFood, c1);
 
         c1.gridy = 3;
         c1.gridheight = 5;
-        add(fdPanel, c1);
+        newPanel.add(fdPanel, c1);
 
         //add food button
         addFood.addActionListener(new ActionListener() {
@@ -90,11 +94,15 @@ public class IntenPanel<first> extends JPanel{
             }
         });
 
-
         Border border = BorderFactory.createLineBorder(Color.BLACK);
-        this.setBorder(border);
         medlog.setBorder(border);
         fdPanel.setBorder(border);
+
+        JScrollPane scrollPane = new JScrollPane(newPanel,
+                ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setPreferredSize(new Dimension(400, 250));
+
+        add(scrollPane);
     }
 
     String getMed(){
