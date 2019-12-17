@@ -49,7 +49,7 @@ public class PlotGraph extends ApplicationFrame {
             public void actionPerformed(ActionEvent e) {
                 //create new frame to loghistory
                 JFrame logframe= new JFrame(gc); // Create a new JFrame
-                logframe.setSize(800,1000);
+                logframe.setSize(800,1050);
 
                 LogUIController uilog = new LogUIController(logframe);
 

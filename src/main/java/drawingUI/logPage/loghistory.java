@@ -34,7 +34,7 @@ public class loghistory extends JPanel {
     public loghistory(){
         JPanel newPanel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
-        constraints.insets = new Insets(1, 1, 1, 1);
+        constraints.insets = new Insets(1, 1, 20, 1);
 
         //https://docs.oracle.com/javase/tutorial/displayCode.html?code=https://docs.oracle.com/javase/tutorial/uiswing/examples/layout/FlowLayoutDemoProject/src/layout/FlowLayoutDemo.java
         JPanel bp = new JPanel(new GridLayout(1, 4));
