@@ -108,7 +108,7 @@ public class table<first> extends JPanel {
         JPanel p3 = new JPanel(new GridLayout(1, 1));
         p3.setPreferredSize(new Dimension(700, 100));
 
-        JTextArea textbox = new JTextArea("Additional comments: ",30, 60);
+        JTextArea textbox = new JTextArea("Additional comments: (special activities, stress level...)",30, 60);
         Border border = BorderFactory.createLineBorder(Color.BLACK);
         textbox.setBorder(BorderFactory.createCompoundBorder(border,
                 BorderFactory.createEmptyBorder(10, 10, 10, 10)));

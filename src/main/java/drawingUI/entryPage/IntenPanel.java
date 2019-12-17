@@ -24,8 +24,8 @@ public class IntenPanel<first> extends JPanel{
 
     //ArrayLists to collect data
     int counter = 0;
-    ArrayList<String> foodList = new ArrayList<>();
-    ArrayList<FoodPanel> entryList = new ArrayList<>();
+    ArrayList<String> foodList = new ArrayList<String>();
+    ArrayList<FoodPanel> entryList = new ArrayList<FoodPanel>();
 
 
     public IntenPanel(){
@@ -95,7 +95,6 @@ public class IntenPanel<first> extends JPanel{
         this.setBorder(border);
         medlog.setBorder(border);
         fdPanel.setBorder(border);
-
     }
 
     String getMed(){
