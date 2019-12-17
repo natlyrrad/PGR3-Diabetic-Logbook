@@ -70,7 +70,7 @@ public class emailPanel extends JPanel {
                 else if (email_verify == true)
                 {
                     JFrame logframe= new JFrame(gc); // Create a new JFrame
-                    logframe.setSize(800,1050);
+                    logframe.setSize(800,1020);
 
                     LogUIController uilog = new LogUIController(logframe);
 
