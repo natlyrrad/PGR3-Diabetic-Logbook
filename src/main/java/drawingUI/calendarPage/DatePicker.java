@@ -68,7 +68,7 @@ public class DatePicker extends JPanel
                         dlabel.setText(setPickedDate()); // call the setPickedDate method below to display the date
 
                         JFrame logframe = new JFrame(); // Create a new JFrame
-                        logframe.setSize(800, 1050);
+                        logframe.setSize(800, 1000);
 
                         LogUIController uilog = new LogUIController(logframe);
 

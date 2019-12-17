@@ -26,37 +26,30 @@ public class PlotGraph extends ApplicationFrame {
             + "hostNameInCertificate=*.database.windows.net;loginTimeout=30;", hostName, dbName, user, password);
 
     // Declares a new Jbutton
-    JButton back = new JButton(" << Back ");
+    JButton back = new JButton("Back");
 
     static GraphicsConfiguration gc; // Class field containing config info
 
-    public PlotGraph(String title,String user) {
+    public PlotGraph(String title,String user)
+    {
         super(title);
         JFreeChart lineChart = ChartFactory.createLineChart(
                 "chartTitle",
-                "Date and time", "Blood Sugar Level",
+                "Date and time","Blood Sugar Level",
                 createDataset(user),
                 PlotOrientation.VERTICAL,
-                true, true, false);
+                true,true,false);
 
-        ChartPanel chartPanel = new ChartPanel(lineChart);
-        chartPanel.setPreferredSize(new java.awt.Dimension(560, 367));
-
-        JPanel newPanel = new JPanel(new GridBagLayout()); // create a new panel with GridBagLayout manager
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.anchor = GridBagConstraints.CENTER;
-        constraints.insets = new Insets(10, 10, 10, 10);
-
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        newPanel.add(chartPanel);
+        ChartPanel chartPanel = new ChartPanel( lineChart );
+        chartPanel.setPreferredSize( new java.awt.Dimension( 560 , 367 ) );
+        setContentPane( chartPanel );
 
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //create new frame to loghistory
-                JFrame logframe = new JFrame(gc); // Create a new JFrame
-                logframe.setSize(800, 1050);
+                JFrame logframe= new JFrame(gc); // Create a new JFrame
+                logframe.setSize(800,1000);
 
                 LogUIController uilog = new LogUIController(logframe);
 
@@ -64,7 +57,7 @@ public class PlotGraph extends ApplicationFrame {
                 //This next line closes the program when the frame is closed
                 logframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-                /* Reference 2 - taken from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
+                /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
                 Component component = (Component) e.getSource(); // Get the source of the current component (panel)
                 // declare JFrame currently open as "frame"
                 JFrame frame = (JFrame) SwingUtilities.getRoot(component);
@@ -72,12 +65,7 @@ public class PlotGraph extends ApplicationFrame {
                 /* end of reference 2 */
             }
         });
-        constraints.gridx = 0;
-        constraints.gridy = 2;
-        constraints.anchor = GridBagConstraints.WEST;
-        newPanel.add(back, constraints);
-
-        add(newPanel);
+        add(back);
     }
 
     private DefaultCategoryDataset createDataset(String userid ) {
