@@ -5,11 +5,6 @@ import drawingUI.entryPage.FoodPanel;
 
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.plaf.DimensionUIResource;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -116,7 +111,7 @@ public class table extends JPanel {
         JPanel p3 = new JPanel(new GridLayout(1, 1));
         p3.setPreferredSize(new Dimension(700, 100));
 
-        JTextArea textbox = new JTextArea("Additional comments: (special activities, stress level...)",30, 60);
+        JTextArea textbox = new JTextArea("Additional comments: ",30, 60);
         Border border = BorderFactory.createLineBorder(Color.BLACK);
         textbox.setBorder(BorderFactory.createCompoundBorder(border,
                 BorderFactory.createEmptyBorder(10, 10, 10, 10)));
