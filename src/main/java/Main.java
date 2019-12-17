@@ -1,7 +1,5 @@
 
-import SQLDatabase.pullAzure;
 import drawingUI.emailPage.EmailUIController;
-import drawingUI.logPage.loghistory;
 
 import javax.swing.*;
 import java.awt.*;

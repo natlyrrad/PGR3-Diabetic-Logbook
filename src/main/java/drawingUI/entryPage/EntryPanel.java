@@ -1,8 +1,5 @@
 package drawingUI.entryPage;
 
-import drawingUI.detailsPage.detailsPanel;
-import drawingUI.detailsPage.doctorTab;
-import drawingUI.emailPage.emailPanel;
 import drawingUI.logPage.LogUIController;
 
 import javax.swing.*;

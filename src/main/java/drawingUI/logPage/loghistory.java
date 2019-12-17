@@ -62,19 +62,10 @@ public class loghistory extends JPanel {
         });
         bp.add(calendar);
 
+        /* Button Action: button will open the graph application frame */
         btgraph.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                JFrame g_frame= new JFrame(gc); // Create a new JFrame
-//                g_frame.setSize(600,400);
-//
-//                PlotGraph uigraph = new PlotGraph("title", "id:123");
-//
-//                g_frame.add(uigraph);
-//                g_frame.setVisible(true);
-//                // This next line closes the program when the frame is closed
-//                g_frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
                 PlotGraph chart = new PlotGraph("title", SQLDatabase.pullAzure.pullUserID(etext.getText()));
                 chart.pack();
                 chart.setVisible(true);
@@ -114,12 +105,11 @@ public class loghistory extends JPanel {
         });
         bp.add(btedit);
 
+        /* Button Action: will open the Questionnaire window */
         constraints.gridx = 3;
         Questionnaire.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-
-
                 System.out.println("View questionnaire");
 
                 JFrame details_frame= new JFrame(gc); // Create a new JFrame
@@ -143,8 +133,7 @@ public class loghistory extends JPanel {
         });
         bp.add(Questionnaire);
 
-        ///////////////////////////////////////////////////////////////////////////////////////
-
+        /* Following code will place each component in a specific point on the grid */
         constraints.gridx = 0;
         constraints.gridy = 0;
         newPanel.add(bp, constraints);
@@ -155,11 +144,6 @@ public class loghistory extends JPanel {
         constraints.gridwidth = 3;
         constraints.anchor = GridBagConstraints.CENTER;
         newPanel.add(t, constraints);
-
-//        BorderLayout b = new BorderLayout();
-//        newPanel.setLayout(b);
-//        JScrollPane jsp = new JScrollPane(newPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,   ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-//        add(jsp);
 
         add(newPanel);
     }

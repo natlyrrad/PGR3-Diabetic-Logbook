@@ -1,6 +1,5 @@
 package drawingUI.detailsPage; //Part of the detailsPage Package
 //Java classes imports (JDK)
-import drawingUI.emailPage.emailPanel;
 import drawingUI.logPage.LogUIController;
 
 import javax.swing.*;
