@@ -1,62 +1,61 @@
 package drawingUI;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Font;
+import java.awt.event.ActionListener;
+//w  ww .  ja v  a  2  s . c o m
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.JWindow;
+import javax.swing.Timer;
+import javax.swing.border.EtchedBorder;
 
-public class LoadSplash extends Frame implements ActionListener {
-    static void renderSplashFrame(Graphics2D g, int frame) {
-        final String[] comps = {"foo", "bar", "baz"};
-        g.setComposite(AlphaComposite.Clear);
-        g.fillRect(120, 140, 200, 40);
-        g.setPaintMode();
-        g.setColor(Color.BLACK);
-        g.drawString("Loading " + comps[(frame / 5) % 3] + "...", 120, 150);
-    }
-
-    public LoadSplash() {
-        super("SplashScreen demo");
-        setSize(300, 200);
-        setLayout(new BorderLayout());
-        Menu m1 = new Menu("File");
-        MenuItem mi1 = new MenuItem("Exit");
-        m1.add(mi1);
-        mi1.addActionListener(this);
-        this.addWindowListener(closeWindow);
-
-        MenuBar mb = new MenuBar();
-        setMenuBar(mb);
-        mb.add(m1);
-        final SplashScreen splash = SplashScreen.getSplashScreen();
-        if (splash == null) {
-            System.out.println("SplashScreen.getSplashScreen() returned null");
-            return;
-        }
-        Graphics2D g = splash.createGraphics();
-        if (g == null) {
-            System.out.println("g is null");
-            return;
-        }
-        for (int i = 0; i < 100; i++) {
-            renderSplashFrame(g, i);
-            splash.update();
-            try {
-                Thread.sleep(9000);
-            } catch (InterruptedException e) {
+//http://www.java2s.com/Tutorials/Java/Swing_How_to/JWindow/Create_Swing_Splash_screen_with_progress_bar.htm
+public class LoadSplash extends JWindow {
+    static JProgressBar progressBar = new JProgressBar();
+    static int count = 1, TIMER_PAUSE = 25, PROGBAR_MAX = 100;
+    static Timer progressBarTimer;
+    ActionListener al = new ActionListener() {
+        @Override
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            progressBar.setValue(count);
+            if (PROGBAR_MAX == count) {
+                progressBarTimer.stop();
+                LoadSplash.this.setVisible(false);
+                createAndShowFrame();
             }
-        }
-        splash.close();
-        setVisible(true);
-        toFront();
-    }
-
-    public void actionPerformed(ActionEvent ae) {
-        System.exit(0);
-    }
-
-    private static WindowListener closeWindow = new WindowAdapter() {
-        public void windowClosing(WindowEvent e) {
-            e.getWindow().dispose();
+            count++;
         }
     };
-}
 
+    public LoadSplash() {
+        Container container = getContentPane();
+
+        JPanel panel = new JPanel();
+        panel.setBorder(new EtchedBorder());
+        container.add(panel, BorderLayout.CENTER);
+
+        JLabel label = new JLabel("Hello World!");
+        label.setFont(new Font("Verdana", Font.BOLD, 14));
+        panel.add(label);
+
+        progressBar.setMaximum(PROGBAR_MAX);
+        container.add(progressBar, BorderLayout.SOUTH);
+        pack();
+        setVisible(true);
+        startProgressBar();
+    }
+    private void startProgressBar() {
+        progressBarTimer = new Timer(TIMER_PAUSE, al);
+        progressBarTimer.start();
+    }
+    private void createAndShowFrame() {
+        JFrame frame = new JFrame();
+        frame.setSize(500, 500);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+    }
+}

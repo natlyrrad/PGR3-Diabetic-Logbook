@@ -47,11 +47,23 @@ public class emailPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                boolean email_verify = SQLDatabase.pullAzure.verifyEmail(setEmail());
-
                 //boolean email_verify = false;
 
-                LoadSplash load = new LoadSplash();
+                JWindow window = new JWindow();
+                window.getContentPane().add(
+                        new JLabel("", new ImageIcon("splash.gif"), SwingConstants.CENTER));
+                window.setBounds(500, 150, 300, 200);
+                window.setVisible(true);
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException f) {
+                    f.printStackTrace();
+                }
+                window.setVisible(false);
+
+                boolean email_verify = SQLDatabase.pullAzure.verifyEmail(setEmail());
+
+                window.dispose();
 
                 if (email_verify == false)
                 {
