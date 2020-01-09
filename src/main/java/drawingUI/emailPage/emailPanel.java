@@ -1,4 +1,6 @@
 package drawingUI.emailPage; //Includes the class in the emailPage package
+import drawingUI.LoadSplash;
+import drawingUI.LoadingScreen;
 import drawingUI.detailsPage.DetailsUIController; //imports Details page
 import drawingUI.logPage.LogUIController;
 //Java classes imports (JDK)
@@ -44,9 +46,12 @@ public class emailPanel extends JPanel {
              and set the email page as invisible*/
             @Override
             public void actionPerformed(ActionEvent e) {
-                //boolean email_verify = SQLDatabase.pullAzure.verifyEmail(setEmail());
 
-                boolean email_verify = false;
+                boolean email_verify = SQLDatabase.pullAzure.verifyEmail(setEmail());
+
+                //boolean email_verify = false;
+
+                LoadSplash load = new LoadSplash();
 
                 if (email_verify == false)
                 {
