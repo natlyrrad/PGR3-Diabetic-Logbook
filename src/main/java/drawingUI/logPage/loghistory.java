@@ -28,8 +28,7 @@ public class loghistory extends JPanel {
     JButton Questionnaire = new JButton( " Questionnaire");
     JButton btedit = new JButton("Edit Details");
 
-    int lognum = 5;
-    table t = new table(lognum);
+    table t = new table();
 
     public loghistory(){
         JPanel newPanel = new JPanel(new GridBagLayout());

@@ -1,7 +1,6 @@
 package drawingUI.logPage;
 
 import drawingUI.entryPage.EntryUIController;
-import drawingUI.entryPage.FoodPanel;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -17,9 +16,9 @@ import java.util.Date;
 public class table extends JPanel {
 
     JLabel l = new JLabel("Date: ");
-    public static JTextField ltext = new JTextField(10);
+    public static JTextField ltext = new JTextField(7);
     JLabel t = new JLabel("Time: ");
-    public static JTextField ttext = new JTextField(10);
+    public static JTextField ttext = new JTextField(7);
     JButton save = new JButton("Save");
     JButton delete = new JButton("Delete Recent");
     JButton newrow = new JButton("New");
@@ -32,15 +31,18 @@ public class table extends JPanel {
 
     //ArrayLists to collect data
     int counter = 0;
-    ArrayList<String> exerciseList = new ArrayList<>();
-    ArrayList<ExercisePanel> entryList = new ArrayList<>();
+//    ArrayList<String> exerciseList = new ArrayList<>();
+    ArrayList<ExerciseEntry> entryList = new ArrayList<>();
 
     JButton addExercise = new JButton("Add Exercise");
+
+    //PULL DATA HERE//////////////////////////////////////////////////////////////////////////////////////////////////
+    String[] entry = {"dt1;bsl1;Coke:23,Cheese:34,Chicken:8;med;13", "dt2;bsl1;Carrot cake:56,Coke:23,Cheese:34,Chicken:8;med;13", "dt3;bsl1;Chinese Tea:86,Carrot cake:56,Coke:23,Cheese:34,Chicken:8;med;13"};
 
     int counter2 = 0;
     int counter3 = 0;
 
-    public table(int lognum)
+    public table()
     {
         JPanel newPanel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
@@ -55,19 +57,12 @@ public class table extends JPanel {
         p1.add(delete);
         p1.add(newrow);
 
-        //panel for tables
-        JPanel p2 = new JPanel(new GridLayout(lognum, 1));
-        p2.setPreferredSize(new Dimension(700, 600));
-
-        String[] amounts = {"50", "10", "150", "54", "85", "65"};
-
-        for (int i=0; i<lognum; i++)
-        {
-            miniTable mtable = new miniTable("12:25", "5.5", amounts, "insulin");
-            JScrollPane scrollPane = new JScrollPane(mtable);
-            mtable.setFillsViewportHeight(true);
-            p2.add(scrollPane);
-        }
+        //panel for table
+        JPanel p2 = new JPanel();
+        miniTable mtable = new miniTable(entry);
+        JScrollPane scrollPane = new JScrollPane(mtable);
+        mtable.setFillsViewportHeight(true);
+        p2.add(scrollPane);
 
         //panel for exercise
         JPanel pEx = new JPanel(new GridLayout());
@@ -78,7 +73,7 @@ public class table extends JPanel {
         c.fill = GridBagConstraints.HORIZONTAL;
         c.insets = new Insets(1, 1, 1, 1);          //From maria
 
-        entryList.add(new ExercisePanel());
+        entryList.add(new ExerciseEntry());
 
         c.gridx = 0;
         c.gridy = 0;
@@ -89,7 +84,7 @@ public class table extends JPanel {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 counter = counter + 1;
-                entryList.add(counter, new ExercisePanel());
+                entryList.add(counter, new ExerciseEntry());
 
                 //remove all then add new components
                 exPanel.removeAll();
@@ -109,9 +104,9 @@ public class table extends JPanel {
 
         //panel for additional comments
         JPanel p3 = new JPanel(new GridLayout(1, 1));
-        p3.setPreferredSize(new Dimension(700, 80));
+        p3.setPreferredSize(new Dimension(500, 80));
 
-        JTextArea textbox = new JTextArea("Additional comments: (e.g. Special activities, stress level...)",20, 60);
+        JTextArea textbox = new JTextArea("Additional comments: (e.g. Special activities, stress level...)",20, 70);
         Border border = BorderFactory.createLineBorder(Color.BLACK);
         textbox.setBorder(BorderFactory.createCompoundBorder(border,
                 BorderFactory.createEmptyBorder(10, 10, 10, 10)));
@@ -176,20 +171,18 @@ public class table extends JPanel {
         delete.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                counter2 = counter2 + 1;
-                for(int i=0; i<(counter2+1); i++)
-                {
-                    int count = lognum - counter2;
-                    p2.removeAll();
-                    for (int j = 0; j < count; j++) {
-                        miniTable mtable = new miniTable("12:25", "5.5", amounts, "insulin");
-                        JScrollPane scrollPane = new JScrollPane(mtable);
-                        mtable.setFillsViewportHeight(true);
-                        p2.add(scrollPane);
-                    }
-                }
-                p2.revalidate();
-                p2.repaint();
+//                counter2 = counter2 + 1;
+//                for(int i=0; i<(counter2+1); i++)
+//                {
+//                    int count = lognum - counter2;
+//                    p2.removeAll();
+//                    miniTable mtable = new miniTable(entry);
+//                    JScrollPane scrollPane = new JScrollPane(mtable);
+//                    mtable.setFillsViewportHeight(true);
+//                    p2.add(scrollPane);
+//                }
+//                p2.revalidate();
+//                p2.repaint();
             }
         });
 
@@ -206,20 +199,18 @@ public class table extends JPanel {
                 f.setVisible(false); // set current open frame as invisible
                 /* end of reference 2 */
 
-                counter3 = counter3 + 1;
-                for(int i=0; i<(counter3+1); i++)
-                {
-                    int count = lognum + counter3;
-                    p2.removeAll();
-                    for (int j = 0; j < count; j++) {
-                        miniTable mtable = new miniTable("12:25", "5.5", amounts, "insulin");
-                        JScrollPane scrollPane = new JScrollPane(mtable);
-                        mtable.setFillsViewportHeight(true);
-                        p2.add(scrollPane);
-                    }
-                }
-                p2.revalidate();
-                p2.repaint();
+//                counter3 = counter3 + 1;
+//                for(int i=0; i<(counter3+1); i++)
+//                {
+//                    int count = lognum + counter3;
+//                    p2.removeAll();
+//                    miniTable mtable = new miniTable(entry);
+//                    JScrollPane scrollPane = new JScrollPane(mtable);
+//                    mtable.setFillsViewportHeight(true);
+//                    p2.add(scrollPane);
+//                }
+//                p2.revalidate();
+//                p2.repaint();
             }
         });
 
@@ -264,19 +255,19 @@ public class table extends JPanel {
         constraints.gridy = 6;
         newPanel.add(p4, constraints);
 
-        JScrollPane scrollPane = new JScrollPane(newPanel,
-                ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setPreferredSize(new Dimension(750, 900));
-
-        add(scrollPane);
+//        JScrollPane scrollPane = new JScrollPane(newPanel,
+//                ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+//        scrollPane.setPreferredSize(new Dimension(750, 900));
+        add(newPanel);
+//        add(scrollPane);
     }
 
-    String getExercise(){
-        String listString = new String();
-        for(int i=0; i<(counter+1); i++){
-            exerciseList.add(i, entryList.get(i).dataEx());
-            listString += (exerciseList.get(i) + ", ");
-        }
-        return listString;
-    }
+//    String getExercise(){
+//        String listString = new String();
+//        for(int i=0; i<(counter+1); i++){
+////            exerciseList.add(i, entryList.get(i).dataEx());
+//            listString += (exerciseList.get(i) + ", ");
+//        }
+//        return listString;
+//    }
 }
