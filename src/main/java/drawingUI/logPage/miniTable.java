@@ -9,19 +9,19 @@ import java.awt.*;
 import java.util.Arrays;
 
 public class miniTable extends JTable {
-    String[] header = { "Time","Blood sugar(MMol/L)", "Food Diary", "Medication", "Dosage"};
+    String[] header = { "Time","BSL (MMol/L)", "Food Diary", "Medication", "Dosage"};
 
 
     public miniTable(String[] entries) {
 
         /* Reference - http://blog.marcnuri.com/displaying-a-jtable-inside-another-jtable-jtable-cellrenderer/*/
         int size = entries.length;
-        int col = header.length;
-        Object[][] data  = new Object[size][col];
+        int h = header.length;
+        Object[][] data  = new Object[size][h];
         for(int i = 0; i < (size); i++) {
             String[] str = entries[i].split(";");
             System.out.println(Arrays.toString(data[i]));
-            for(int j = 0; j < (col); j++) {
+            for(int j = 0; j < (h); j++) {
                 if(j==2){
                     String[] food = str[j].split(",");
                     System.out.println(Arrays.toString(food));
@@ -67,7 +67,7 @@ public class miniTable extends JTable {
         setModel(modelo);
 
         TableColumn column = null;
-        for (int i = 0; i < col; i++) {
+        for (int i = 0; i < h; i++) {
             column = getColumnModel().getColumn(i);
             if (i == 2) {
                 column.setPreferredWidth(200); //third column is bigger
