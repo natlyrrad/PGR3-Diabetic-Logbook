@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import drawingUI.logPage.LogUIController;
 import org.jfree.chart.ChartFactory;
@@ -27,6 +28,7 @@ public class PlotGraph extends ApplicationFrame {
 
     // Declares a new Jbutton
     JButton back = new JButton(" << Back ");
+    JButton newGraph= new JButton("Graph for Specific Time Interval");
 
     static GraphicsConfiguration gc; // Class field containing config info
 
@@ -72,6 +74,9 @@ public class PlotGraph extends ApplicationFrame {
                 /* end of reference 2 */
             }
         });
+
+
+
         constraints.gridx = 0;
         constraints.gridy = 2;
         constraints.anchor = GridBagConstraints.WEST;
@@ -110,6 +115,8 @@ public class PlotGraph extends ApplicationFrame {
 
                 // print the results
                 System.out.format("%s,  %s\n", datetime, bsl);
+
+
             }
             st.close();
         }
