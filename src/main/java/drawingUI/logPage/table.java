@@ -1,5 +1,6 @@
 package drawingUI.logPage;
 
+import drawingUI.emailPage.emailPanel;
 import drawingUI.entryPage.EntryUIController;
 
 import javax.swing.*;
@@ -40,9 +41,9 @@ public class table extends JPanel {
     JButton addExercise = new JButton("Add Exercise");
 
     //PULL DATA HERE//////////////////////////////////////////////////////////////////////////////////////////////////
-    int id = 3;
+    String id = emailPanel.userID();
     String[] s = {"dt1;bsl1;Coke:23,Cheese:34,Chicken:8;med;13", "dt2;bsl1;Carrot cake:56,Coke:23,Cheese:34,Chicken:8;med;13", "dt3;bsl1;Chinese Tea:86,Carrot cake:56,Coke:23,Cheese:34,Chicken:8;med;13"};
-    String[] entry = pullAzure.pullEntryDetails(Integer.toString(id));
+    String[] entry = pullAzure.pullEntryDetails(id);
 
     int counter2 = 0;
     int counter3 = 0;
@@ -221,7 +222,7 @@ public class table extends JPanel {
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String str = String.join(";", Integer.toString(id), date.toString(), "Questionnaire score", textbox.getText(), getExercise());
+                String str = String.join(";", id, date.toString(), "Questionnaire score", textbox.getText(), getExercise());
                 /////// push str
                 System.out.println(str);
                 System.out.println("Saved!");

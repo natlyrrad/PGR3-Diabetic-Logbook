@@ -108,7 +108,7 @@ public class emailPanel extends JPanel {
         return email;
     }
 
-    public String userID(){
+    public static String userID(){
         return pullUserID(etext.getText());
     }
 
