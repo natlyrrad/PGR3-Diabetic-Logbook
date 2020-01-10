@@ -3,11 +3,13 @@ package drawingUI.logPage;
 import drawingUI.emailPage.emailPanel;
 import drawingUI.entryPage.EntryUIController;
 
+import javax.security.auth.Refreshable;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Ref;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -47,6 +49,8 @@ public class table extends JPanel {
 
     int counter2 = 0;
     int counter3 = 0;
+    JPanel p1 = new JPanel();   //date time bla bla
+    JPanel p2 = new JPanel();   //minitable
 
     public table()
 
@@ -66,7 +70,6 @@ public class table extends JPanel {
         JPanel newPanel = new JPanel(new GridBagLayout());
 
         //panel for date and time
-        JPanel p1 = new JPanel();
         p1.add(l);
         p1.add(ltext);
         p1.add(t);
@@ -75,7 +78,6 @@ public class table extends JPanel {
         p1.add(newrow);
 
         //Panel 2 for table
-        JPanel p2 = new JPanel();
         miniTable mtable = new miniTable(entry);
         mtable.setFillsViewportHeight(true);
         System.out.println(Arrays.toString(entry));
@@ -153,6 +155,7 @@ public class table extends JPanel {
                 java.util.Calendar cal = java.util.Calendar.getInstance();
                 cal.set(year, month, day);
                 ltext.setText(sdf.format(cal.getTime()));
+                RefreshTable();
             }
         });
         p4.add(previous);
@@ -163,7 +166,9 @@ public class table extends JPanel {
                 DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 Date date = new Date();
                 ltext.setText(dateFormat.format(date));
+                RefreshTable();
             }
+
         });
         p4.add(today);
 
@@ -180,6 +185,7 @@ public class table extends JPanel {
                 java.util.Calendar cal = java.util.Calendar.getInstance();
                 cal.set(year, month, day);
                 ltext.setText(sdf.format(cal.getTime()));
+                RefreshTable();
             }
         });
         p4.add(next);
@@ -274,7 +280,15 @@ public class table extends JPanel {
         grid.anchor = GridBagConstraints.CENTER;
         grid.gridy = 3;
         add(p4, grid);
+    }
 
+    private void RefreshTable() {
+        p2.removeAll();
+        String[] ref = pullAzure.pullEntryDetails(id, ltext.getText());
+        miniTable t = new miniTable(ref);
+        p2.add(t);
+        p2.revalidate();
+        p2.repaint();
     }
 
     String getExercise(){
@@ -286,4 +300,6 @@ public class table extends JPanel {
         }
         return listString;
     }
+
+
 }
