@@ -5,6 +5,9 @@ import drawingUI.entryPage.EntryUIController;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -70,10 +73,13 @@ public class table extends JPanel {
         p1.add(delete);
         p1.add(newrow);
 
+        //add header
+
         //Panel 2 for table
         miniTable mtable = new miniTable(entry);
         mtable.setFillsViewportHeight(true);
         System.out.println(Arrays.toString(entry));
+
         if(Arrays.toString(entry) == "[]"){
             JLabel empty = new JLabel("No entries for today");
             System.out.println(empty);
