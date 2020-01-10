@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import SQLDatabase.pullAzure;
 
 public class table extends JPanel {
 
@@ -37,19 +38,20 @@ public class table extends JPanel {
     JButton addExercise = new JButton("Add Exercise");
 
     //PULL DATA HERE//////////////////////////////////////////////////////////////////////////////////////////////////
-    String[] entry = {"dt1;bsl1;Coke:23,Cheese:34,Chicken:8;med;13", "dt2;bsl1;Carrot cake:56,Coke:23,Cheese:34,Chicken:8;med;13", "dt3;bsl1;Chinese Tea:86,Carrot cake:56,Coke:23,Cheese:34,Chicken:8;med;13"};
+    int id = 3;
+    String[] s = {"dt1;bsl1;Coke:23,Cheese:34,Chicken:8;med;13", "dt2;bsl1;Carrot cake:56,Coke:23,Cheese:34,Chicken:8;med;13", "dt3;bsl1;Chinese Tea:86,Carrot cake:56,Coke:23,Cheese:34,Chicken:8;med;13"};
+    String[] entry = pullAzure.pullEntryDetails(Integer.toString(id));
 
     int counter2 = 0;
     int counter3 = 0;
 
     public table()
+
     {
         JPanel newPanel = new JPanel(new GridBagLayout());
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.insets = new Insets(0, 0, 0, 0);
 
         //panel for date and time
-        JPanel p1 = new JPanel(new GridLayout(1, 4));
+        JPanel p1 = new JPanel();
         p1.add(l);
         p1.add(ltext);
         p1.add(t);
@@ -57,23 +59,34 @@ public class table extends JPanel {
         p1.add(delete);
         p1.add(newrow);
 
-        //panel for table
+        //Panel 2 for table
         JPanel p2 = new JPanel();
         miniTable mtable = new miniTable(entry);
-        JScrollPane scrollPane = new JScrollPane(mtable);
         mtable.setFillsViewportHeight(true);
-        p2.add(scrollPane);
+        p2.add(mtable);
+
+
+        //Panel 3 for additional comments
+        JPanel p3 = new JPanel(new GridLayout(1, 1));
+        p3.setPreferredSize(new Dimension(600, 80));
+
+        JTextArea textbox = new JTextArea("Additional comments: (e.g. Special activities, stress level...)",20, 50);
+        //// if comments arent empty, set comments
+        Border border = BorderFactory.createLineBorder(Color.BLACK);
+        textbox.setBorder(BorderFactory.createCompoundBorder(border,
+                BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+        p3.add(textbox);
+
 
         //panel for exercise
         JPanel pEx = new JPanel(new GridLayout());
 
         JPanel exPanel = new JPanel(new GridBagLayout());
+        entryList.add(new ExerciseEntry());
 
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.HORIZONTAL;
         c.insets = new Insets(1, 1, 1, 1);          //From maria
-
-        entryList.add(new ExerciseEntry());
 
         c.gridx = 0;
         c.gridy = 0;
@@ -100,19 +113,10 @@ public class table extends JPanel {
                 exPanel.setVisible(true);
             }
         });
-        pEx.add(exPanel, constraints);
+        pEx.add(exPanel);
 
-        //panel for additional comments
-        JPanel p3 = new JPanel(new GridLayout(1, 1));
-        p3.setPreferredSize(new Dimension(500, 80));
 
-        JTextArea textbox = new JTextArea("Additional comments: (e.g. Special activities, stress level...)",20, 70);
-        Border border = BorderFactory.createLineBorder(Color.BLACK);
-        textbox.setBorder(BorderFactory.createCompoundBorder(border,
-                BorderFactory.createEmptyBorder(10, 10, 10, 10)));
-        p3.add(textbox);
-
-        //panel for previous, today and next
+        //Panel 4 for previous, today and next
         JPanel p4 = new JPanel(new GridLayout(1, 3));
         JButton previous = new JButton("<< Previous");
         previous.addActionListener(new ActionListener() {
@@ -130,16 +134,6 @@ public class table extends JPanel {
             }
         });
         p4.add(previous);
-
-        // Reference 6 - https://stackoverflow.com/questions/16285019/loading-date-into-jtextfield
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = new Date();
-        ltext.setText(dateFormat.format(date));
-
-        DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-        Date time = new Date();
-        ttext.setText(timeFormat.format(time));
-        /* end of reference 6*/
 
         JButton today = new JButton("Today");
         today.addActionListener(new ActionListener() {
@@ -167,6 +161,18 @@ public class table extends JPanel {
             }
         });
         p4.add(next);
+
+        // Reference 6 - https://stackoverflow.com/questions/16285019/loading-date-into-jtextfield
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        ltext.setText(dateFormat.format(date));
+
+        DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+        Date time = new Date();
+        ttext.setText(timeFormat.format(time));
+        /* end of reference 6*/
+
+
 
         delete.addActionListener(new ActionListener(){
             @Override
@@ -199,67 +205,80 @@ public class table extends JPanel {
                 f.setVisible(false); // set current open frame as invisible
                 /* end of reference 2 */
 
-//                counter3 = counter3 + 1;
-//                for(int i=0; i<(counter3+1); i++)
-//                {
-//                    int count = lognum + counter3;
-//                    p2.removeAll();
-//                    miniTable mtable = new miniTable(entry);
-//                    JScrollPane scrollPane = new JScrollPane(mtable);
-//                    mtable.setFillsViewportHeight(true);
-//                    p2.add(scrollPane);
-//                }
-//                p2.revalidate();
-//                p2.repaint();
             }
         });
 
+        //////////////save questionaire score, additional comments and exercise entries
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String[] str = {textbox.getText()};
+                /////// push str
                 System.out.println("Saved!");
             }
         });
+        save.setToolTipText("Save Questionnaire score, comments and exercise");
 
+        GridBagConstraints constraints = new GridBagConstraints();
         constraints.insets = new Insets(0, 0, 5, 0);
+
+//        constraints.gridx = 0;
+//        constraints.gridy = 0;
+//        newPanel.add(p1, constraints);
+
         constraints.gridx = 0;
         constraints.gridy = 0;
-        newPanel.add(p1, constraints);
-
-        constraints.gridx = 0;
-        constraints.gridy = 1;
         newPanel.add(p2, constraints);
 
-        constraints.gridx = 0;
-        constraints.gridy = 2;
+        constraints.gridy = 1;
         newPanel.add(p3, constraints);
 
-        constraints.gridy = 3;
+        constraints.gridy = 2;
         constraints.anchor = GridBagConstraints.WEST;
         newPanel.add(addExercise, constraints);
 
-        constraints.gridx = 0;
         constraints.gridy = 4;
         newPanel.add(pEx, constraints);
 
-        constraints.insets = new Insets(3, 0, 7, 0);
-        constraints.fill = GridBagConstraints.VERTICAL;
-        constraints.anchor = GridBagConstraints.EAST;
-        constraints.gridx = 0;
-        constraints.gridy = 5;
-        newPanel.add(save, constraints);
+//        constraints.insets = new Insets(3, 0, 7, 0);
+//        constraints.fill = GridBagConstraints.VERTICAL;
+//        constraints.anchor = GridBagConstraints.EAST;
+//        constraints.gridx = 0;
+//        constraints.gridy = 5;
+//        newPanel.add(save, constraints);
 
-        constraints.insets = new Insets(0, 0, 0, 0);
-        constraints.anchor = GridBagConstraints.CENTER;
-        constraints.gridx = 0;
-        constraints.gridy = 6;
-        newPanel.add(p4, constraints);
+//        constraints.insets = new Insets(0, 0, 0, 0);
+//        constraints.anchor = GridBagConstraints.CENTER;
+//        constraints.gridx = 0;
+//        constraints.gridy = 6;
+//        newPanel.add(p4, constraints);
 
-//        JScrollPane scrollPane = new JScrollPane(newPanel,
-//                ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-//        scrollPane.setPreferredSize(new Dimension(750, 900));
-        add(newPanel);
-//        add(scrollPane);
+
+        JScrollPane scrollPane = new JScrollPane(newPanel,
+                ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setPreferredSize(new Dimension(620, 500));
+
+
+        setLayout(new GridBagLayout());
+        GridBagConstraints grid = new GridBagConstraints();
+
+        grid.fill = GridBagConstraints.HORIZONTAL;
+        grid.gridy = 0;
+        add(p1, grid);
+
+        grid.gridy = 1;
+        add(scrollPane, grid);
+
+        grid.insets = new Insets(7, 0, 7, 0);
+        grid.fill = GridBagConstraints.VERTICAL;
+        grid.anchor = GridBagConstraints.EAST;
+        grid.gridy = 2;
+        add(save, grid);
+
+        grid.anchor = GridBagConstraints.CENTER;
+        grid.gridy = 3;
+        add(p4, grid);
+
     }
 
 //    String getExercise(){

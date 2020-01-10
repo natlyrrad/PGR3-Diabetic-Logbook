@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.DriverManager;
+import java.util.ArrayList;
 
 public class pullAzure {
     public static String hostName = "pgr3.database.windows.net"; // update me
@@ -123,11 +124,12 @@ public class pullAzure {
         return res;
     }
 
-    public static String pullEntryDetails(String userID) {                              //to display log history
+    public static String[] pullEntryDetails(String userID) {                              //to display log history
 //        SQLDatabase.pullAzure.pullEntryDetails("12");
         Connection connection;
         boolean verifyStatus = false;
         String res = "";
+        ArrayList<String> entries = new ArrayList<>();
 
         try {
             connection = DriverManager.getConnection(url);
@@ -139,10 +141,10 @@ public class pullAzure {
                  ResultSet resultSet = statement.executeQuery(selectSql)) {
 
                 while (resultSet.next()) {
-                    for (int i = 2; i < 10; i++) {
+                    for (int i = 1; i < 10; i++) {
                         res += resultSet.getString(i) + ";";
                     }
-                    System.out.println(res);
+                    entries.add(res);
                 }
 
                 connection.close();
@@ -150,7 +152,8 @@ public class pullAzure {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return res;
+        String[] array = entries.toArray(new String[entries.size()]);
+        return array;
     }
 }
 

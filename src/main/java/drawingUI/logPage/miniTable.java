@@ -70,9 +70,9 @@ public class miniTable extends JTable {
         for (int i = 0; i < h; i++) {
             column = getColumnModel().getColumn(i);
             if (i == 2) {
-                column.setPreferredWidth(200); //third column is bigger
+                column.setPreferredWidth(150); //third column is bigger
             } else {
-                column.setPreferredWidth(170);
+                column.setPreferredWidth(110);
             }
         }
 

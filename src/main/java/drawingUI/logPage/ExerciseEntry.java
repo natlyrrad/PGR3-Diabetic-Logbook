@@ -20,6 +20,7 @@ public class ExerciseEntry extends JPanel{
         add(duration);
     }
 
+    ///// get exercise data method
     public String dataEx(){
         String exa= exCombo.getSelectedItem().toString() + ":" + duration.getText();
         return exa;
