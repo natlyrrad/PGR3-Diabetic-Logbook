@@ -12,7 +12,10 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import static drawingUI.emailPage.emailPanel.etext;
 
@@ -64,9 +67,27 @@ public class loghistory extends JPanel {
 
         /* Button Action: button will open the graph application frame */
         btgraph.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
-                PlotGraph chart = new PlotGraph("title", SQLDatabase.pullAzure.pullUserID(etext.getText()));
+                SimpleDateFormat df=new SimpleDateFormat("yyyy/MM/dd");
+                Date start = null;
+                try {
+                    start = df.parse("0000/00/00");
+                } catch (ParseException ex) {
+                    ex.printStackTrace();
+                }
+                Date d=new Date();
+                String dt=df.format(d);
+                Date end= null;
+                try {
+                    end = df.parse(dt);
+                } catch (ParseException ex) {
+                    ex.printStackTrace();
+                }
+
+
+                PlotGraph chart = new PlotGraph("title", SQLDatabase.pullAzure.pullUserID(etext.getText()),start,end);
                 chart.pack();
                 chart.setVisible(true);
 
