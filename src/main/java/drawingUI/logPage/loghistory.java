@@ -70,15 +70,15 @@ public class loghistory extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                SimpleDateFormat df=new SimpleDateFormat("yyyy/MM/dd");
+                SimpleDateFormat df=new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.S");
                 Date start = null;
                 try {
-                    start = df.parse("0000/00/00");
+                    start = df.parse("0000/00/00 00:00:00.0");
                 } catch (ParseException ex) {
                     ex.printStackTrace();
                 }
                 Date d=new Date();
-                String dt=df.format(d);
+                String dt=df.format(d)+" 23:59:59.9";
                 Date end= null;
                 try {
                     end = df.parse(dt);

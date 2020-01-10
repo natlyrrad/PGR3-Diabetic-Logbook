@@ -129,7 +129,7 @@ public class PlotGraph extends ApplicationFrame {
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
                 java.util.Date dt = null;
                 dt = format.parse(datetime);
-                if(! dt.before(start) &&! dt.after(end)==true){
+                if(!dt.before(start) && !dt.after(end)){
                     dataset.addValue(bsl,"blood sugar level",dt);
                 }
 

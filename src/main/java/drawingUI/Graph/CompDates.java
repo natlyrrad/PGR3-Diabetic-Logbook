@@ -20,7 +20,7 @@ import drawingUI.entryPage.Entry;
 import static drawingUI.emailPage.emailPanel.etext;
 
 public class CompDates extends JPanel {
-    private static SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+    private static SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.S");
     private JLabel labelstart = new JLabel("Start date:");
     private JLabel labelend = new JLabel("End date:");
     private JLabel dateformat = new JLabel("Please input date as yyyy/MM/dd");
@@ -36,8 +36,8 @@ public class CompDates extends JPanel {
         buttonenter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String a = startdate.getText();
-                String b = enddate.getText();
+                String a = startdate.getText()+" 23:59:59.9";
+                String b = enddate.getText()+" 23:59:59.9";
 
                 System.out.println(a);
                 System.out.println(b);
