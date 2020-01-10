@@ -36,7 +36,7 @@ public class CompDates extends JPanel {
         buttonenter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String a = startdate.getText()+" 23:59:59.9";
+                String a = startdate.getText()+" 00:00:00.0";
                 String b = enddate.getText()+" 23:59:59.9";
 
                 System.out.println(a);
