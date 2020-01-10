@@ -4,15 +4,12 @@ import drawingUI.QuestPage.Questionnaire;
 import drawingUI.Graph.PlotGraph;
 import drawingUI.calendarPage.CalendarUIController;
 import drawingUI.detailsPage.DetailsUIController;
-import drawingUI.entryPage.EntryUIController;
-import drawingUI.entryPage.FoodPanel;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
 
 import static drawingUI.emailPage.emailPanel.etext;
 
@@ -21,6 +18,9 @@ public class loghistory extends JPanel {
     static GraphicsConfiguration gc; // Class field containing config info
 
     FlowLayout flayout = new FlowLayout();
+
+    //Declare loading frame
+    JFrame load = new JFrame();
 
     // Declare the buttons included on the panel
     JButton btgraph = new JButton("Graph");
@@ -65,16 +65,52 @@ public class loghistory extends JPanel {
         btgraph.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PlotGraph chart = new PlotGraph("title", SQLDatabase.pullAzure.pullUserID(etext.getText()));
-                chart.pack();
-                chart.setVisible(true);
+                /* Reference - https://stackoverflow.com/questions/34906220/running-two-tasks-at-the-same-time-in-java */
+                CountDownLatch latch = new CountDownLatch(2);
+                new Thread(new Runnable() {
+                    public void run() {
+                        /* Reference loading frame - https://stackoverflow.com/questions/7634402/creating-a-nice-loading-animation */
+                        ImageIcon loading = new ImageIcon("ajax-loader.gif");
 
-                /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
-                Component component = (Component) e.getSource(); // Get the source of the current component (panel)
-                // declare JFrame currently open as "frame"
-                JFrame frame = (JFrame) SwingUtilities.getRoot(component);
-                frame.setVisible(false); // set current open frame as invisible
-                /* end of reference 2 */            }
+                        JLabel loadlabel = new JLabel(" Connecting... ", loading, JLabel.CENTER);
+                        loadlabel.setFont(new Font("Monospaced", Font.PLAIN, 18));
+
+                        load.add(loadlabel);
+                        load.getContentPane().setBackground( Color.white );
+
+                        /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
+                        Component component = (Component) e.getSource(); // Get the source of the current component (panel)
+                        // declare JFrame currently open as "frame"
+                        JFrame frame = (JFrame) SwingUtilities.getRoot(component);
+                        frame.setVisible(false); // set current open frame as invisible
+                        /* end of reference 2 */
+
+                        load.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        load.setSize(400, 300);
+                        load.setVisible(true);
+                        latch.countDown();
+                    }
+                }).start();
+
+                new Thread(new Runnable() {
+                    public void run() {
+                        PlotGraph chart = new PlotGraph("title", SQLDatabase.pullAzure.pullUserID(etext.getText()));
+                        chart.pack();
+                        chart.setVisible(true);
+
+                        load.setVisible(false);
+
+                        /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
+                        Component component = (Component) e.getSource(); // Get the source of the current component (panel)
+                        // declare JFrame currently open as "frame"
+                        JFrame frame = (JFrame) SwingUtilities.getRoot(component);
+                        frame.setVisible(false); // set current open frame as invisible
+                        /* end of reference 2 */
+
+                        latch.countDown();
+                    }
+                }).start();
+            }
         });
         bp.add(btgraph);
 
@@ -84,22 +120,57 @@ public class loghistory extends JPanel {
         btedit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Reopen the Details page
-                JFrame details_frame= new JFrame(gc); // Create a new JFrame
-                details_frame.setSize(500,450);
+                /* Reference - https://stackoverflow.com/questions/34906220/running-two-tasks-at-the-same-time-in-java */
+                CountDownLatch latch = new CountDownLatch(2);
+                new Thread(new Runnable() {
+                    public void run() {
+                        /* Reference loading frame - https://stackoverflow.com/questions/7634402/creating-a-nice-loading-animation */
+                        ImageIcon loading = new ImageIcon("ajax-loader.gif");
 
-                DetailsUIController uidetails = new DetailsUIController(details_frame);
+                        JLabel loadlabel = new JLabel(" Connecting... ", loading, JLabel.CENTER);
+                        loadlabel.setFont(new Font("Monospaced", Font.PLAIN, 18));
 
-                details_frame.setVisible(true);
-                // This next line closes the program when the frame is closed
-                details_frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                        load.add(loadlabel);
+                        load.getContentPane().setBackground( Color.white );
 
-                /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
-                Component component = (Component) e.getSource(); // Get the source of the current component (panel)
-                // declare JFrame currently open as "frame"
-                JFrame frame = (JFrame) SwingUtilities.getRoot(component);
-                frame.setVisible(false); // set current open frame as invisible
-                /* end of reference 2 */
+                        /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
+                        Component component = (Component) e.getSource(); // Get the source of the current component (panel)
+                        // declare JFrame currently open as "frame"
+                        JFrame frame = (JFrame) SwingUtilities.getRoot(component);
+                        frame.setVisible(false); // set current open frame as invisible
+                        /* end of reference 2 */
+
+                        load.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        load.setSize(400, 300);
+                        load.setVisible(true);
+                        latch.countDown();
+                    }
+                }).start();
+
+                new Thread(new Runnable() {
+                    public void run() {
+                        // Reopen the Details page
+                        JFrame details_frame= new JFrame(gc); // Create a new JFrame
+                        details_frame.setSize(500,450);
+
+                        DetailsUIController uidetails = new DetailsUIController(details_frame);
+
+                        load.setVisible(false);
+
+                        details_frame.setVisible(true);
+                        // This next line closes the program when the frame is closed
+                        details_frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+                        /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
+                        Component component = (Component) e.getSource(); // Get the source of the current component (panel)
+                        // declare JFrame currently open as "frame"
+                        JFrame frame = (JFrame) SwingUtilities.getRoot(component);
+                        frame.setVisible(false); // set current open frame as invisible
+                        /* end of reference 2 */
+
+                        latch.countDown();
+                    }
+                }).start();
             }
         });
         bp.add(btedit);
