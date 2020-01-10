@@ -20,7 +20,7 @@ public class jakartaMailAPI {
         properties.put("mail.smtp.port", "587");
 
         String myAccountEmail = "estun9@gmail.com";
-        String password = "!q&PY3jk";
+        String password = "fgj5z6YfBb4B";
 
         Session session = Session.getInstance(properties, new Authenticator() {
             @Override
