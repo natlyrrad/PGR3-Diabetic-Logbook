@@ -116,7 +116,6 @@ public class EntryPanel extends JPanel implements ActionListener{               
                         int ibsl= Integer.parseInt(bsl.getInfo());
                         if(ibsl>9){
                             jakartaMailAPI email=new jakartaMailAPI();
-                            email.printmessage();
                             try {
                                 email.sendMail(pullDoctorEmail(id));
                             } catch (Exception ex) {

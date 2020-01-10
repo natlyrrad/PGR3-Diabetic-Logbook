@@ -5,7 +5,9 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
+import static SQLDatabase.pullAzure.*;
 import static drawingUI.detailsPage.personalTab.*;
+import static drawingUI.emailPage.emailPanel.etext;
 
 //javaMailAPI.jakartaMailAPI.sendMail("estun9@gmail.com");
 //copy this method to send the email
@@ -38,21 +40,26 @@ public class jakartaMailAPI {
     }
 
     private static Message prepareMessagae(Session session, String myAccountEmail, String recepient) {
+        //set patient id
+        String id = pullUserID(etext.getText());
         try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(myAccountEmail));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(recepient));
 
-            //String detail = String.join(";", ptab.getPersonal(), dtab.getDiabetes(), doctab.getDoctor());
-            //System.out.println(detail);
-            //pushUserDetails(detail);
+            String subject = "Diabetic Patient Warning";
+            message.setSubject(subject);
+            System.out.println(message.getHeader("Subject")[0]);
+
+            String name = pullPatientName(id);
+            String phone = pullPatientPhone(id);
 
             String m1 = "Warning!";
-            String m2 = "Patient " + fnametext.getText() + " " + lnametext.getText() +
-                    " has a low blood sugar level. Please contact emergy contact ( " + phonetext.getText() + " )and take necessary precautions.";
+            String m2 = "Patient " + name +
+                    " has a low blood sugar level. Please contact patient's emergency number ("
+                    + phone + ") and take the necessary precautions.";
             String m = m1 + "\n" + m2;
             message.setText(m);
-
             System.out.println(m);
 
             return message;
@@ -60,17 +67,4 @@ public class jakartaMailAPI {
             return null;
         }
     }
-
-    public static void printmessage(){
-        String pull = SQLDatabase.pullAzure.pullEntryDetails("12");
-        System.out.println(pull);
-
-        String m1 = "Warning!";
-        String m2 = "Patient " + fnametext.getText() + " " + lnametext.getText() +
-                " has a low blood sugar level. Please contact and take necessary precautions.";
-        String m = m1 + "\n" + m2;
-
-        System.out.println(m);
-    }
-
 }
