@@ -1,6 +1,4 @@
 package drawingUI.emailPage; //Includes the class in the emailPage package
-import drawingUI.LoadSplash;
-import drawingUI.LoadingScreen;
 import drawingUI.detailsPage.DetailsUIController; //imports Details page
 import drawingUI.logPage.LogUIController;
 //Java classes imports (JDK)
@@ -18,6 +16,8 @@ public class emailPanel extends JPanel {
     JLabel elabel = new JLabel("Enter email: ");
     public static JTextField etext = new JTextField(20);  // text field of size 20
     JButton buttonLogin = new JButton("Login");
+
+    JFrame load = new JFrame();
 
     static GraphicsConfiguration gc;
     //Class Constructor
@@ -47,28 +47,37 @@ public class emailPanel extends JPanel {
              and set the email page as invisible*/
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                //boolean email_verify = false;
-
+                /* Reference - https://stackoverflow.com/questions/34906220/running-two-tasks-at-the-same-time-in-java */
                 CountDownLatch latch = new CountDownLatch(2);
-
                 new Thread(new Runnable() {
                     public void run() {
                         /* Reference loading frame - https://stackoverflow.com/questions/7634402/creating-a-nice-loading-animation */
-                        JFrame frame = new JFrame("Test");
-
                         ImageIcon loading = new ImageIcon("ajax-loader.gif");
-                        frame.add(new JLabel("loading... ", loading, JLabel.CENTER));
 
-                        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                        frame.setSize(400, 300);
-                        frame.setVisible(true);
+                        JLabel loadlabel = new JLabel(" Connecting... ", loading, JLabel.CENTER);
+                        loadlabel.setFont(new Font("Monospaced", Font.PLAIN, 18));
+
+                        load.add(loadlabel);
+                        load.getContentPane().setBackground( Color.white );
+
+                        /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
+                        Component component = (Component) e.getSource(); // Get the source of the current component (panel)
+                        // declare JFrame currently open as "frame"
+                        JFrame frame = (JFrame) SwingUtilities.getRoot(component);
+                        frame.setVisible(false); // set current open frame as invisible
+                        /* end of reference 2 */
+
+                        load.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        load.setSize(400, 300);
+                        load.setVisible(true);
                         latch.countDown();
                     }
                 }).start();
 
                 new Thread(new Runnable() {
                     public void run() {
+                        //boolean email_verify = false;
+
                         boolean email_verify = SQLDatabase.pullAzure.verifyEmail(setEmail());
 
                         if (email_verify == false)
@@ -77,18 +86,22 @@ public class emailPanel extends JPanel {
                             JFrame details_frame = new JFrame(gc); // Create a new JFrame
                             details_frame.setSize(500, 450);
 
-                            DetailsUIController uidetails = new DetailsUIController(details_frame);
-
-                            details_frame.setVisible(true);
-                            // This next line closes the program when the frame is closed
-                            details_frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
                             /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
                             Component component = (Component) e.getSource(); // Get the source of the current component (panel)
                             // declare JFrame currently open as "frame"
                             JFrame frame = (JFrame) SwingUtilities.getRoot(component);
                             frame.setVisible(false); // set current open frame as invisible
                             /* end of reference 2 */
+
+                            DetailsUIController uidetails = new DetailsUIController(details_frame);
+
+                            details_frame.setVisible(true);
+
+                            load.setVisible(false);
+
+                            // This next line closes the program when the frame is closed
+                            details_frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
                         }
                         else if (email_verify == true)
                         {
@@ -101,6 +114,8 @@ public class emailPanel extends JPanel {
                             //This next line closes the program when the frame is closed
                             logframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
+                            load.setVisible(false);
+
                             /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
                             Component component = (Component) e.getSource(); // Get the source of the current component (panel)
                             // declare JFrame currently open as "frame"
@@ -108,7 +123,6 @@ public class emailPanel extends JPanel {
                             frame.setVisible(false); // set current open frame as invisible
                             /* end of reference 2 */
                         }
-
                         latch.countDown();
                     }
                 }).start();

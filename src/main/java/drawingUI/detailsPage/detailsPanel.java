@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.CountDownLatch;
+
 import static SQLDatabase.pushAzure.pushUserDetails;
 import static drawingUI.emailPage.emailPanel.etext;
 
@@ -15,6 +17,9 @@ public class detailsPanel extends JPanel
 
     // Declares a new Jbutton
     JButton buttonLogin = new JButton("Enter Details");
+
+    //Declare loading frame
+    JFrame load = new JFrame();
 
     static GraphicsConfiguration gc; // Class field containing config info
 
@@ -47,28 +52,63 @@ public class detailsPanel extends JPanel
         buttonLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //Following called methods will store the input selections into strings
+                /* Reference - https://stackoverflow.com/questions/34906220/running-two-tasks-at-the-same-time-in-java */
+                CountDownLatch latch = new CountDownLatch(2);
+                new Thread(new Runnable() {
+                    public void run() {
+                        /* Reference loading frame - https://stackoverflow.com/questions/7634402/creating-a-nice-loading-animation */
+                        ImageIcon loading = new ImageIcon("ajax-loader.gif");
 
-                //String detail = String.join(";", ptab.getPersonal(), dtab.getDiabetes(), doctab.getDoctor());
-                //System.out.println(detail);
-                //pushUserDetails(detail);
+                        JLabel loadlabel = new JLabel(" Connecting... ", loading, JLabel.CENTER);
+                        loadlabel.setFont(new Font("Monospaced", Font.PLAIN, 18));
 
-                //create new frame to loghistory
-                JFrame logframe= new JFrame(gc); // Create a new JFrame
-                logframe.setSize(800,1020);
+                        load.add(loadlabel);
+                        load.getContentPane().setBackground( Color.white );
 
-                LogUIController uilog = new LogUIController(logframe);
+                        /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
+                        Component component = (Component) e.getSource(); // Get the source of the current component (panel)
+                        // declare JFrame currently open as "frame"
+                        JFrame frame = (JFrame) SwingUtilities.getRoot(component);
+                        frame.setVisible(false); // set current open frame as invisible
+                        /* end of reference 2 */
 
-                logframe.setVisible(true);
-                //This next line closes the program when the frame is closed
-                logframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                        load.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        load.setSize(400, 300);
+                        load.setVisible(true);
+                        latch.countDown();
+                    }
+                }).start();
 
-                /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
-                Component component = (Component) e.getSource(); // Get the source of the current component (panel)
-                // declare JFrame currently open as "frame"
-                JFrame frame = (JFrame) SwingUtilities.getRoot(component);
-                frame.setVisible(false); // set current open frame as invisible
-                /* end of reference 2 */
+                new Thread(new Runnable() {
+                    public void run() {
+                        //Following called methods will store the input selections into strings
+
+                        //String detail = String.join(";", ptab.getPersonal(), dtab.getDiabetes(), doctab.getDoctor());
+                        //System.out.println(detail);
+                        //pushUserDetails(detail);
+
+                        //create new frame to loghistory
+                        JFrame logframe= new JFrame(gc); // Create a new JFrame
+                        logframe.setSize(800,1020);
+
+                        LogUIController uilog = new LogUIController(logframe);
+
+                        load.setVisible(false);
+
+                        logframe.setVisible(true);
+                        //This next line closes the program when the frame is closed
+                        logframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+                        /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
+                        Component component = (Component) e.getSource(); // Get the source of the current component (panel)
+                        // declare JFrame currently open as "frame"
+                        JFrame frame = (JFrame) SwingUtilities.getRoot(component);
+                        frame.setVisible(false); // set current open frame as invisible
+                        /* end of reference 2 */
+
+                        latch.countDown();
+                    }
+                }).start();
             }
         });
         // this panel only contains the button
