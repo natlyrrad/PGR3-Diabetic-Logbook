@@ -58,8 +58,8 @@ public class table extends JPanel {
 
         DateFormat dateFormat2 = new SimpleDateFormat("yyyy/MM/dd");        //american format
         //PULL ENTRY HERE//////////////////////////////////////////////////////////////////////////////////////////////////
-        //String[] entry = pullAzure.pullEntryDetails(id, dateFormat2.format(date));
-        String[] entry = {"dt1;bsl1;Coke:23,Cheese:34,Chicken:8;med;13", "dt2;bsl1;Carrot cake:56,Coke:23,Cheese:34,Chicken:8;med;13", "dt3;bsl1;Chinese Tea:86,Carrot cake:56,Coke:23,Cheese:34,Chicken:8;med;13"};
+        String[] entry = pullAzure.pullEntryDetails(id, dateFormat2.format(date));
+        //String[] entry = {"dt1;bsl1;Coke:23,Cheese:34,Chicken:8;med;13", "dt2;bsl1;Carrot cake:56,Coke:23,Cheese:34,Chicken:8;med;13", "dt3;bsl1;Chinese Tea:86,Carrot cake:56,Coke:23,Cheese:34,Chicken:8;med;13"};
 
 
         //Panel 1 for date and time
@@ -265,7 +265,9 @@ public class table extends JPanel {
 
     private void RefreshTable() {
         p2.removeAll();
-        String[] ref = pullAzure.pullEntryDetails(id, ltext.getText());
+        String[] d = ltext.getText().split("/");
+        String a = String.join("/", d[2], d[1], d[0]);
+        String[] ref = pullAzure.pullEntryDetails(id, a);
         miniTable t = new miniTable(ref);
         p2.add(t);
         p2.revalidate();
@@ -281,6 +283,4 @@ public class table extends JPanel {
         }
         return listString;
     }
-
-
 }
