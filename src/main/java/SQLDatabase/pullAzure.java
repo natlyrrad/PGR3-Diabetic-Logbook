@@ -135,7 +135,9 @@ public class pullAzure {
             connection = DriverManager.getConnection(url);
 
             // Create and execute a SELECT SQL statement.
-            String selectSql = String.format("SELECT * FROM entryDetails WHERE userID='%s'", userID);
+            String selectSql = String.format("SELECT * FROM entryDetails WHERE userID='%s' AND entryDateTime >= '%s' " +
+                    "AND entryDateTime <= '2050-12-31'", userID, date);
+            System.out.println(selectSql);
 
             try (Statement statement = connection.createStatement();
                  ResultSet resultSet = statement.executeQuery(selectSql)) {
