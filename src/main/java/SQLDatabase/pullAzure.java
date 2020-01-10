@@ -125,7 +125,6 @@ public class pullAzure {
     }
 
     public static String[] pullEntryDetails(String userID, String date) {                              //to display log history
-//        SQLDatabase.pullAzure.pullEntryDetails("12");
         Connection connection;
         boolean verifyStatus = false;
         String res = "";
@@ -136,7 +135,7 @@ public class pullAzure {
 
             // Create and execute a SELECT SQL statement.
             String selectSql = String.format("SELECT * FROM entryDetails WHERE userID='%s' AND entryDateTime >= '%s' " +
-                    "AND entryDateTime <= '2050-12-31'", userID, date);
+                    "AND entryDateTime <= '%s 23:59:59.9'", userID, date, date);
             System.out.println(selectSql);
 
             try (Statement statement = connection.createStatement();
