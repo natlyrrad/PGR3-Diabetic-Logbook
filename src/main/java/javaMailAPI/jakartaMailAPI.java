@@ -42,6 +42,11 @@ public class jakartaMailAPI {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(myAccountEmail));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(recepient));
+
+            //String detail = String.join(";", ptab.getPersonal(), dtab.getDiabetes(), doctab.getDoctor());
+            //System.out.println(detail);
+            //pushUserDetails(detail);
+
             String m1 = "Warning!";
             String m2 = "Patient " + fnametext.getText() + " " + lnametext.getText() +
                     " has a low blood sugar level. Please contact emergy contact ( " + phonetext.getText() + " )and take necessary precautions.";
@@ -57,6 +62,9 @@ public class jakartaMailAPI {
     }
 
     public static void printmessage(){
+        String pull = SQLDatabase.pullAzure.pullEntryDetails("12");
+        System.out.println(pull);
+
         String m1 = "Warning!";
         String m2 = "Patient " + fnametext.getText() + " " + lnametext.getText() +
                 " has a low blood sugar level. Please contact and take necessary precautions.";
