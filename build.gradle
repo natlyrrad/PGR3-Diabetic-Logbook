@@ -17,7 +17,7 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     runtimeOnly group: 'com.microsoft.sqlserver', name: 'mssql-jdbc', version: '7.0.0.jre8'
-    runtimeOnly 'jakarta.mail:jakarta.mail-api:1.6.4'
-    runtimeOnly 'com.sun.mail:jakarta.mail:1.6.4'
-    runtimeOnly 'jfree:jfreechart:1.0.13'
+    implementation 'jakarta.mail:jakarta.mail-api:1.6.4'
+    implementation 'com.sun.mail:jakarta.mail:1.6.4'
+    implementation 'jfree:jfreechart:1.0.13'
 }
