@@ -1,5 +1,6 @@
 package drawingUI.entryPage;
 
+import drawingUI.detailsPage.DetailsUIController;
 import drawingUI.logPage.LogUIController;
 
 import javax.swing.*;
@@ -9,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.concurrent.CountDownLatch;
 
 import javaMailAPI.jakartaMailAPI;
 import static SQLDatabase.pullAzure.*;
@@ -32,6 +34,8 @@ public class EntryPanel extends JPanel implements ActionListener{               
     JRadioButton comp = new JRadioButton("Comprehensive Method");
     JRadioButton inten = new JRadioButton("Intensive Method");
     int met = 0;
+
+    JFrame load = new JFrame();
 
     CompPanel p2 = new CompPanel();
     public IntenPanel p3 = new IntenPanel();
@@ -72,56 +76,90 @@ public class EntryPanel extends JPanel implements ActionListener{               
         enter.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                //set date time as one single entry
-                String[] d = ltext.getText().split("/");
+                /* Reference - https://stackoverflow.com/questions/34906220/running-two-tasks-at-the-same-time-in-java */
+                CountDownLatch latch = new CountDownLatch(2);
+                new Thread(new Runnable() {
+                    public void run() {
+                        /* Reference loading frame - https://stackoverflow.com/questions/7634402/creating-a-nice-loading-animation */
+                        ImageIcon loading = new ImageIcon("ajax-loader.gif");
+
+                        JLabel loadlabel = new JLabel(" Connecting... ", loading, JLabel.CENTER);
+                        loadlabel.setFont(new Font("Monospaced", Font.PLAIN, 18));
+
+                        load.add(loadlabel);
+                        load.getContentPane().setBackground( Color.white );
+
+                        /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
+                        Component component = (Component) e.getSource(); // Get the source of the current component (panel)
+                        // declare JFrame currently open as "frame"
+                        JFrame frame = (JFrame) SwingUtilities.getRoot(component);
+                        frame.setVisible(false); // set current open frame as invisible
+                        /* end of reference 2 */
+
+                        load.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        load.setSize(400, 300);
+                        load.setVisible(true);
+                        latch.countDown();
+                    }
+                }).start();
+
+                new Thread(new Runnable() {
+                    public void run() {
+                        //set date time as one single entry
+                        String[] d = ltext.getText().split("/");
                 String americanDate = String.join("/", d[2], d[1], d[0]);
                 String dt = americanDate+ " " + time.getInfo();
-                //create three strings for three conditions
-                String m1 = String.join(";" , id, dt, bsl.getInfo(), "", "", "");
-                String m2 = String.join(";" , id, dt, bsl.getInfo(), p2.getFood(), p2.getMed(), "");
-                String m3 = String.join(";" , id, dt, bsl.getInfo(), p3.getFood(), p3.getMed(), "");
-                
-                //Alert if blood sugar level is high
-                int ibsl= Integer.parseInt(bsl.getInfo());
-                if(ibsl>9){
-                    jakartaMailAPI email=new jakartaMailAPI();
-                    try {
-                        email.sendMail(pullDoctorEmail(id));
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
+                        //create three strings for three conditions
+                        String m1 = String.join(";" , id, dt, bsl.getInfo(), "", "", "");
+                        String m2 = String.join(";" , id, dt, bsl.getInfo(), p2.getFood(), p2.getMed(), "");
+                        String m3 = String.join(";" , id, dt, bsl.getInfo(), p3.getFood(), p3.getMed(), "");
+
+                        //Alert if blood sugar level is high
+                        int ibsl= Integer.parseInt(bsl.getInfo());
+                        if(ibsl>9){
+                            jakartaMailAPI.printmessage();
+                            jakartaMailAPI email=new jakartaMailAPI();
+                            try {
+                                email.sendMail(pullDoctorEmail(id));
+                            } catch (Exception ex) {
+                                ex.printStackTrace();
+                            }
+                        }
+
+                        //push details under different condition
+                        if (met == 0){
+                            pushEntryDetails(m1);
+                            System.out.println(m1);
+                        }
+                        if (met == 1){
+                            pushEntryDetails(m2);
+                            System.out.println(m2);
+                        }
+                        if (met == 2){
+                            pushEntryDetails(m3);
+                            System.out.println(m3);
+                        }
+
+                        //return to log page
+                        JFrame logFrame= new JFrame(gc); // Create a new JFrame
+                        logFrame.setSize(700,900);
+                        load.setVisible(false);
+
+                        LogUIController uihis = new LogUIController(logFrame);
+
+                        logFrame.setVisible(true);
+                        // This next line closes the program when the frame is closed
+                        logFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+                        /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
+                        Component component = (Component) e.getSource(); // Get the source of the current component (panel)
+                        // declare JFrame currently open as "frame"
+                        JFrame frame = (JFrame) SwingUtilities.getRoot(component);
+                        frame.setVisible(false); // set current open frame as invisible
+                        /* end of reference 2 */
+                        latch.countDown();
                     }
-                }
-                
-                //push details under different condition
-                if (met == 0){
-                    pushEntryDetails(m1);
-                    System.out.println(m1);
-                }
-                if (met == 1){
-                    pushEntryDetails(m2);
-                    System.out.println(m2);
-                }
-                if (met == 2){
-                    pushEntryDetails(m3);
-                    System.out.println(m3);
-                }
-
-                //return to log page
-                JFrame logFrame= new JFrame(gc); // Create a new JFrame
-                logFrame.setSize(700,900);
-
-                LogUIController uihis = new LogUIController(logFrame);
-
-                logFrame.setVisible(true);
-                // This next line closes the program when the frame is closed
-                logFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-                /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
-                Component component = (Component) e.getSource(); // Get the source of the current component (panel)
-                // declare JFrame currently open as "frame"
-                JFrame frame = (JFrame) SwingUtilities.getRoot(component);
-                frame.setVisible(false); // set current open frame as invisible
-                /* end of reference 2 */
+                }).start();
             }
         });
 

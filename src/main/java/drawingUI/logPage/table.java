@@ -1,7 +1,9 @@
 package drawingUI.logPage;
 
 import drawingUI.emailPage.emailPanel;
+import drawingUI.detailsPage.DetailsUIController;
 import drawingUI.entryPage.EntryUIController;
+import drawingUI.entryPage.FoodPanel;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -16,6 +18,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import SQLDatabase.pullAzure;
+import java.util.concurrent.CountDownLatch;
 
 public class table extends JPanel {
 
@@ -26,6 +29,9 @@ public class table extends JPanel {
     JButton save = new JButton("Save");
     JButton delete = new JButton("Delete Recent");
     JButton newrow = new JButton("New");
+
+    //Declare loading frame
+    JFrame load = new JFrame();
 
     int day = java.util.Calendar.getInstance().get(Calendar.DAY_OF_MONTH); // Get current Day
     int month = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH); // Get current Month
@@ -193,16 +199,50 @@ public class table extends JPanel {
         newrow.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                EntryUIController frame = new EntryUIController();
-                frame.show();
+                /* Reference - https://stackoverflow.com/questions/34906220/running-two-tasks-at-the-same-time-in-java */
+                CountDownLatch latch = new CountDownLatch(2);
+                new Thread(new Runnable() {
+                    public void run() {
+                        /* Reference loading frame - https://stackoverflow.com/questions/7634402/creating-a-nice-loading-animation */
+                        ImageIcon loading = new ImageIcon("ajax-loader.gif");
 
-                /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
-                Component component = (Component) e.getSource(); // Get the source of the current component (panel)
-                // declare JFrame currently open as "frame"
-                JFrame f = (JFrame) SwingUtilities.getRoot(component);
-                f.setVisible(false); // set current open frame as invisible
-                /* end of reference 2 */
+                        JLabel loadlabel = new JLabel(" Connecting... ", loading, JLabel.CENTER);
+                        loadlabel.setFont(new Font("Monospaced", Font.PLAIN, 18));
 
+                        load.add(loadlabel);
+                        load.getContentPane().setBackground( Color.white );
+
+                        /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
+                        Component component = (Component) e.getSource(); // Get the source of the current component (panel)
+                        // declare JFrame currently open as "frame"
+                        JFrame frame = (JFrame) SwingUtilities.getRoot(component);
+                        frame.setVisible(false); // set current open frame as invisible
+                        /* end of reference 2 */
+
+                        load.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        load.setSize(400, 300);
+                        load.setVisible(true);
+                        latch.countDown();
+                    }
+                }).start();
+
+                new Thread(new Runnable() {
+                    public void run() {
+                        EntryUIController frame = new EntryUIController();
+                        frame.show();
+
+                        load.setVisible(false);
+
+                        /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
+                        Component component = (Component) e.getSource(); // Get the source of the current component (panel)
+                        // declare JFrame currently open as "frame"
+                        JFrame f = (JFrame) SwingUtilities.getRoot(component);
+                        f.setVisible(false); // set current open frame as invisible
+                        /* end of reference 2 */
+
+                        latch.countDown();
+                    }
+                }).start();
             }
         });
 
