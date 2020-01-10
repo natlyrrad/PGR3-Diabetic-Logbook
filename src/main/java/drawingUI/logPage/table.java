@@ -3,7 +3,6 @@ package drawingUI.logPage;
 import drawingUI.emailPage.emailPanel;
 import drawingUI.entryPage.EntryUIController;
 
-import javax.security.auth.Refreshable;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -28,12 +27,9 @@ public class table extends JPanel {
     JButton delete = new JButton("Delete Recent");
     JButton newrow = new JButton("New");
 
-    FlowLayout flayout = new FlowLayout();
-
     int day = java.util.Calendar.getInstance().get(Calendar.DAY_OF_MONTH); // Get current Day
     int month = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH); // Get current Month
     int year = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);; // Get current Year
-
 
     //ArrayLists to collect data
     int counter = 0;
@@ -42,36 +38,31 @@ public class table extends JPanel {
 
     JButton addExercise = new JButton("Add Exercise");
 
-    //PULL DATA HERE//////////////////////////////////////////////////////////////////////////////////////////////////
+    //PULL ID HERE//////////////////////////////////////////////////////////////////////////////////////////////////
     String id = emailPanel.userID();
     //String[] s = {"dt1;bsl1;Coke:23,Cheese:34,Chicken:8;med;13", "dt2;bsl1;Carrot cake:56,Coke:23,Cheese:34,Chicken:8;med;13", "dt3;bsl1;Chinese Tea:86,Carrot cake:56,Coke:23,Cheese:34,Chicken:8;med;13"};
 
+    //Panels for layout
+    JPanel newPanel = new JPanel(new GridBagLayout());
+    JPanel p1 = new JPanel();                                   //date time bla bla
+    JPanel p2 = new JPanel();                                   //minitable
+    JPanel p3 = new JPanel(new GridLayout(1, 1));   //comments
+    JPanel p4 = new JPanel(new GridLayout(1, 3));   //prev today next
 
-    int counter2 = 0;
-    int counter3 = 0;
-    JPanel p1 = new JPanel();   //date time bla bla
-    JPanel p2 = new JPanel();   //minitable
-
-    public table()
-
-    {
-
-        // Reference 6 - https://stackoverflow.com/questions/16285019/loading-date-into-jtextfield
+    public table() {
+        //Set current date and time
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
         ltext.setText(dateFormat.format(date));
-
         DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
         ttext.setText(timeFormat.format(date));
-        /* end of reference 6*/
 
-        DateFormat dateFormat2 = new SimpleDateFormat("yyyy/mm/dd");
-
+        DateFormat dateFormat2 = new SimpleDateFormat("yyyy/MM/dd");        //american format
+        //PULL ENTRY HERE//////////////////////////////////////////////////////////////////////////////////////////////////
         String[] entry = pullAzure.pullEntryDetails(id, dateFormat2.format(date));
 
-        JPanel newPanel = new JPanel(new GridBagLayout());
 
-        //panel for date and time
+        //Panel 1 for date and time
         p1.add(l);
         p1.add(ltext);
         p1.add(t);
@@ -93,7 +84,6 @@ public class table extends JPanel {
 
 
         //Panel 3 for additional comments
-        JPanel p3 = new JPanel(new GridLayout(1, 1));
         p3.setPreferredSize(new Dimension(600, 80));
 
         JTextArea textbox = new JTextArea("Additional comments: (e.g. Special activities, stress level...)",20, 50);
@@ -104,7 +94,7 @@ public class table extends JPanel {
         p3.add(textbox);
 
 
-        //panel for exercise
+        //Panel for exercise
         JPanel pEx = new JPanel(new GridLayout());
 
         JPanel exPanel = new JPanel(new GridBagLayout());
@@ -143,7 +133,6 @@ public class table extends JPanel {
 
 
         //Panel 4 for previous, today and next
-        JPanel p4 = new JPanel(new GridLayout(1, 3));
         JButton previous = new JButton("<< Previous");
         previous.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
@@ -196,18 +185,8 @@ public class table extends JPanel {
         delete.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-//                counter2 = counter2 + 1;
-//                for(int i=0; i<(counter2+1); i++)
-//                {
-//                    int count = lognum - counter2;
-//                    p2.removeAll();
-//                    miniTable mtable = new miniTable(entry);
-//                    JScrollPane scrollPane = new JScrollPane(mtable);
-//                    mtable.setFillsViewportHeight(true);
-//                    p2.add(scrollPane);
-//                }
-//                p2.revalidate();
-//                p2.repaint();
+                //delete function del(id, datetime)
+                RefreshTable();
             }
         });
 
@@ -231,7 +210,7 @@ public class table extends JPanel {
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String str = String.join(";", id, date.toString(), "Questionnaire score", textbox.getText(), getExercise());
+                String str = String.join(";", id, date.toString(), "Questionnaire score", textbox.getText(), getExercise(), " ");
                 /////// push str
                 System.out.println(str);
                 System.out.println("Saved!");
@@ -257,7 +236,7 @@ public class table extends JPanel {
         constraints.gridy = 4;
         newPanel.add(pEx, constraints);
 
-        // create scroll pane for
+        // create scroll pane for data
         JScrollPane scrollPane = new JScrollPane(newPanel,
                 ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setPreferredSize(new Dimension(620, 500));
