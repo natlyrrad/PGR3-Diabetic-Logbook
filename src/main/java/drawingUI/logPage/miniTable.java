@@ -9,15 +9,15 @@ import java.awt.*;
 import java.util.Arrays;
 
 public class miniTable extends JTable {
-    String[] header = { "Time","BSL (MMol/L)", "Food Diary", "Medication", "Dosage"};
-
+    private static final Object[] header = { "Time","BSL (MMol/L)", "Food Diary", "Medication", "Dosage"};
+    Object[][] data;
 
     public miniTable(String[] entries) {
 
         /* Reference - http://blog.marcnuri.com/displaying-a-jtable-inside-another-jtable-jtable-cellrenderer/*/
         int size = entries.length;
         int h = header.length;
-        Object[][] data  = new Object[size][h];
+        data  = new Object[size][h];
         for(int i = 0; i < (size); i++) {
             String[] str = entries[i].split(";");
             System.out.println(Arrays.toString(data[i]));
@@ -39,7 +39,7 @@ public class miniTable extends JTable {
 	    We overide the AbstractTableModel necessary methods*/
         AbstractTableModel modelo = new AbstractTableModel() {
             public String getColumnName(int col) {
-                return header[col];
+                return header[col].toString();
             }
             public Class getColumnClass(int col) {
                 if(getRowCount() <1) {

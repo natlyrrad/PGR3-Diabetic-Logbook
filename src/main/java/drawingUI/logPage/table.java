@@ -40,7 +40,6 @@ public class table extends JPanel {
 
     //PULL ID HERE//////////////////////////////////////////////////////////////////////////////////////////////////
     String id = emailPanel.userID();
-    //String[] s = {"dt1;bsl1;Coke:23,Cheese:34,Chicken:8;med;13", "dt2;bsl1;Carrot cake:56,Coke:23,Cheese:34,Chicken:8;med;13", "dt3;bsl1;Chinese Tea:86,Carrot cake:56,Coke:23,Cheese:34,Chicken:8;med;13"};
 
     //Panels for layout
     JPanel newPanel = new JPanel(new GridBagLayout());
@@ -59,7 +58,8 @@ public class table extends JPanel {
 
         DateFormat dateFormat2 = new SimpleDateFormat("yyyy/MM/dd");        //american format
         //PULL ENTRY HERE//////////////////////////////////////////////////////////////////////////////////////////////////
-        String[] entry = pullAzure.pullEntryDetails(id, dateFormat2.format(date));
+        //String[] entry = pullAzure.pullEntryDetails(id, dateFormat2.format(date));
+        String[] entry = {"dt1;bsl1;Coke:23,Cheese:34,Chicken:8;med;13", "dt2;bsl1;Carrot cake:56,Coke:23,Cheese:34,Chicken:8;med;13", "dt3;bsl1;Chinese Tea:86,Carrot cake:56,Coke:23,Cheese:34,Chicken:8;med;13"};
 
 
         //Panel 1 for date and time
