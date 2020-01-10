@@ -73,7 +73,9 @@ public class EntryPanel extends JPanel implements ActionListener{               
             @Override
             public void actionPerformed(ActionEvent e){
                 //set date time as one single entry
-                String dt = ltext.getText() + " " + time.getInfo();
+                String[] d = ltext.getText().split("/");
+                String americanDate = String.join("/", d[2], d[1], d[0]);
+                String dt = americanDate+ " " + time.getInfo();
                 //create three strings for three conditions
                 String m1 = String.join(";" , id, dt, bsl.getInfo(), "", "", "");
                 String m2 = String.join(";" , id, dt, bsl.getInfo(), p2.getFood(), p2.getMed(), "");
