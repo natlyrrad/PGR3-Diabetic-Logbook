@@ -278,8 +278,9 @@ public class table extends JPanel {
     String getExercise(){
         String listString = new String();
         for(int i=0; i<(counter+1); i++){
-//            exerciseList.add(i, entryList.get(i).dataEx());
+            exerciseList.add(i, entryList.get(i).dataEx());
             listString += (exerciseList.get(i) + ", ");
+            System.out.println(listString);
         }
         return listString;
     }
