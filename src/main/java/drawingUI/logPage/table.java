@@ -56,6 +56,7 @@ public class table extends JPanel {
     JPanel p2 = new JPanel();                                   //minitable
     JPanel p3 = new JPanel(new GridLayout(1, 1));   //comments
     JPanel p4 = new JPanel(new GridLayout(1, 3));   //prev today next
+    JPanel ph = new JPanel();
 
     public table() {
         //Set current date and time
@@ -80,6 +81,8 @@ public class table extends JPanel {
         p1.add(newrow);
 
         //add header
+        headerTable htable = new headerTable();
+        ph.add(htable);
 
         //Panel 2 for table
         miniTable mtable = new miniTable(entry);
@@ -265,21 +268,24 @@ public class table extends JPanel {
         save.setToolTipText("Save Questionnaire score, comments and exercise");
 
         GridBagConstraints constraints = new GridBagConstraints();
-        constraints.insets = new Insets(0, 0, 5, 0);
+        constraints.insets = new Insets(0, 0, 0, 0);
 
         constraints.gridx = 0;
         constraints.gridy = 0;
+        newPanel.add(ph, constraints);
+
+        constraints.gridy = 1;
         newPanel.add(p2, constraints);
 
         constraints.anchor = GridBagConstraints.WEST;
 
-        constraints.gridy = 1;
+        constraints.gridy = 2;
         newPanel.add(p3, constraints);
 
-        constraints.gridy = 2;
+        constraints.gridy = 3;
         newPanel.add(addExercise, constraints);
 
-        constraints.gridy = 4;
+        constraints.gridy = 5;
         newPanel.add(pEx, constraints);
 
         // create scroll pane for data

@@ -6,13 +6,14 @@ import java.awt.*;
 
 public class headerTable extends JTable {
     String[] header = { "Time","Blood sugar(MMol/L)", "Food Type", "Amount(g)", "Medication"};
-    Object data[][] = {{"Time","Blood sugar(MMol/L)", "Food Type", "Amount(g)", "Medication"},null};
+    Object data[][] = {{"Time","Blood sugar(MMol/L)", "Food Type", "Amount(g)", "Medication"}};
 
     public headerTable(){
         int h = header.length;
 
-        DefaultTableModel model = new DefaultTableModel(header, 1);
-        JTable table = new JTable(model);
+        DefaultTableModel model = new DefaultTableModel(data, header);
+
+        setModel(model);
 
         TableColumn column = null;
         for (int i = 0; i < h; i++) {
