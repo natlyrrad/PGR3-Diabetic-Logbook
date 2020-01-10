@@ -141,10 +141,11 @@ public class pullAzure {
                  ResultSet resultSet = statement.executeQuery(selectSql)) {
 
                 while (resultSet.next()) {
-                    for (int i = 1; i < 10; i++) {
+                    for (int i = 2; i < 7; i++) {
                         res += resultSet.getString(i) + ";";
                     }
                     entries.add(res);
+                    res = "";
                 }
 
                 connection.close();
