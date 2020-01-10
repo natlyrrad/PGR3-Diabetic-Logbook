@@ -123,6 +123,61 @@ public class pullAzure {
         return res;
     }
 
+    public static String pullPatientName(String id) {                                            //to fetch user id for pulling/ pushing
+        Connection connection;
+        String PatientfirstName = "";
+        String PatientlastName = "";
+
+        try {
+            connection = DriverManager.getConnection(url);
+
+            // Create and execute a SELECT SQL statement.
+            String selectSql = String.format("SELECT * FROM userDetails WHERE userID='%s'", id);
+
+            try (Statement statement = connection.createStatement();
+                 ResultSet resultSet = statement.executeQuery(selectSql)) {
+
+                while (resultSet.next()) {
+                    PatientfirstName = resultSet.getString(2);
+                    PatientlastName = resultSet.getString(3);
+                }
+
+                connection.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String Name = PatientfirstName + " " + PatientlastName;
+        System.out.println(Name);
+        return Name;
+    }
+
+    public static String pullPatientPhone(String id) {                                            //to fetch user id for pulling/ pushing
+        Connection connection;
+        String patientphone = "";
+
+        try {
+            connection = DriverManager.getConnection(url);
+
+            // Create and execute a SELECT SQL statement.
+            String selectSql = String.format("SELECT * FROM userDetails WHERE userID='%s'", id);
+
+            try (Statement statement = connection.createStatement();
+                 ResultSet resultSet = statement.executeQuery(selectSql)) {
+
+                while (resultSet.next()) {
+                    patientphone = resultSet.getString(6);
+                }
+
+                connection.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(patientphone);
+        return patientphone;
+    }
+
     public static String pullEntryDetails(String userID) {                              //to display log history
 //        SQLDatabase.pullAzure.pullEntryDetails("12");
         Connection connection;

@@ -76,8 +76,6 @@ public class emailPanel extends JPanel {
 
                 new Thread(new Runnable() {
                     public void run() {
-                        //boolean email_verify = false;
-
                         boolean email_verify = SQLDatabase.pullAzure.verifyEmail(setEmail());
 
                         if (email_verify == false)

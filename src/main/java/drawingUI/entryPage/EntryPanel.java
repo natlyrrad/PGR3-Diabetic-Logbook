@@ -115,7 +115,6 @@ public class EntryPanel extends JPanel implements ActionListener{               
                         //Alert if blood sugar level is high
                         int ibsl= Integer.parseInt(bsl.getInfo());
                         if(ibsl>9){
-                            jakartaMailAPI.printmessage();
                             jakartaMailAPI email=new jakartaMailAPI();
                             try {
                                 email.sendMail(pullDoctorEmail(id));
@@ -139,7 +138,7 @@ public class EntryPanel extends JPanel implements ActionListener{               
                         }
 
                         load.setVisible(false);
-                        
+
                         //return to log page
                         JFrame logFrame= new JFrame(gc); // Create a new JFrame
                         logFrame.setSize(800,1020);
