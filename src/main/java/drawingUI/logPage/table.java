@@ -42,8 +42,8 @@ public class table extends JPanel {
 
     //PULL DATA HERE//////////////////////////////////////////////////////////////////////////////////////////////////
     String id = emailPanel.userID();
-    String[] s = {"dt1;bsl1;Coke:23,Cheese:34,Chicken:8;med;13", "dt2;bsl1;Carrot cake:56,Coke:23,Cheese:34,Chicken:8;med;13", "dt3;bsl1;Chinese Tea:86,Carrot cake:56,Coke:23,Cheese:34,Chicken:8;med;13"};
-    String[] entry = pullAzure.pullEntryDetails(id);
+    //String[] s = {"dt1;bsl1;Coke:23,Cheese:34,Chicken:8;med;13", "dt2;bsl1;Carrot cake:56,Coke:23,Cheese:34,Chicken:8;med;13", "dt3;bsl1;Chinese Tea:86,Carrot cake:56,Coke:23,Cheese:34,Chicken:8;med;13"};
+
 
     int counter2 = 0;
     int counter3 = 0;
@@ -61,6 +61,7 @@ public class table extends JPanel {
         ttext.setText(timeFormat.format(date));
         /* end of reference 6*/
 
+        String[] entry = pullAzure.pullEntryDetails(id, date.toString());
 
         JPanel newPanel = new JPanel(new GridBagLayout());
 

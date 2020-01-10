@@ -124,7 +124,7 @@ public class pullAzure {
         return res;
     }
 
-    public static String[] pullEntryDetails(String userID) {                              //to display log history
+    public static String[] pullEntryDetails(String userID, String date) {                              //to display log history
 //        SQLDatabase.pullAzure.pullEntryDetails("12");
         Connection connection;
         boolean verifyStatus = false;
