@@ -20,7 +20,6 @@ import drawingUI.entryPage.Entry;
 import static drawingUI.emailPage.emailPanel.etext;
 
 public class CompDates extends JPanel {
-    private static SimpleDateFormat format = new SimpleDateFormat("yyyy-dd-MM HH:mm:ss.S");
     private static SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");
     private JLabel labelstart = new JLabel("Start date:");
     private JLabel labelend = new JLabel("End date:");
