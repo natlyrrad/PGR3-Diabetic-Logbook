@@ -14,6 +14,7 @@ public class headerTable extends JTable {
         DefaultTableModel model = new DefaultTableModel(data, header);
 
         setModel(model);
+        setBackground(Color.lightGray);
 
         TableColumn column = null;
         for (int i = 0; i < h; i++) {
