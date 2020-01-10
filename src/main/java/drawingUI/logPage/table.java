@@ -65,7 +65,9 @@ public class table extends JPanel {
         ttext.setText(timeFormat.format(date));
         /* end of reference 6*/
 
-        String[] entry = pullAzure.pullEntryDetails(id, date.toString());
+        DateFormat dateFormat2 = new SimpleDateFormat("yyyy/mm/dd");
+
+        String[] entry = pullAzure.pullEntryDetails(id, dateFormat2.format(date));
 
         JPanel newPanel = new JPanel(new GridBagLayout());
 
