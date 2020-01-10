@@ -96,6 +96,8 @@ public class PlotGraph extends ApplicationFrame {
         constraints.gridy = 2;
         constraints.anchor = GridBagConstraints.WEST;
         newPanel.add(back, constraints);
+
+        constraints.gridx=1;
         newPanel.add(newGraph, constraints);
 
         add(newPanel);
