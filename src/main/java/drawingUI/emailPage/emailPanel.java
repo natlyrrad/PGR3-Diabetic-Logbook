@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.CountDownLatch;
 
 import static SQLDatabase.pullAzure.pullUserID;
 
@@ -49,59 +50,68 @@ public class emailPanel extends JPanel {
 
                 //boolean email_verify = false;
 
-                JWindow window = new JWindow();
-                window.getContentPane().add(
-                        new JLabel("", new ImageIcon("splash.gif"), SwingConstants.CENTER));
-                window.setBounds(500, 150, 300, 200);
-                window.setVisible(true);
-                try {
-                    Thread.sleep(5000);
-                } catch (InterruptedException f) {
-                    f.printStackTrace();
-                }
-                window.setVisible(false);
+                CountDownLatch latch = new CountDownLatch(2);
 
-                boolean email_verify = SQLDatabase.pullAzure.verifyEmail(setEmail());
+                new Thread(new Runnable() {
+                    public void run() {
+                        /* Reference loading frame - https://stackoverflow.com/questions/7634402/creating-a-nice-loading-animation */
+                        JFrame frame = new JFrame("Test");
 
-                window.dispose();
+                        ImageIcon loading = new ImageIcon("ajax-loader.gif");
+                        frame.add(new JLabel("loading... ", loading, JLabel.CENTER));
 
-                if (email_verify == false)
-                {
-                    //Open a Details UI frame when the button is clicked
-                    JFrame details_frame = new JFrame(gc); // Create a new JFrame
-                    details_frame.setSize(500, 450);
+                        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        frame.setSize(400, 300);
+                        frame.setVisible(true);
+                        latch.countDown();
+                    }
+                }).start();
 
-                    DetailsUIController uidetails = new DetailsUIController(details_frame);
+                new Thread(new Runnable() {
+                    public void run() {
+                        boolean email_verify = SQLDatabase.pullAzure.verifyEmail(setEmail());
 
-                    details_frame.setVisible(true);
-                    // This next line closes the program when the frame is closed
-                    details_frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                        if (email_verify == false)
+                        {
+                            //Open a Details UI frame when the button is clicked
+                            JFrame details_frame = new JFrame(gc); // Create a new JFrame
+                            details_frame.setSize(500, 450);
 
-                    /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
-                    Component component = (Component) e.getSource(); // Get the source of the current component (panel)
-                    // declare JFrame currently open as "frame"
-                    JFrame frame = (JFrame) SwingUtilities.getRoot(component);
-                    frame.setVisible(false); // set current open frame as invisible
-                    /* end of reference 2 */
-                }
-                else if (email_verify == true)
-                {
-                    JFrame logframe= new JFrame(gc); // Create a new JFrame
-                    logframe.setSize(800,1020);
+                            DetailsUIController uidetails = new DetailsUIController(details_frame);
 
-                    LogUIController uilog = new LogUIController(logframe);
+                            details_frame.setVisible(true);
+                            // This next line closes the program when the frame is closed
+                            details_frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-                    logframe.setVisible(true);
-                    //This next line closes the program when the frame is closed
-                    logframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                            /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
+                            Component component = (Component) e.getSource(); // Get the source of the current component (panel)
+                            // declare JFrame currently open as "frame"
+                            JFrame frame = (JFrame) SwingUtilities.getRoot(component);
+                            frame.setVisible(false); // set current open frame as invisible
+                            /* end of reference 2 */
+                        }
+                        else if (email_verify == true)
+                        {
+                            JFrame logframe= new JFrame(gc); // Create a new JFrame
+                            logframe.setSize(800,1020);
 
-                    /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
-                    Component component = (Component) e.getSource(); // Get the source of the current component (panel)
-                    // declare JFrame currently open as "frame"
-                    JFrame frame = (JFrame) SwingUtilities.getRoot(component);
-                    frame.setVisible(false); // set current open frame as invisible
-                    /* end of reference 2 */
-                }
+                            LogUIController uilog = new LogUIController(logframe);
+
+                            logframe.setVisible(true);
+                            //This next line closes the program when the frame is closed
+                            logframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+                            /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
+                            Component component = (Component) e.getSource(); // Get the source of the current component (panel)
+                            // declare JFrame currently open as "frame"
+                            JFrame frame = (JFrame) SwingUtilities.getRoot(component);
+                            frame.setVisible(false); // set current open frame as invisible
+                            /* end of reference 2 */
+                        }
+
+                        latch.countDown();
+                    }
+                }).start();
             }
         });
         // add button to the panel
