@@ -3,17 +3,22 @@ package drawingUI.QuestPage;
 import drawingUI.logPage.LogUIController;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
-
-public class Questionnaire extends JPanel {
-
+public class Questionnaire<max, count1, count2, count3> extends JPanel {
+    private List<JComboBox> combos = new ArrayList<>();
+    private JTextField resultField = new JTextField(10);
     String[] options = {"1", "2", "3"};
     JLabel[] questions =new JLabel[14];
     JButton back = new JButton("< Back");
+    JPanel scoreboard = new JPanel();
 
+    JLabel score = new JLabel("12");
 
     public Questionnaire() {
         GridBagLayout grid = new GridBagLayout();
@@ -71,49 +76,58 @@ public class Questionnaire extends JPanel {
             System.out.println(i);
         }
 
+
+        JLabel title = new JLabel ("Your questionnaire score is: " );
+        scoreboard.add(title);
+        scoreboard.add(score);
+
+
+        Border border = BorderFactory.createLineBorder(Color.BLACK, 3);
+        scoreboard.setBorder(border);
+        add(scoreboard);
+
+
+
+        ActionListener comboListener = new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int sum = 0;
+                // iterate through the list, adding the values
+                for (JComboBox<Integer> jComboBox : combos) {
+                    Integer selection = Integer.parseInt((String) jComboBox.getSelectedItem());
+                    sum += selection;
+                }
+                score.setText(String.valueOf(sum));
+            }
+        };
+
         for (int i =  2; i < 14; i++) {
             constraints.gridx = 1;
             constraints.gridy = i;
-            add(new JComboBox(options), constraints);
+
+            JComboBox<String> combo = new JComboBox<>();
+            combo.setModel(new DefaultComboBoxModel<>(options));
+            combo.setSelectedItem(0);
+            // add the ActionListener to the combo box
+            combo.addActionListener(comboListener);
+            // add the combo box to the list
+            combos.add(combo);
+            constraints.gridx = 1;
+            constraints.gridy = i;
+            add(combo, constraints);
         }
 
         constraints.gridx = 1;
         constraints.gridy = 14;
         add(back,constraints);
 
-        int count1 = 0;
-        int count2 = 0;
-        int count3 = 0;
-
-//        String x = JComboBox.getSelectedItem().toString();
-//        if (x == "1")
-//        {
-//            count1++;
-//            System.out.println("The number of 1's chosen are:" + count1);
-//        }
-//        else if (x == "2")
-//        {
-//            count2++;
-//            System.out.println("The number of 2's chosen are:" + count2);
-//        }
-//       else if (x == "3")
-//        {
-//            count3++;
-//            System.out.println("The number of 3's chosen are:" + count3);
-//        }
 
 
-
-    }
 
 
 }
-
-
-
-
-
-
+}
 
 
 
