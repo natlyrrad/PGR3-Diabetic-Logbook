@@ -1,5 +1,7 @@
 package drawingUI.QuestPage;
 
+import drawingUI.LoadingFrame;
+import drawingUI.detailsPage.DetailsUIController;
 import drawingUI.logPage.LogUIController;
 
 import javax.swing.*;
@@ -9,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 public class Questionnaire<max, count1, count2, count3> extends JPanel {
     private List<JComboBox> combos = new ArrayList<>();
@@ -18,7 +21,9 @@ public class Questionnaire<max, count1, count2, count3> extends JPanel {
     JButton back = new JButton("< Back");
     JPanel scoreboard = new JPanel();
 
-    JLabel score = new JLabel("12");
+    LoadingFrame load = new LoadingFrame();
+
+    public static JLabel score = new JLabel("12");
 
     public Questionnaire() {
         GridBagLayout grid = new GridBagLayout();
@@ -30,25 +35,50 @@ public class Questionnaire<max, count1, count2, count3> extends JPanel {
         back.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                //create new frame to loghistory
-                JFrame logframe= new JFrame(); // Create a new JFrame
-                logframe.setSize(800,1020);
+                /* Reference - https://stackoverflow.com/questions/34906220/running-two-tasks-at-the-same-time-in-java */
+                CountDownLatch latch = new CountDownLatch(2);
+                new Thread(new Runnable() {
+                    public void run() {
+                        load.createframe();
 
-                LogUIController uilog = new LogUIController(logframe);
+                        /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
+                        Component component = (Component) e.getSource(); // Get the source of the current component (panel)
+                        // declare JFrame currently open as "frame"
+                        JFrame frame = (JFrame) SwingUtilities.getRoot(component);
+                        frame.setVisible(false); // set current open frame as invisible
+                        /* end of reference 2 */
 
-                logframe.setVisible(true);
-                //This next line closes the program when the frame is closed
-                logframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                        load.showframe();
+                        latch.countDown();
+                    }
+                }).start();
 
-                /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
-                Component component = (Component) e.getSource(); // Get the source of the current component (panel)
-                // declare JFrame currently open as "frame"
-                JFrame frame = (JFrame) SwingUtilities.getRoot(component);
-                frame.setVisible(false); // set current open frame as invisible
-                /* end of reference 2 */
+                new Thread(new Runnable() {
+                    public void run() {
+                        //create new frame to loghistory
+                        JFrame logframe= new JFrame(); // Create a new JFrame
+                        logframe.setSize(800,1020);
+
+                        LogUIController uilog = new LogUIController(logframe);
+
+                        logframe.setVisible(true);
+                        //This next line closes the program when the frame is closed
+                        logframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+                        load.setVisible(false);
+
+                        /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
+                        Component component = (Component) e.getSource(); // Get the source of the current component (panel)
+                        // declare JFrame currently open as "frame"
+                        JFrame frame = (JFrame) SwingUtilities.getRoot(component);
+                        frame.setVisible(false); // set current open frame as invisible
+                        /* end of reference 2 */
+
+                        latch.countDown();
+                    }
+                }).start();
             }
         });
-
 
         questions[0]  = new JLabel("Questionnaire");
         questions[1] = new JLabel("Instructions: choose 1 for least likely and choose 3 for most likely ");
@@ -76,20 +106,15 @@ public class Questionnaire<max, count1, count2, count3> extends JPanel {
             System.out.println(i);
         }
 
-
         JLabel title = new JLabel ("Your questionnaire score is: " );
         scoreboard.add(title);
         scoreboard.add(score);
-
 
         Border border = BorderFactory.createLineBorder(Color.BLACK, 3);
         scoreboard.setBorder(border);
         add(scoreboard);
 
-
-
         ActionListener comboListener = new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 int sum = 0;
@@ -121,11 +146,6 @@ public class Questionnaire<max, count1, count2, count3> extends JPanel {
         constraints.gridx = 1;
         constraints.gridy = 14;
         add(back,constraints);
-
-
-
-
-
 }
 }
 

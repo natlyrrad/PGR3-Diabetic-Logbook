@@ -24,6 +24,8 @@ import java.util.Date;
 import SQLDatabase.pullAzure;
 import java.util.concurrent.CountDownLatch;
 
+import static drawingUI.QuestPage.Questionnaire.score;
+
 public class table extends JPanel {
 
     JLabel l = new JLabel("Date: ");
@@ -68,6 +70,8 @@ public class table extends JPanel {
         ltext.setText(dateFormat.format(date));
         DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
         ttext.setText(timeFormat.format(date));
+
+        qtext.setText(score.getText());
 
         DateFormat dateFormat2 = new SimpleDateFormat("yyyy/MM/dd");        //american format
         //PULL ENTRY HERE//////////////////////////////////////////////////////////////////////////////////////////////////
