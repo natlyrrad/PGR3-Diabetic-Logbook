@@ -139,8 +139,6 @@ public class EntryPanel extends JPanel implements ActionListener{               
                             System.out.println(m3);
                         }
 
-                        load.setVisible(false);
-
                         //return to log page
                         JFrame logFrame= new JFrame(gc); // Create a new JFrame
                         logFrame.setSize(700,900);
@@ -150,6 +148,8 @@ public class EntryPanel extends JPanel implements ActionListener{               
                         logFrame.setVisible(true);
                         // This next line closes the program when the frame is closed
                         logFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+                        load.setVisible(false);
 
                         /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
                         Component component = (Component) e.getSource(); // Get the source of the current component (panel)

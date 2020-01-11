@@ -94,9 +94,9 @@ public class table extends JPanel {
             System.out.println(empty);
             p2.add(empty);
             mtable.setFillsViewportHeight(false);
+            ph.setVisible(false);
         }
         p2.add(mtable);
-
 
         //Panel 3 for additional comments
         p3.setPreferredSize(new Dimension(600, 80));
@@ -145,7 +145,6 @@ public class table extends JPanel {
             }
         });
         pEx.add(exPanel);
-
 
         //Panel 4 for previous, today and next
         JButton previous = new JButton("<< Previous");
