@@ -86,4 +86,8 @@ public class personalTab extends JPanel {
         return person;
     }
 
+    public void fillPersonal(){
+        
+    }
+
 }

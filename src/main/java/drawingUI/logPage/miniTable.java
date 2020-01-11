@@ -6,28 +6,40 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
+import java.util.Arrays;
 
 public class miniTable extends JTable {
-    String[] header = { "Time","Blood sugar(MMol/L)", "Food Type", "Amount(g)", "Medication"};
-    Object[][] data  = new Object[1][header.length];
+    private static final Object[] header = { "Time","BSL (MMol/L)", "Food Diary", "Medication", "Dosage"};
+    Object[][] data;
 
-    public miniTable(String time, String sugar, String[] amount, String med)
-    {
+    public miniTable(String[] entries) {
+
         /* Reference - http://blog.marcnuri.com/displaying-a-jtable-inside-another-jtable-jtable-cellrenderer/*/
-        data[0][0] = time;
-        data[0][1] = sugar;
+        int size = entries.length;
+        int h = header.length;
+        data  = new Object[size][h];
+        for(int i = 0; i < (size); i++) {
+            String[] str = entries[i].split(";");
+            System.out.println(Arrays.toString(data[i]));
+            for(int j = 0; j < (h); j++) {
+                if(j==2){
+                    String[] food = str[j].split(",");
+                    System.out.println(Arrays.toString(food));
+                    data[i][j] = food;
+                }
+                else{
+                    data[i][j] = str[j];
+                }
+            }
+            System.out.println(Arrays.toString(data[i]));
+        }
 
-        String[] types = {"Complex Carbs (fiber)", "Simple Carbs (sugar)",
-                "Fats", "Protein", "Fruit & Veg", "Dairy"};
-        data[0][2] = types;
-        data[0][3] = amount;
-        data[0][4] = med;
 
         /* First we create the main model
 	    We overide the AbstractTableModel necessary methods*/
         AbstractTableModel modelo = new AbstractTableModel() {
             public String getColumnName(int col) {
-                return header[col];
+                return header[col].toString();
             }
             public Class getColumnClass(int col) {
                 if(getRowCount() <1) {
@@ -55,12 +67,12 @@ public class miniTable extends JTable {
         setModel(modelo);
 
         TableColumn column = null;
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < h; i++) {
             column = getColumnModel().getColumn(i);
             if (i == 2) {
-                column.setPreferredWidth(200); //third column is bigger
+                column.setPreferredWidth(150); //third column is bigger
             } else {
-                column.setPreferredWidth(140);
+                column.setPreferredWidth(110);
             }
         }
 
@@ -106,7 +118,9 @@ public class miniTable extends JTable {
                     });
                 }
             }
-        }; /* Finally we apply the new cellRenderer to the whole table */
+        };
+
+        /* Finally we apply the new cellRenderer to the whole table */
         TableColumnModel tcm = getColumnModel();
         for(int it = 0; it < tcm.getColumnCount(); it++){
             tcm.getColumn(it).setCellRenderer(jTableCellRenderer);

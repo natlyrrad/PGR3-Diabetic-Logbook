@@ -3,14 +3,14 @@ package drawingUI.logPage;
 import javax.swing.*;
 import java.awt.*;
 
-public class ExercisePanel extends JPanel{
+public class ExerciseEntry extends JPanel{
     JLabel ex = new JLabel("Type of Exercise: ");
     String[] type = {"Cardio", "Strength", "Other Activities"};
     JComboBox exCombo = new JComboBox(type);
     JLabel d = new JLabel("Duration (min): ");
     JTextField duration = new JTextField(5);
 
-    public ExercisePanel(){
+    public ExerciseEntry(){
         // set panel layout
         FlowLayout flayout = new FlowLayout(FlowLayout.LEFT);
         this.setLayout(flayout);
@@ -20,6 +20,7 @@ public class ExercisePanel extends JPanel{
         add(duration);
     }
 
+    ///// get exercise data method
     public String dataEx(){
         String exa= exCombo.getSelectedItem().toString() + ":" + duration.getText();
         return exa;

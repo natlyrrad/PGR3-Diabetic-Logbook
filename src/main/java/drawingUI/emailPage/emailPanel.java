@@ -1,4 +1,5 @@
 package drawingUI.emailPage; //Includes the class in the emailPage package
+import drawingUI.LoadingFrame;
 import drawingUI.detailsPage.DetailsUIController; //imports Details page
 import drawingUI.logPage.LogUIController;
 //Java classes imports (JDK)
@@ -17,7 +18,7 @@ public class emailPanel extends JPanel {
     public static JTextField etext = new JTextField(20);  // text field of size 20
     JButton buttonLogin = new JButton("Login");
 
-    JFrame load = new JFrame();
+    LoadingFrame load = new LoadingFrame();
 
     static GraphicsConfiguration gc;
     //Class Constructor
@@ -51,14 +52,7 @@ public class emailPanel extends JPanel {
                 CountDownLatch latch = new CountDownLatch(2);
                 new Thread(new Runnable() {
                     public void run() {
-                        /* Reference loading frame - https://stackoverflow.com/questions/7634402/creating-a-nice-loading-animation */
-                        ImageIcon loading = new ImageIcon("ajax-loader.gif");
-
-                        JLabel loadlabel = new JLabel(" Connecting... ", loading, JLabel.CENTER);
-                        loadlabel.setFont(new Font("Monospaced", Font.PLAIN, 18));
-
-                        load.add(loadlabel);
-                        load.getContentPane().setBackground( Color.white );
+                        load.createframe();
 
                         /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
                         Component component = (Component) e.getSource(); // Get the source of the current component (panel)
@@ -67,17 +61,13 @@ public class emailPanel extends JPanel {
                         frame.setVisible(false); // set current open frame as invisible
                         /* end of reference 2 */
 
-                        load.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                        load.setSize(400, 300);
-                        load.setVisible(true);
+                        load.showframe();
                         latch.countDown();
                     }
                 }).start();
 
                 new Thread(new Runnable() {
                     public void run() {
-                        //boolean email_verify = false;
-
                         boolean email_verify = SQLDatabase.pullAzure.verifyEmail(setEmail());
 
                         if (email_verify == false)
@@ -149,7 +139,7 @@ public class emailPanel extends JPanel {
         return email;
     }
 
-    public String userID(){
+    public static String userID(){
         return pullUserID(etext.getText());
     }
 

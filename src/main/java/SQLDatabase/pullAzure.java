@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.DriverManager;
+import java.util.ArrayList;
 
 public class pullAzure {
     public static String hostName = "pgr3.database.windows.net"; // update me
@@ -123,26 +124,23 @@ public class pullAzure {
         return res;
     }
 
-    public static String pullEntryDetails(String userID) {                              //to display log history
-//        SQLDatabase.pullAzure.pullEntryDetails("12");
+    public static String pullPatientName(String id) {                                            //to fetch user id for pulling/ pushing
         Connection connection;
-        boolean verifyStatus = false;
-        String res = "";
+        String PatientfirstName = "";
+        String PatientlastName = "";
 
         try {
             connection = DriverManager.getConnection(url);
 
             // Create and execute a SELECT SQL statement.
-            String selectSql = String.format("SELECT * FROM entryDetails WHERE userID='%s'", userID);
+            String selectSql = String.format("SELECT * FROM userDetails WHERE userID='%s'", id);
 
             try (Statement statement = connection.createStatement();
                  ResultSet resultSet = statement.executeQuery(selectSql)) {
 
                 while (resultSet.next()) {
-                    for (int i = 2; i < 10; i++) {
-                        res += resultSet.getString(i) + ";";
-                    }
-                    System.out.println(res);
+                    PatientfirstName = resultSet.getString(2);
+                    PatientlastName = resultSet.getString(3);
                 }
 
                 connection.close();
@@ -150,7 +148,72 @@ public class pullAzure {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return res;
+        String Name = PatientfirstName + " " + PatientlastName;
+        System.out.println(Name);
+        return Name;
+    }
+
+    public static String pullPatientPhone(String id) {                                            //to fetch user id for pulling/ pushing
+        Connection connection;
+        String patientphone = "";
+
+        try {
+            connection = DriverManager.getConnection(url);
+
+            // Create and execute a SELECT SQL statement.
+            String selectSql = String.format("SELECT * FROM userDetails WHERE userID='%s'", id);
+
+            try (Statement statement = connection.createStatement();
+                 ResultSet resultSet = statement.executeQuery(selectSql)) {
+
+                while (resultSet.next()) {
+                    patientphone = resultSet.getString(6);
+                }
+
+                connection.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(patientphone);
+        return patientphone;
+    }
+
+
+
+
+    public static String[] pullEntryDetails(String userID, String date) {                              //to display log history
+        Connection connection;
+        boolean verifyStatus = false;
+        String res = "";
+        ArrayList<String> entries = new ArrayList<>();
+
+        try {
+            connection = DriverManager.getConnection(url);
+
+            // Create and execute a SELECT SQL statement.
+            String selectSql = String.format("SELECT * FROM entryDetails WHERE userID='%s' AND entryDateTime >= '%s' " +
+                    "AND entryDateTime <= '%s 23:59:59.9'", userID, date, date);
+            System.out.println(selectSql);
+
+            try (Statement statement = connection.createStatement();
+                 ResultSet resultSet = statement.executeQuery(selectSql)) {
+
+                while (resultSet.next()) {
+                    for (int i = 2; i < 7; i++) {
+                        res += resultSet.getString(i) + ";";
+                    }
+                    entries.add(res);
+                    res = "";
+                }
+
+                connection.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String[] array = entries.toArray(new String[entries.size()]);
+        return array;
     }
 }
 
