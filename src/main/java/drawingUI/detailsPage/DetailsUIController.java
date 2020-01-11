@@ -17,6 +17,10 @@ public class DetailsUIController
         dpanel.setLayout(new BoxLayout(dpanel, BoxLayout.X_AXIS)); //Sets the panel at the center
         /* end of reference 3 */
 
+        ptab.fillPersonal();
+        dtab.fillDiabetes();
+        doctab.fillDoctor();
+
         // Generate the contents of the combined details panel and button into the frame
         frame.getContentPane().add(dpanel);
     }
