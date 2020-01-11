@@ -4,12 +4,18 @@ import drawingUI.QuestPage.Questionnaire;
 import drawingUI.Graph.PlotGraph;
 import drawingUI.calendarPage.CalendarUIController;
 import drawingUI.detailsPage.DetailsUIController;
+import drawingUI.entryPage.EntryUIController;
+import drawingUI.entryPage.FoodPanel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.concurrent.CountDownLatch;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 import static drawingUI.emailPage.emailPanel.etext;
 
@@ -94,9 +100,28 @@ public class loghistory extends JPanel {
 
                 new Thread(new Runnable() {
                     public void run() {
-                        PlotGraph chart = new PlotGraph("title", SQLDatabase.pullAzure.pullUserID(etext.getText()));
+                        SimpleDateFormat df=new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.S");
+                        Date start = null;
+                        try {
+                            start = df.parse("0000/00/00 00:00:00.0");
+                        } catch (ParseException ex) {
+                            ex.printStackTrace();
+                        }
+                        Date d=new Date();
+                        String dt=df.format(d)+" 23:59:59.9";
+                        Date end= null;
+                        try {
+                            end = df.parse(dt);
+                        } catch (ParseException ex) {
+                            ex.printStackTrace();
+                        }
+                        PlotGraph chart = new PlotGraph("title", SQLDatabase.pullAzure.pullUserID(etext.getText()),start,end);
                         chart.pack();
                         chart.setVisible(true);
+
+
+
+
 
                         load.setVisible(false);
 

@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import drawingUI.logPage.LogUIController;
 import org.jfree.chart.ChartFactory;
@@ -27,15 +28,16 @@ public class PlotGraph extends ApplicationFrame {
 
     // Declares a new Jbutton
     JButton back = new JButton(" << Back ");
+    JButton newGraph= new JButton("Graph for Specific Time Interval");
 
     static GraphicsConfiguration gc; // Class field containing config info
 
-    public PlotGraph(String title,String user) {
+    public PlotGraph(String title,String user,Date start,Date end) {
         super(title);
         JFreeChart lineChart = ChartFactory.createLineChart(
                 "chartTitle",
                 "Date and time", "Blood Sugar Level",
-                createDataset(user),
+                createDataset(user,start,end),
                 PlotOrientation.VERTICAL,
                 true, true, false);
 
@@ -43,6 +45,7 @@ public class PlotGraph extends ApplicationFrame {
         chartPanel.setPreferredSize(new java.awt.Dimension(560, 367));
 
         JPanel newPanel = new JPanel(new GridBagLayout()); // create a new panel with GridBagLayout manager
+
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.anchor = GridBagConstraints.CENTER;
         constraints.insets = new Insets(10, 10, 10, 10);
@@ -71,16 +74,36 @@ public class PlotGraph extends ApplicationFrame {
                 frame.setVisible(false); // set current open frame as invisible
                 /* end of reference 2 */
             }
+
         });
+
+
+        newGraph.addActionListener(new ActionListener(){
+            @Override
+
+            public void actionPerformed(ActionEvent e){
+                JFrame dateframe=new JFrame(gc);
+                dateframe.setSize(500,300);
+                CompDates p=new CompDates();
+                p.setLayout(new BoxLayout(p,BoxLayout.X_AXIS));
+                dateframe.getContentPane().add(p);
+                dateframe.setVisible(true);
+                dateframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            }
+        });
+
         constraints.gridx = 0;
         constraints.gridy = 2;
         constraints.anchor = GridBagConstraints.WEST;
         newPanel.add(back, constraints);
 
+        constraints.gridx=1;
+        newPanel.add(newGraph, constraints);
+
         add(newPanel);
     }
 
-    private DefaultCategoryDataset createDataset(String userid ) {
+    private DefaultCategoryDataset createDataset(String userid,Date start, Date end) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset( );
         try
         {
@@ -103,13 +126,18 @@ public class PlotGraph extends ApplicationFrame {
                 String datetime= rs.getString(2);
                 int bsl = rs.getInt(3);
 
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-dd-MM HH:mm:ss.S");
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
                 java.util.Date dt = null;
                 dt = format.parse(datetime);
-                dataset.addValue(bsl,"blood sugar level",dt);
+                if(!dt.before(start) && !dt.after(end)){
+                    dataset.addValue(bsl,"blood sugar level",dt);
+                }
+
 
                 // print the results
                 System.out.format("%s,  %s\n", datetime, bsl);
+
+
             }
             st.close();
         }
