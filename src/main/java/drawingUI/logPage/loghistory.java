@@ -1,5 +1,6 @@
 package drawingUI.logPage;
 
+import SQLDatabase.pullAzure;
 import drawingUI.QuestPage.Questionnaire;
 import drawingUI.Graph.PlotGraph;
 import drawingUI.calendarPage.CalendarUIController;
@@ -9,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 import java.util.concurrent.CountDownLatch;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,9 +33,31 @@ public class loghistory extends JPanel {
     public JButton Quest = new JButton(" Questionnaire");
     JButton btedit = new JButton("Edit Details");
 
-    table t = new table();
+
+    ////////////PULL THIRD TABLE HERE
+    //String com = pullAzure.pullComments("15", "Date");
+    String com = "qscore;Commentsssssss;Exercise 1: 123,Exercise2: 1234";
+
+    // Process com
+    String[] c = com.split(";");
+    //String c = "[]";
+
+
+
 
     public loghistory() {
+        if (Arrays.toString(c) != "[]") {
+            System.out.println(c);
+            Quest.setText("Questionnaire score: "+ c[0]);
+            Quest.setEnabled(false);
+            Quest.setToolTipText("Completed");
+
+            //default questionnaire textbox + default
+            c[0] = "0";
+        }
+
+        table t = new table(c);
+
         JPanel newPanel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.insets = new Insets(0, 1, 10, 1);
@@ -237,12 +261,13 @@ public class loghistory extends JPanel {
         add(newPanel);
 
 
-    }
+        if (Arrays.toString(c) != "[]") {
+            System.out.println(c);
+            Quest.setText("Questionnaire score: "+ c[0]);
+            Quest.setEnabled(false);
+            Quest.setToolTipText("Completed");
+        }
 
-    public void changeQuest(){
-        Quest.setText("Questionnaire score: 15");
-        Quest.setEnabled(false);
-        Quest.setToolTipText("Completed");
     }
 }
 

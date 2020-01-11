@@ -60,7 +60,7 @@ public class table extends JPanel {
     JPanel p4 = new JPanel(new GridLayout(1, 3));   //prev today next
     JPanel ph = new JPanel();                                   // header table
 
-    public table() {
+    public table(String[] str) {
         //Set current date and time
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
@@ -316,6 +316,11 @@ public class table extends JPanel {
         grid.anchor = GridBagConstraints.CENTER;
         grid.gridy = 3;
         add(p4, grid);
+
+        if(str[0] != "0"){
+            textbox.setText(str[1]);
+            exerciseLog();
+        }
     }
 
     private void RefreshTable() {
@@ -329,8 +334,8 @@ public class table extends JPanel {
         p2.repaint();
     }
 
-    private void delete() {
-
+    private void delete(String id, String datetime) {
+        //delete function for database
     }
 
     String getExercise(){
@@ -341,5 +346,9 @@ public class table extends JPanel {
             System.out.println(listString);
         }
         return listString;
+    }
+
+    void exerciseLog(){
+        // set up exercise log
     }
 }
