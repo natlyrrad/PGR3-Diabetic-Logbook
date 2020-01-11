@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.CountDownLatch;
 
+import drawingUI.LoadingFrame;
 import drawingUI.logPage.LogUIController;
 import javaMailAPI.jakartaMailAPI;
 import org.jfree.chart.ChartFactory;
@@ -36,7 +37,8 @@ public class PlotGraph extends ApplicationFrame {
     JButton back = new JButton(" << Back ");
     JButton newGraph= new JButton("Graph for Specific Time Interval");
 
-    JFrame load = new JFrame();
+    //Declare loading frame
+    LoadingFrame load = new LoadingFrame();
 
     static GraphicsConfiguration gc; // Class field containing config info
 
@@ -69,14 +71,7 @@ public class PlotGraph extends ApplicationFrame {
                 CountDownLatch latch = new CountDownLatch(2);
                 new Thread(new Runnable() {
                     public void run() {
-                        /* Reference loading frame - https://stackoverflow.com/questions/7634402/creating-a-nice-loading-animation */
-                        ImageIcon loading = new ImageIcon("ajax-loader.gif");
-
-                        JLabel loadlabel = new JLabel(" Connecting... ", loading, JLabel.CENTER);
-                        loadlabel.setFont(new Font("Monospaced", Font.PLAIN, 18));
-
-                        load.add(loadlabel);
-                        load.getContentPane().setBackground( Color.white );
+                        load.createframe();
 
                         /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
                         Component component = (Component) e.getSource(); // Get the source of the current component (panel)
@@ -85,9 +80,7 @@ public class PlotGraph extends ApplicationFrame {
                         frame.setVisible(false); // set current open frame as invisible
                         /* end of reference 2 */
 
-                        load.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                        load.setSize(400, 300);
-                        load.setVisible(true);
+                        load.showframe();
                         latch.countDown();
                     }
                 }).start();

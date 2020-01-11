@@ -1,5 +1,6 @@
 package drawingUI.logPage;
 
+import drawingUI.LoadingFrame;
 import drawingUI.emailPage.emailPanel;
 import drawingUI.detailsPage.DetailsUIController;
 import drawingUI.entryPage.EntryUIController;
@@ -36,7 +37,7 @@ public class table extends JPanel {
     JButton newrow = new JButton("New");
 
     //Declare loading frame
-    JFrame load = new JFrame();
+    LoadingFrame load = new LoadingFrame();
 
     int day = java.util.Calendar.getInstance().get(Calendar.DAY_OF_MONTH); // Get current Day
     int month = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH); // Get current Month
@@ -215,14 +216,7 @@ public class table extends JPanel {
                 CountDownLatch latch = new CountDownLatch(2);
                 new Thread(new Runnable() {
                     public void run() {
-                        /* Reference loading frame - https://stackoverflow.com/questions/7634402/creating-a-nice-loading-animation */
-                        ImageIcon loading = new ImageIcon("ajax-loader.gif");
-
-                        JLabel loadlabel = new JLabel(" Connecting... ", loading, JLabel.CENTER);
-                        loadlabel.setFont(new Font("Monospaced", Font.PLAIN, 18));
-
-                        load.add(loadlabel);
-                        load.getContentPane().setBackground( Color.white );
+                        load.createframe();
 
                         /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
                         Component component = (Component) e.getSource(); // Get the source of the current component (panel)
@@ -231,9 +225,7 @@ public class table extends JPanel {
                         frame.setVisible(false); // set current open frame as invisible
                         /* end of reference 2 */
 
-                        load.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                        load.setSize(400, 300);
-                        load.setVisible(true);
+                        load.showframe();
                         latch.countDown();
                     }
                 }).start();
