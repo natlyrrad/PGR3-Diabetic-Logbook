@@ -252,7 +252,7 @@ public class pullAzure {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "not set up";
+        return res;
     }
 
 

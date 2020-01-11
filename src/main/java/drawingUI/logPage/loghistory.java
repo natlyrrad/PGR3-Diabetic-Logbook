@@ -4,6 +4,7 @@ import SQLDatabase.pullAzure;
 import drawingUI.QuestPage.Questionnaire;
 import drawingUI.Graph.PlotGraph;
 import drawingUI.calendarPage.CalendarUIController;
+import drawingUI.calendarPage.DatePicker;
 import drawingUI.detailsPage.DetailsUIController;
 
 import javax.swing.*;
@@ -34,28 +35,32 @@ public class loghistory extends JPanel {
     JButton btedit = new JButton("Edit Details");
 
 
+
+
     ////////////PULL THIRD TABLE HERE
-    //String com = pullAzure.pullComments("15", "Date");
-    String com = "qscore;Commentsssssss;Exercise 1: 123,Exercise2: 1234";
+    String com = pullAzure.pullComments("15", "Date");
+    //String com = "qscore;Commentsssssss;Exercise 1: 123,Exercise2: 1234";
 
     // Process com
     String[] c = com.split(";");
-    //String c = "[]";
 
 
 
 
     public loghistory() {
-        if (Arrays.toString(c) != "[]") {
-            System.out.println(c);
+
+
+        if (com != "") {
+            System.out.println(Arrays.toString(c));
             Quest.setText("Questionnaire score: "+ c[0]);
             Quest.setEnabled(false);
             Quest.setToolTipText("Completed");
+            System.out.println("in");
 
             //default questionnaire textbox + default
-            c[0] = "0";
         }
-
+        c[0] = "0";
+        System.out.println("out");
         table t = new table(c);
 
         JPanel newPanel = new JPanel(new GridBagLayout());
@@ -260,13 +265,13 @@ public class loghistory extends JPanel {
 
         add(newPanel);
 
-
-        if (Arrays.toString(c) != "[]") {
-            System.out.println(c);
-            Quest.setText("Questionnaire score: "+ c[0]);
-            Quest.setEnabled(false);
-            Quest.setToolTipText("Completed");
-        }
+//
+//        if (Arrays.toString(c) != "[]") {
+//            System.out.println(c);
+//            Quest.setText("Questionnaire score: "+ c[0]);
+//            Quest.setEnabled(false);
+//            Quest.setToolTipText("Completed");
+//        }
 
     }
 }

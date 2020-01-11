@@ -29,8 +29,6 @@ public class table extends JPanel {
     public static JTextField ltext = new JTextField(7);
     JLabel t = new JLabel("Time: ");
     public static JTextField ttext = new JTextField(7);
-    JLabel q = new JLabel("Questionnaire Score: ");
-    public static JTextField qtext = new JTextField(4);
     JButton save = new JButton("Save");
     JButton delete = new JButton("Delete Recent");
     JButton newrow = new JButton("New");
@@ -51,6 +49,7 @@ public class table extends JPanel {
 
     //PULL ID HERE//////////////////////////////////////////////////////////////////////////////////////////////////
     String id = emailPanel.userID();
+    String[] entry;
 
     //Panels for layout
     JPanel newPanel = new JPanel(new GridBagLayout());
@@ -70,7 +69,7 @@ public class table extends JPanel {
 
         DateFormat dateFormat2 = new SimpleDateFormat("yyyy/MM/dd");        //american format
         //PULL ENTRY HERE//////////////////////////////////////////////////////////////////////////////////////////////////
-        String[] entry = pullAzure.pullEntryDetails(id, dateFormat2.format(date));
+        entry = pullAzure.pullEntryDetails(id, dateFormat2.format(date));
         //String[] entry = {"dt1;bsl1;Coke:23,Cheese:34,Chicken:8;med;13", "dt2;bsl1;Carrot cake:56,Coke:23,Cheese:34,Chicken:8;med;13", "dt3;bsl1;Chinese Tea:86,Carrot cake:56,Coke:23,Cheese:34,Chicken:8;med;13"};
 
 
@@ -79,8 +78,6 @@ public class table extends JPanel {
         p1.add(ltext);
         p1.add(t);
         p1.add(ttext);
-        p1.add(q);
-        p1.add(qtext);
         p1.add(delete);
         p1.add(newrow);
 
@@ -330,6 +327,13 @@ public class table extends JPanel {
         String[] ref = pullAzure.pullEntryDetails(id, a);
         miniTable t = new miniTable(ref);
         p2.add(t);
+        if(Arrays.toString(entry) == "[]"){
+            JLabel empty = new JLabel("No entries for today");
+            System.out.println(empty);
+            p2.add(empty);
+            t.setFillsViewportHeight(false);
+            ph.setVisible(false);
+        }
         p2.revalidate();
         p2.repaint();
     }
