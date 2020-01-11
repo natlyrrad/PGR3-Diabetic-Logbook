@@ -8,8 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.CountDownLatch;
 
-import drawingUI.logPage.LogUIController;
-import javaMailAPI.jakartaMailAPI;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -18,10 +16,6 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.ApplicationFrame;
 
 import javax.swing.*;
-
-import static SQLDatabase.pullAzure.pullDoctorEmail;
-import static SQLDatabase.pushAzure.pushEntryDetails;
-import static drawingUI.logPage.table.ltext;
 
 
 public class PlotGraph extends ApplicationFrame {
@@ -95,14 +89,7 @@ public class PlotGraph extends ApplicationFrame {
                 new Thread(new Runnable() {
                     public void run() {
                         //create new frame to loghistory
-                        JFrame logframe = new JFrame(gc); // Create a new JFrame
-                        logframe.setSize(800, 1050);
-
-                        LogUIController uilog = new LogUIController(logframe);
-
-                        logframe.setVisible(true);
-                        //This next line closes the program when the frame is closed
-                        logframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                        // LogUIController uilog = new LogUIController();
 
                         load.setVisible(false);
 

@@ -1,6 +1,6 @@
 package drawingUI.detailsPage; //Part of the detailsPage Package
 //Java classes imports (JDK)
-import drawingUI.logPage.LogUIController;
+import drawingUI.logPage.createAndShowLog;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.concurrent.CountDownLatch;
 
-import static SQLDatabase.pushAzure.pushUserDetails;
 import static drawingUI.emailPage.emailPanel.etext;
 
 public class detailsPanel extends JPanel
@@ -85,19 +84,12 @@ public class detailsPanel extends JPanel
 
                         String detail = String.join(";", ptab.getPersonal(), dtab.getDiabetes(), doctab.getDoctor());
                         System.out.println(detail);
-                        pushUserDetails(detail);
+                        //pushUserDetails(detail);
 
-                //create new frame to loghistory
-                JFrame logframe= new JFrame(gc); // Create a new JFrame
-                logframe.setSize(700,900);
-
-                        LogUIController uilog = new LogUIController(logframe);
+                        //create new frame to loghistory
+                        createAndShowLog uilog = new createAndShowLog();
 
                         load.setVisible(false);
-
-                        logframe.setVisible(true);
-                        //This next line closes the program when the frame is closed
-                        logframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
                         /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
                         Component component = (Component) e.getSource(); // Get the source of the current component (panel)

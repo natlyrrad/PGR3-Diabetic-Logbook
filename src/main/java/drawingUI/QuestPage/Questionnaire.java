@@ -1,6 +1,6 @@
 package drawingUI.QuestPage;
 
-import drawingUI.logPage.LogUIController;
+import drawingUI.logPage.createAndShowLog;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,14 +26,7 @@ public class Questionnaire extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e){
                 //create new frame to loghistory
-                JFrame logframe= new JFrame(); // Create a new JFrame
-                logframe.setSize(800,1020);
-
-                LogUIController uilog = new LogUIController(logframe);
-
-                logframe.setVisible(true);
-                //This next line closes the program when the frame is closed
-                logframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                createAndShowLog uilog = new createAndShowLog();
 
                 /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
                 Component component = (Component) e.getSource(); // Get the source of the current component (panel)

@@ -1,29 +1,14 @@
 package drawingUI.Graph;
 
-import drawingUI.logPage.LogUIController;
-import javaMailAPI.jakartaMailAPI;
-import org.jfree.date.DateUtilities;
-import sun.java2d.pipe.SpanShapeRenderer;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.concurrent.CountDownLatch;
 
-import drawingUI.entryPage.Entry;
-
-import static SQLDatabase.pullAzure.pullDoctorEmail;
-import static SQLDatabase.pushAzure.pushEntryDetails;
 import static drawingUI.emailPage.emailPanel.etext;
-import static drawingUI.logPage.table.ltext;
 
 public class CompDates extends JPanel {
     private static SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.S");

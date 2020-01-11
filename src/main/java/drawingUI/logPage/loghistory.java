@@ -4,8 +4,6 @@ import drawingUI.QuestPage.Questionnaire;
 import drawingUI.Graph.PlotGraph;
 import drawingUI.calendarPage.CalendarUIController;
 import drawingUI.detailsPage.DetailsUIController;
-import drawingUI.entryPage.EntryUIController;
-import drawingUI.entryPage.FoodPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +12,6 @@ import java.awt.event.ActionListener;
 import java.util.concurrent.CountDownLatch;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 import static drawingUI.emailPage.emailPanel.etext;
@@ -31,12 +28,12 @@ public class loghistory extends JPanel {
     // Declare the buttons included on the panel
     JButton btgraph = new JButton("Graph");
     JButton calendar = new JButton("Calendar");
-    JButton Questionnaire = new JButton( " Questionnaire");
+    public JButton Quest = new JButton(" Questionnaire");
     JButton btedit = new JButton("Edit Details");
 
     table t = new table();
 
-    public loghistory(){
+    public loghistory() {
         JPanel newPanel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.insets = new Insets(0, 1, 10, 1);
@@ -45,11 +42,11 @@ public class loghistory extends JPanel {
         JPanel bp = new JPanel(new GridLayout(1, 4));
         bp.setLayout(flayout);
 
-        calendar.addActionListener(new ActionListener(){
+        calendar.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e){
-                JFrame cal_frame= new JFrame(gc); // Create a new JFrame
-                cal_frame.setSize(600,400);
+            public void actionPerformed(ActionEvent e) {
+                JFrame cal_frame = new JFrame(gc); // Create a new JFrame
+                cal_frame.setSize(600, 400);
 
                 CalendarUIController uical = new CalendarUIController(cal_frame);
 
@@ -82,7 +79,7 @@ public class loghistory extends JPanel {
                         loadlabel.setFont(new Font("Monospaced", Font.PLAIN, 18));
 
                         load.add(loadlabel);
-                        load.getContentPane().setBackground( Color.white );
+                        load.getContentPane().setBackground(Color.white);
 
                         /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
                         Component component = (Component) e.getSource(); // Get the source of the current component (panel)
@@ -100,27 +97,24 @@ public class loghistory extends JPanel {
 
                 new Thread(new Runnable() {
                     public void run() {
-                        SimpleDateFormat df=new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.S");
+                        SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.S");
                         Date start = null;
                         try {
                             start = df.parse("0000/00/00 00:00:00.0");
                         } catch (ParseException ex) {
                             ex.printStackTrace();
                         }
-                        Date d=new Date();
-                        String dt=df.format(d)+" 23:59:59.9";
-                        Date end= null;
+                        Date d = new Date();
+                        String dt = df.format(d) + " 23:59:59.9";
+                        Date end = null;
                         try {
                             end = df.parse(dt);
                         } catch (ParseException ex) {
                             ex.printStackTrace();
                         }
-                        PlotGraph chart = new PlotGraph("title", SQLDatabase.pullAzure.pullUserID(etext.getText()),start,end);
+                        PlotGraph chart = new PlotGraph("title", SQLDatabase.pullAzure.pullUserID(etext.getText()), start, end);
                         chart.pack();
                         chart.setVisible(true);
-
-
-
 
 
                         load.setVisible(false);
@@ -156,7 +150,7 @@ public class loghistory extends JPanel {
                         loadlabel.setFont(new Font("Monospaced", Font.PLAIN, 18));
 
                         load.add(loadlabel);
-                        load.getContentPane().setBackground( Color.white );
+                        load.getContentPane().setBackground(Color.white);
 
                         /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
                         Component component = (Component) e.getSource(); // Get the source of the current component (panel)
@@ -175,8 +169,8 @@ public class loghistory extends JPanel {
                 new Thread(new Runnable() {
                     public void run() {
                         // Reopen the Details page
-                        JFrame details_frame= new JFrame(gc); // Create a new JFrame
-                        details_frame.setSize(500,450);
+                        JFrame details_frame = new JFrame(gc); // Create a new JFrame
+                        details_frame.setSize(500, 450);
 
                         DetailsUIController uidetails = new DetailsUIController(details_frame);
 
@@ -202,13 +196,13 @@ public class loghistory extends JPanel {
 
         /* Button Action: will open the Questionnaire window */
         constraints.gridx = 3;
-        Questionnaire.addActionListener(new ActionListener(){
+        Quest.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e){
+            public void actionPerformed(ActionEvent e) {
                 System.out.println("View questionnaire");
 
-                JFrame details_frame= new JFrame(gc); // Create a new JFrame
-                details_frame.setSize(800,900);
+                JFrame details_frame = new JFrame(gc); // Create a new JFrame
+                details_frame.setSize(800, 900);
 
                 drawingUI.QuestPage.Questionnaire q = new Questionnaire();
                 q.setVisible(true);
@@ -226,7 +220,7 @@ public class loghistory extends JPanel {
             }
 
         });
-        bp.add(Questionnaire);
+        bp.add(Quest);
 
         /* Following code will place each component in a specific point on the grid */
         constraints.gridx = 0;
@@ -241,5 +235,15 @@ public class loghistory extends JPanel {
         newPanel.add(t, constraints);
 
         add(newPanel);
+
+
+    }
+
+    public void changeQuest(){
+        Quest.setText("Questionnaire score: 15");
+        Quest.setEnabled(false);
+        Quest.setToolTipText("Completed");
     }
 }
+
+
