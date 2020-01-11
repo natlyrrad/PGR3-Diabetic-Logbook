@@ -55,22 +55,56 @@ public class EntryPanel extends JPanel implements ActionListener{               
         back.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                //create new frame to loghistory
-                JFrame logframe= new JFrame(); // Create a new JFrame
-                logframe.setSize(700,900);
+                /* Reference - https://stackoverflow.com/questions/34906220/running-two-tasks-at-the-same-time-in-java */
+                CountDownLatch latch = new CountDownLatch(2);
+                new Thread(new Runnable() {
+                    public void run() {
+                        /* Reference loading frame - https://stackoverflow.com/questions/7634402/creating-a-nice-loading-animation */
+                        ImageIcon loading = new ImageIcon("ajax-loader.gif");
 
-                LogUIController uilog = new LogUIController(logframe);
+                        JLabel loadlabel = new JLabel(" Connecting... ", loading, JLabel.CENTER);
+                        loadlabel.setFont(new Font("Monospaced", Font.PLAIN, 18));
 
-                logframe.setVisible(true);
-                //This next line closes the program when the frame is closed
-                logframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                        load.add(loadlabel);
+                        load.getContentPane().setBackground( Color.white );
 
-                /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
-                Component component = (Component) e.getSource(); // Get the source of the current component (panel)
-                // declare JFrame currently open as "frame"
-                JFrame frame = (JFrame) SwingUtilities.getRoot(component);
-                frame.setVisible(false); // set current open frame as invisible
-                /* end of reference 2 */
+                        /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
+                        Component component = (Component) e.getSource(); // Get the source of the current component (panel)
+                        // declare JFrame currently open as "frame"
+                        JFrame frame = (JFrame) SwingUtilities.getRoot(component);
+                        frame.setVisible(false); // set current open frame as invisible
+                        /* end of reference 2 */
+
+                        load.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        load.setSize(400, 300);
+                        load.setVisible(true);
+                        latch.countDown();
+                    }
+                }).start();
+
+                new Thread(new Runnable() {
+                    public void run() {
+                        //create new frame to loghistory
+                        JFrame logframe= new JFrame(); // Create a new JFrame
+                        logframe.setSize(700,900);
+
+                        LogUIController uilog = new LogUIController(logframe);
+
+                        logframe.setVisible(true);
+                        //This next line closes the program when the frame is closed
+                        logframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+                        load.setVisible(false);
+
+                        /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
+                        Component component = (Component) e.getSource(); // Get the source of the current component (panel)
+                        // declare JFrame currently open as "frame"
+                        JFrame frame = (JFrame) SwingUtilities.getRoot(component);
+                        frame.setVisible(false); // set current open frame as invisible
+                        /* end of reference 2 */
+                        latch.countDown();
+                    }
+                }).start();
             }
         });
         enter.addActionListener(new ActionListener(){
