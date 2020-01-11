@@ -1,5 +1,7 @@
 package drawingUI.Graph;
 
+import drawingUI.logPage.LogUIController;
+import javaMailAPI.jakartaMailAPI;
 import org.jfree.date.DateUtilities;
 import sun.java2d.pipe.SpanShapeRenderer;
 
@@ -14,10 +16,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.CountDownLatch;
 
 import drawingUI.entryPage.Entry;
 
+import static SQLDatabase.pullAzure.pullDoctorEmail;
+import static SQLDatabase.pushAzure.pushEntryDetails;
 import static drawingUI.emailPage.emailPanel.etext;
+import static drawingUI.logPage.table.ltext;
 
 public class CompDates extends JPanel {
     private static SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.S");
@@ -28,6 +34,8 @@ public class CompDates extends JPanel {
     private static JTextField enddate = new JTextField(20);
     private JButton buttonenter = new JButton("Enter");
 
+    JFrame load = new JFrame();
+
     static GraphicsConfiguration gc;
 
     public CompDates() {
@@ -36,38 +44,70 @@ public class CompDates extends JPanel {
         buttonenter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String a = startdate.getText()+" 00:00:00.0";
-                String b = enddate.getText()+" 23:59:59.9";
+                /* Reference - https://stackoverflow.com/questions/34906220/running-two-tasks-at-the-same-time-in-java */
+                CountDownLatch latch = new CountDownLatch(2);
+                new Thread(new Runnable() {
+                    public void run() {
+                        /* Reference loading frame - https://stackoverflow.com/questions/7634402/creating-a-nice-loading-animation */
+                        ImageIcon loading = new ImageIcon("ajax-loader.gif");
 
-                System.out.println(a);
-                System.out.println(b);
+                        JLabel loadlabel = new JLabel(" Connecting... ", loading, JLabel.CENTER);
+                        loadlabel.setFont(new Font("Monospaced", Font.PLAIN, 18));
 
-                java.util.Date start = null;
-                try {
-                    start = df.parse(a);
-                } catch (ParseException ex) {
-                    System.out.println("Please enter dates in the correct format");
-                }
-                System.out.println(start);
-                java.util.Date end = null;
-                try {
-                    end = df.parse(b);
-                } catch (ParseException ex) {
-                    System.out.print("Please enter dates in the correct format");
-                }
+                        load.add(loadlabel);
+                        load.getContentPane().setBackground(Color.white);
 
-                PlotGraph chart = new PlotGraph("title", SQLDatabase.pullAzure.pullUserID(etext.getText()), start, end);
-                chart.pack();
-                chart.setVisible(true);
+                        /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
+                        Component component = (Component) e.getSource(); // Get the source of the current component (panel)
+                        // declare JFrame currently open as "frame"
+                        JFrame frame = (JFrame) SwingUtilities.getRoot(component);
+                        frame.setVisible(false); // set current open frame as invisible
+                        /* end of reference 2 */
 
-                /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
-                Component component = (Component) e.getSource(); // Get the source of the current component (panel)
-                // declare JFrame currently open as "frame"
-                JFrame frame = (JFrame) SwingUtilities.getRoot(component);
-                frame.setVisible(false); // set current open frame as invisible
-                /* end of reference 2 */
+                        load.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        load.setSize(400, 300);
+                        load.setVisible(true);
+                        latch.countDown();
+                    }
+                }).start();
 
+                new Thread(new Runnable() {
+                    public void run() {
+                        String a = startdate.getText()+" 00:00:00.0";
+                        String b = enddate.getText()+" 23:59:59.9";
 
+                        System.out.println(a);
+                        System.out.println(b);
+
+                        java.util.Date start = null;
+                        try {
+                            start = df.parse(a);
+                        } catch (ParseException ex) {
+                            System.out.println("Please enter dates in the correct format");
+                        }
+                        System.out.println(start);
+                        java.util.Date end = null;
+                        try {
+                            end = df.parse(b);
+                        } catch (ParseException ex) {
+                            System.out.print("Please enter dates in the correct format");
+                        }
+
+                        PlotGraph chart = new PlotGraph("title", SQLDatabase.pullAzure.pullUserID(etext.getText()), start, end);
+                        chart.pack();
+                        chart.setVisible(true);
+
+                        load.setVisible(false);
+
+                        /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
+                        Component component = (Component) e.getSource(); // Get the source of the current component (panel)
+                        // declare JFrame currently open as "frame"
+                        JFrame frame = (JFrame) SwingUtilities.getRoot(component);
+                        frame.setVisible(false); // set current open frame as invisible
+                        /* end of reference 2 */
+                        latch.countDown();
+                    }
+                }).start();
             }
         });
         GridBagConstraints constraints = new GridBagConstraints();

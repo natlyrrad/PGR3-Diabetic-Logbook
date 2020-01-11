@@ -1,5 +1,6 @@
 package drawingUI.calendarPage; //Part of the calendarPage Package
 //Java classes imports (JDK)
+import drawingUI.detailsPage.DetailsUIController;
 import drawingUI.logPage.LogUIController;
 import drawingUI.logPage.table;
 
@@ -11,6 +12,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.CountDownLatch;
 
 /* Reference 5 -  taken from https://examples.javacodegeeks.com/desktop-java/swing/java-swing-date-picker-example/
    (this class was taken from reference 5 and then modified to better suit the project) */
@@ -28,6 +30,8 @@ public class DatePicker extends JPanel
     JLabel l = new JLabel("", JLabel.CENTER);
     String day = "";
     JButton[] button = new JButton[49]; // Declare an array of 49 buttons (grid of 7x7)
+
+    JFrame load = new JFrame();
 
     public static JLabel clabel = new JLabel("Today's Date: ");
     public static JLabel dlabel = new JLabel();
@@ -64,26 +68,61 @@ public class DatePicker extends JPanel
             {
                 button[x].addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent ae) {
-                        day = button[selection].getActionCommand(); // the day = day number selected
-                        dlabel.setText(setPickedDate()); // call the setPickedDate method below to display the date
+                        /* Reference - https://stackoverflow.com/questions/34906220/running-two-tasks-at-the-same-time-in-java */
+                        CountDownLatch latch = new CountDownLatch(2);
+                        new Thread(new Runnable() {
+                            public void run() {
+                                /* Reference loading frame - https://stackoverflow.com/questions/7634402/creating-a-nice-loading-animation */
+                                ImageIcon loading = new ImageIcon("ajax-loader.gif");
 
-                        JFrame logframe = new JFrame(); // Create a new JFrame
-                        logframe.setSize(700, 900);
+                                JLabel loadlabel = new JLabel(" Connecting... ", loading, JLabel.CENTER);
+                                loadlabel.setFont(new Font("Monospaced", Font.PLAIN, 18));
 
-                        LogUIController uilog = new LogUIController(logframe);
+                                load.add(loadlabel);
+                                load.getContentPane().setBackground( Color.white );
 
-                        logframe.setVisible(true);
-                        //This next line closes the program when the frame is closed
-                        logframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                                /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
+                                Component component = (Component) ae.getSource(); // Get the source of the current component (panel)
+                                // declare JFrame currently open as "frame"
+                                JFrame frame = (JFrame) SwingUtilities.getRoot(component);
+                                frame.setVisible(false); // set current open frame as invisible
+                                /* end of reference 2 */
 
-                        table.ltext.setText(setPickedDate());
+                                load.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                                load.setSize(400, 300);
+                                load.setVisible(true);
+                                latch.countDown();
+                            }
+                        }).start();
 
-                        /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
-                        Component component = (Component) ae.getSource(); // Get the source of the current component (panel)
-                        // declare JFrame currently open as "frame"
-                        JFrame frame = (JFrame) SwingUtilities.getRoot(component);
-                        frame.setVisible(false); // set current open frame as invisible
-                        /* end of reference 2 */
+                        new Thread(new Runnable() {
+                            public void run() {
+                                day = button[selection].getActionCommand(); // the day = day number selected
+                                dlabel.setText(setPickedDate()); // call the setPickedDate method below to display the date
+
+                                JFrame logframe = new JFrame(); // Create a new JFrame
+                                logframe.setSize(700, 900);
+
+                                LogUIController uilog = new LogUIController(logframe);
+
+                                logframe.setVisible(true);
+                                //This next line closes the program when the frame is closed
+                                logframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+                                table.ltext.setText(setPickedDate());
+
+                                load.setVisible(false);
+
+                                /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
+                                Component component = (Component) ae.getSource(); // Get the source of the current component (panel)
+                                // declare JFrame currently open as "frame"
+                                JFrame frame = (JFrame) SwingUtilities.getRoot(component);
+                                frame.setVisible(false); // set current open frame as invisible
+                                /* end of reference 2 */
+                                latch.countDown();
+                            }
+                        }).start();
+
                     }
                 });
             }

@@ -6,8 +6,10 @@ import java.awt.event.ActionListener;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.CountDownLatch;
 
 import drawingUI.logPage.LogUIController;
+import javaMailAPI.jakartaMailAPI;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -16,6 +18,10 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.ApplicationFrame;
 
 import javax.swing.*;
+
+import static SQLDatabase.pullAzure.pullDoctorEmail;
+import static SQLDatabase.pushAzure.pushEntryDetails;
+import static drawingUI.logPage.table.ltext;
 
 
 public class PlotGraph extends ApplicationFrame {
@@ -29,6 +35,8 @@ public class PlotGraph extends ApplicationFrame {
     // Declares a new Jbutton
     JButton back = new JButton(" << Back ");
     JButton newGraph= new JButton("Graph for Specific Time Interval");
+
+    JFrame load = new JFrame();
 
     static GraphicsConfiguration gc; // Class field containing config info
 
@@ -57,24 +65,58 @@ public class PlotGraph extends ApplicationFrame {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //create new frame to loghistory
-                JFrame logframe = new JFrame(gc); // Create a new JFrame
-                logframe.setSize(800, 1050);
+                /* Reference - https://stackoverflow.com/questions/34906220/running-two-tasks-at-the-same-time-in-java */
+                CountDownLatch latch = new CountDownLatch(2);
+                new Thread(new Runnable() {
+                    public void run() {
+                        /* Reference loading frame - https://stackoverflow.com/questions/7634402/creating-a-nice-loading-animation */
+                        ImageIcon loading = new ImageIcon("ajax-loader.gif");
 
-                LogUIController uilog = new LogUIController(logframe);
+                        JLabel loadlabel = new JLabel(" Connecting... ", loading, JLabel.CENTER);
+                        loadlabel.setFont(new Font("Monospaced", Font.PLAIN, 18));
 
-                logframe.setVisible(true);
-                //This next line closes the program when the frame is closed
-                logframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                        load.add(loadlabel);
+                        load.getContentPane().setBackground( Color.white );
 
-                /* Reference 2 - taken from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
-                Component component = (Component) e.getSource(); // Get the source of the current component (panel)
-                // declare JFrame currently open as "frame"
-                JFrame frame = (JFrame) SwingUtilities.getRoot(component);
-                frame.setVisible(false); // set current open frame as invisible
-                /* end of reference 2 */
+                        /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
+                        Component component = (Component) e.getSource(); // Get the source of the current component (panel)
+                        // declare JFrame currently open as "frame"
+                        JFrame frame = (JFrame) SwingUtilities.getRoot(component);
+                        frame.setVisible(false); // set current open frame as invisible
+                        /* end of reference 2 */
+
+                        load.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        load.setSize(400, 300);
+                        load.setVisible(true);
+                        latch.countDown();
+                    }
+                }).start();
+
+                new Thread(new Runnable() {
+                    public void run() {
+                        //create new frame to loghistory
+                        JFrame logframe = new JFrame(gc); // Create a new JFrame
+                        logframe.setSize(800, 1050);
+
+                        LogUIController uilog = new LogUIController(logframe);
+
+                        logframe.setVisible(true);
+                        //This next line closes the program when the frame is closed
+                        logframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+                        load.setVisible(false);
+
+                        /* Reference 2 - taken from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
+                        Component component = (Component) e.getSource(); // Get the source of the current component (panel)
+                        // declare JFrame currently open as "frame"
+                        JFrame frame = (JFrame) SwingUtilities.getRoot(component);
+                        frame.setVisible(false); // set current open frame as invisible
+                        /* end of reference 2 */
+
+                        latch.countDown();
+                    }
+                }).start();
             }
-
         });
 
 
@@ -89,6 +131,13 @@ public class PlotGraph extends ApplicationFrame {
                 dateframe.getContentPane().add(p);
                 dateframe.setVisible(true);
                 dateframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+                /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
+                Component component = (Component) e.getSource(); // Get the source of the current component (panel)
+                // declare JFrame currently open as "frame"
+                JFrame frame = (JFrame) SwingUtilities.getRoot(component);
+                frame.setVisible(false); // set current open frame as invisible
+                /* end of reference 2 */
             }
         });
 
