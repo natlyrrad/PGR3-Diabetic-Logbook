@@ -5,6 +5,9 @@ import drawingUI.emailPage.emailPanel;
 import javax.swing.*;
 import java.awt.*;
 
+import static SQLDatabase.pullAzure.*;
+import static drawingUI.emailPage.emailPanel.etext;
+
 public class personalTab extends JPanel {
     // Declare all the components included on the tab
     JLabel fnamelabel = new JLabel("First Name: ");
@@ -86,7 +89,14 @@ public class personalTab extends JPanel {
         return person;
     }
 
-    public void fillPersonal(){
+    public static void fillPersonal(){
+        String id = pullUserID(etext.getText());
+
+        fnametext.setText(pullPatientFirstName(id));
+        lnametext.setText(pullPatientLastName(id));
+        //emailtext.setText(pullPatientEmail(id));
+        addresstext.setText(pullPatientAddress(id));
+        phonetext.setText(pullPatientPhone(id));
 
     }
 

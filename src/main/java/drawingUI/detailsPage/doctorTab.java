@@ -3,6 +3,10 @@ package drawingUI.detailsPage; //Part of the detailsPage Package
 import javax.swing.*;
 import java.awt.*;
 
+import static SQLDatabase.pullAzure.*;
+import static SQLDatabase.pullAzure.pullPatientPhone;
+import static drawingUI.emailPage.emailPanel.etext;
+
 public class doctorTab extends JPanel {
     // Declare all the components included on the tab
     JLabel emaillabel = new JLabel("Email: ");
@@ -56,6 +60,15 @@ public class doctorTab extends JPanel {
         String doc = String.join(";", emailDoc, addressDoc, phoneDoc);
 
         return doc;
+    }
+
+    public static void fillDoctor(){
+        String id = pullUserID(etext.getText());
+
+        emailText.setText(pullDoctorEmail(id));
+        addressText.setText(pullDoctorAddress(id));
+        phoneText.setText(pullDoctorPhone(id));
+
     }
 
 }
