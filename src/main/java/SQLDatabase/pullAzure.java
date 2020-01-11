@@ -124,10 +124,9 @@ public class pullAzure {
         return res;
     }
 
-    public static String pullPatientName(String id) {                                            //to fetch user id for pulling/ pushing
+    public static String pullPatientFirstName(String id) {                                            //to fetch user id for pulling/ pushing
         Connection connection;
         String PatientfirstName = "";
-        String PatientlastName = "";
 
         try {
             connection = DriverManager.getConnection(url);
@@ -140,6 +139,32 @@ public class pullAzure {
 
                 while (resultSet.next()) {
                     PatientfirstName = resultSet.getString(2);
+                }
+
+                connection.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String FirstName = PatientfirstName;
+        System.out.println(FirstName);
+        return FirstName;
+    }
+
+    public static String pullPatientLastName(String id) {                                            //to fetch user id for pulling/ pushing
+        Connection connection;
+        String PatientlastName = "";
+
+        try {
+            connection = DriverManager.getConnection(url);
+
+            // Create and execute a SELECT SQL statement.
+            String selectSql = String.format("SELECT * FROM userDetails WHERE userID='%s'", id);
+
+            try (Statement statement = connection.createStatement();
+                 ResultSet resultSet = statement.executeQuery(selectSql)) {
+
+                while (resultSet.next()) {
                     PatientlastName = resultSet.getString(3);
                 }
 
@@ -148,9 +173,9 @@ public class pullAzure {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        String Name = PatientfirstName + " " + PatientlastName;
-        System.out.println(Name);
-        return Name;
+        String LastName = PatientlastName;
+        System.out.println(LastName);
+        return LastName;
     }
 
     public static String pullPatientPhone(String id) {                                            //to fetch user id for pulling/ pushing
@@ -178,9 +203,6 @@ public class pullAzure {
         System.out.println(patientphone);
         return patientphone;
     }
-
-
-
 
     public static String[] pullEntryDetails(String userID, String date) {                              //to display log history
         Connection connection;
