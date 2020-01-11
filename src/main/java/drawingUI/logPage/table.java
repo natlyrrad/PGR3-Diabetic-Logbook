@@ -29,6 +29,8 @@ public class table extends JPanel {
     public static JTextField ltext = new JTextField(7);
     JLabel t = new JLabel("Time: ");
     public static JTextField ttext = new JTextField(7);
+    JLabel q = new JLabel("Questionnaire Score: ");
+    public static JTextField qtext = new JTextField(4);
     JButton save = new JButton("Save");
     JButton delete = new JButton("Delete Recent");
     JButton newrow = new JButton("New");
@@ -56,7 +58,7 @@ public class table extends JPanel {
     JPanel p2 = new JPanel();                                   //minitable
     JPanel p3 = new JPanel(new GridLayout(1, 1));   //comments
     JPanel p4 = new JPanel(new GridLayout(1, 3));   //prev today next
-    JPanel ph = new JPanel();
+    JPanel ph = new JPanel();                                   // header table
 
     public table() {
         //Set current date and time
@@ -77,10 +79,12 @@ public class table extends JPanel {
         p1.add(ltext);
         p1.add(t);
         p1.add(ttext);
+        p1.add(q);
+        p1.add(qtext);
         p1.add(delete);
         p1.add(newrow);
 
-        //add header
+        //add header table for minitable
         headerTable htable = new headerTable();
         ph.add(htable);
 
@@ -323,6 +327,10 @@ public class table extends JPanel {
         p2.add(t);
         p2.revalidate();
         p2.repaint();
+    }
+
+    private void delete() {
+
     }
 
     String getExercise(){

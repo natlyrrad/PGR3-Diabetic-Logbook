@@ -180,6 +180,8 @@ public class pullAzure {
     }
 
 
+
+
     public static String[] pullEntryDetails(String userID, String date) {                              //to display log history
         Connection connection;
         boolean verifyStatus = false;
