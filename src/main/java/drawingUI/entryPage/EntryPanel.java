@@ -3,6 +3,7 @@ package drawingUI.entryPage;
 import drawingUI.LoadingFrame;
 import drawingUI.detailsPage.DetailsUIController;
 import drawingUI.logPage.LogUIController;
+import drawingUI.logPage.createAndShowLog;
 
 import javax.swing.*;
 import java.awt.*;
@@ -77,14 +78,7 @@ public class EntryPanel extends JPanel implements ActionListener{               
                 new Thread(new Runnable() {
                     public void run() {
                         //create new frame to loghistory
-                        JFrame logframe= new JFrame(); // Create a new JFrame
-                        logframe.setSize(700,900);
-
-                        LogUIController uilog = new LogUIController(logframe);
-
-                        logframe.setVisible(true);
-                        //This next line closes the program when the frame is closed
-                        logframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                        createAndShowLog uilog = new createAndShowLog();
 
                         load.setVisible(false);
 
@@ -157,14 +151,7 @@ public class EntryPanel extends JPanel implements ActionListener{               
                         }
 
                         //return to log page
-                        JFrame logFrame= new JFrame(gc); // Create a new JFrame
-                        logFrame.setSize(700,900);
-
-                        LogUIController uihis = new LogUIController(logFrame);
-
-                        logFrame.setVisible(true);
-                        // This next line closes the program when the frame is closed
-                        logFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                        createAndShowLog uihis = new createAndShowLog();
 
                         load.setVisible(false);
 

@@ -1,7 +1,7 @@
 package drawingUI.emailPage; //Includes the class in the emailPage package
 import drawingUI.LoadingFrame;
 import drawingUI.detailsPage.DetailsUIController; //imports Details page
-import drawingUI.logPage.LogUIController;
+import drawingUI.logPage.createAndShowLog;
 //Java classes imports (JDK)
 import javax.swing.*;
 import java.awt.*;
@@ -95,14 +95,7 @@ public class emailPanel extends JPanel {
                         }
                         else if (email_verify == true)
                         {
-                            JFrame logframe= new JFrame(gc); // Create a new JFrame
-                            logframe.setSize(800,1020);
-
-                            LogUIController uilog = new LogUIController(logframe);
-
-                            logframe.setVisible(true);
-                            //This next line closes the program when the frame is closed
-                            logframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                            createAndShowLog uilog = new createAndShowLog();
 
                             load.setVisible(false);
 

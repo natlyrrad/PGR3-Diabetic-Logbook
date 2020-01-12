@@ -1,9 +1,11 @@
 package drawingUI.logPage;
 
+import SQLDatabase.pullAzure;
 import drawingUI.LoadingFrame;
 import drawingUI.QuestPage.Questionnaire;
 import drawingUI.Graph.PlotGraph;
 import drawingUI.calendarPage.CalendarUIController;
+import drawingUI.calendarPage.DatePicker;
 import drawingUI.detailsPage.DetailsUIController;
 import drawingUI.entryPage.EntryUIController;
 import drawingUI.entryPage.FoodPanel;
@@ -12,6 +14,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 import java.util.concurrent.CountDownLatch;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,12 +35,38 @@ public class loghistory extends JPanel {
     // Declare the buttons included on the panel
     JButton btgraph = new JButton("Graph");
     JButton calendar = new JButton("Calendar");
-    JButton Questionnaire = new JButton( " Questionnaire");
+    public JButton Quest = new JButton(" Questionnaire");
     JButton btedit = new JButton("Edit Details");
 
-    table t = new table();
 
-    public loghistory(){
+
+
+    ////////////PULL THIRD TABLE HERE
+    String com = pullAzure.pullComments("15", "Date");
+    //String com = "qscore;Commentsssssss;Exercise 1: 123,Exercise2: 1234";
+
+    // Process com
+    String[] c = com.split(";");
+
+
+
+
+    public loghistory() {
+
+
+        if (com != "") {
+            System.out.println(Arrays.toString(c));
+            Quest.setText("Questionnaire score: "+ c[0]);
+            Quest.setEnabled(false);
+            Quest.setToolTipText("Completed");
+            System.out.println("in");
+
+            //default questionnaire textbox + default
+        }
+        c[0] = "0";
+        System.out.println("out");
+        table t = new table(c);
+
         JPanel newPanel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.insets = new Insets(0, 1, 10, 1);
@@ -46,11 +75,11 @@ public class loghistory extends JPanel {
         JPanel bp = new JPanel(new GridLayout(1, 4));
         bp.setLayout(flayout);
 
-        calendar.addActionListener(new ActionListener(){
+        calendar.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e){
-                JFrame cal_frame= new JFrame(gc); // Create a new JFrame
-                cal_frame.setSize(600,400);
+            public void actionPerformed(ActionEvent e) {
+                JFrame cal_frame = new JFrame(gc); // Create a new JFrame
+                cal_frame.setSize(600, 400);
 
                 CalendarUIController uical = new CalendarUIController(cal_frame);
 
@@ -92,24 +121,25 @@ public class loghistory extends JPanel {
 
                 new Thread(new Runnable() {
                     public void run() {
-                        SimpleDateFormat df=new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.S");
+                        SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.S");
                         Date start = null;
                         try {
                             start = df.parse("0000/00/00 00:00:00.0");
                         } catch (ParseException ex) {
                             ex.printStackTrace();
                         }
-                        Date d=new Date();
-                        String dt=df.format(d)+" 23:59:59.9";
-                        Date end= null;
+                        Date d = new Date();
+                        String dt = df.format(d) + " 23:59:59.9";
+                        Date end = null;
                         try {
                             end = df.parse(dt);
                         } catch (ParseException ex) {
                             ex.printStackTrace();
                         }
-                        PlotGraph chart = new PlotGraph("title", SQLDatabase.pullAzure.pullUserID(etext.getText()),start,end);
+                        PlotGraph chart = new PlotGraph("title", SQLDatabase.pullAzure.pullUserID(etext.getText()), start, end);
                         chart.pack();
                         chart.setVisible(true);
+
 
                         load.setVisible(false);
 
@@ -154,8 +184,8 @@ public class loghistory extends JPanel {
                 new Thread(new Runnable() {
                     public void run() {
                         // Reopen the Details page
-                        JFrame details_frame= new JFrame(gc); // Create a new JFrame
-                        details_frame.setSize(500,450);
+                        JFrame details_frame = new JFrame(gc); // Create a new JFrame
+                        details_frame.setSize(500, 450);
 
                         DetailsUIController uidetails = new DetailsUIController(details_frame);
 
@@ -181,13 +211,13 @@ public class loghistory extends JPanel {
 
         /* Button Action: will open the Questionnaire window */
         constraints.gridx = 3;
-        Questionnaire.addActionListener(new ActionListener(){
+        Quest.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e){
+            public void actionPerformed(ActionEvent e) {
                 System.out.println("View questionnaire");
 
-                JFrame details_frame= new JFrame(gc); // Create a new JFrame
-                details_frame.setSize(800,900);
+                JFrame details_frame = new JFrame(gc); // Create a new JFrame
+                details_frame.setSize(800, 900);
 
                 drawingUI.QuestPage.Questionnaire q = new Questionnaire();
                 q.setVisible(true);
@@ -205,7 +235,7 @@ public class loghistory extends JPanel {
             }
 
         });
-        bp.add(Questionnaire);
+        bp.add(Quest);
 
         /* Following code will place each component in a specific point on the grid */
         constraints.gridx = 0;

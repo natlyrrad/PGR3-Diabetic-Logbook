@@ -2,6 +2,7 @@ package drawingUI.detailsPage; //Part of the detailsPage Package
 //Java classes imports (JDK)
 import drawingUI.LoadingFrame;
 import drawingUI.logPage.LogUIController;
+import drawingUI.logPage.createAndShowLog;
 
 import javax.swing.*;
 import java.awt.*;
@@ -80,16 +81,9 @@ public class detailsPanel extends JPanel
                         pushUserDetails(detail);
 
                         //create new frame to loghistory
-                        JFrame logframe= new JFrame(gc); // Create a new JFrame
-                        logframe.setSize(700,900);
-
-                        LogUIController uilog = new LogUIController(logframe);
+                        createAndShowLog uilog = new createAndShowLog();
 
                         load.setVisible(false);
-
-                        logframe.setVisible(true);
-                        //This next line closes the program when the frame is closed
-                        logframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
                         /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
                         Component component = (Component) e.getSource(); // Get the source of the current component (panel)

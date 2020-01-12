@@ -1,5 +1,6 @@
 package drawingUI.calendarPage; //Part of the calendarPage Package
 //Java classes imports (JDK)
+import drawingUI.logPage.createAndShowLog;
 import drawingUI.LoadingFrame;
 import drawingUI.logPage.LogUIController;
 import drawingUI.logPage.table;
@@ -91,15 +92,7 @@ public class DatePicker extends JPanel
                             public void run() {
                                 day = button[selection].getActionCommand(); // the day = day number selected
                                 dlabel.setText(setPickedDate()); // call the setPickedDate method below to display the date
-
-                                JFrame logframe = new JFrame(); // Create a new JFrame
-                                logframe.setSize(700, 900);
-
-                                LogUIController uilog = new LogUIController(logframe);
-
-                                logframe.setVisible(true);
-                                //This next line closes the program when the frame is closed
-                                logframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                                createAndShowLog uilog = new createAndShowLog();
 
                                 table.ltext.setText(setPickedDate());
 

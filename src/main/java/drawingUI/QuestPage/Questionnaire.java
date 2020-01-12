@@ -3,6 +3,7 @@ package drawingUI.QuestPage;
 import drawingUI.LoadingFrame;
 import drawingUI.detailsPage.DetailsUIController;
 import drawingUI.logPage.LogUIController;
+import drawingUI.logPage.createAndShowLog;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -35,6 +36,8 @@ public class Questionnaire<max, count1, count2, count3> extends JPanel {
         back.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
+                //create new frame to loghistory
+                createAndShowLog uilog = new createAndShowLog();
                 /* Reference - https://stackoverflow.com/questions/34906220/running-two-tasks-at-the-same-time-in-java */
                 CountDownLatch latch = new CountDownLatch(2);
                 new Thread(new Runnable() {

@@ -14,6 +14,9 @@ public class pullAzure {
     public static String url = String.format("jdbc:sqlserver://%s:1433;database=%s;user=%s;password=%s;encrypt=true;"
             + "hostNameInCertificate=*.database.windows.net;loginTimeout=5;", hostName, dbName, user, password);
 
+
+
+    //////////////////////////////////////////////// FIRST TABLE //////////////////////////////////////////////////
     public static boolean verifyEmail(String email) {
 //        System.out.println(SQLDatabase.pullAzure.verifyEmail("dasdadasd"));
         Connection connection;
@@ -299,6 +302,7 @@ public class pullAzure {
             try (Statement statement = connection.createStatement();
                  ResultSet resultSet = statement.executeQuery(selectSql)) {
 
+    //////////////////////////////////////////////// SECOND TABLE //////////////////////////////////////////////////
                 while (resultSet.next()) {
 
                     admin = resultSet.getString(9);
@@ -429,5 +433,42 @@ public class pullAzure {
         String[] array = entries.toArray(new String[entries.size()]);
         return array;
     }
+
+
+    //////////////////////////////////////////////// THIRD TABLE //////////////////////////////////////////////////
+    public static String pullComments(String userID, String date) {                              //to display log history
+        Connection connection;
+        boolean verifyStatus = false;
+        String res = "";
+
+        try {
+            connection = DriverManager.getConnection(url);
+
+            // Create and execute a SELECT SQL statement.
+            // Select the most recent update
+            // if no match, return null?????
+            String selectSql = String.format("SELECT * FROM entryDetails WHERE userID='%s' AND entryDateTime >= '%s' " +
+                    "AND entryDateTime <= '%s 23:59:59.9'", userID, date, date);
+            System.out.println(selectSql);
+
+            try (Statement statement = connection.createStatement();
+                 ResultSet resultSet = statement.executeQuery(selectSql)) {
+
+                while (resultSet.next()) {
+                    for (int i = 2; i < 7; i++) {
+                        res += resultSet.getString(i) + ";";
+                    }
+                    res = "";
+                }
+
+                connection.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+
+
 }
 

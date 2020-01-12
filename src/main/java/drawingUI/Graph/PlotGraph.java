@@ -88,14 +88,7 @@ public class PlotGraph extends ApplicationFrame {
                 new Thread(new Runnable() {
                     public void run() {
                         //create new frame to loghistory
-                        JFrame logframe = new JFrame(gc); // Create a new JFrame
-                        logframe.setSize(800, 1050);
-
-                        LogUIController uilog = new LogUIController(logframe);
-
-                        logframe.setVisible(true);
-                        //This next line closes the program when the frame is closed
-                        logframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                        createAndShowLog uilog = new createAndShowLog();
 
                         load.setVisible(false);
 
