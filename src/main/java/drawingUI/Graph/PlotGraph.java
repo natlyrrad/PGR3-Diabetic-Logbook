@@ -44,6 +44,8 @@ public class PlotGraph extends ApplicationFrame {
     static GraphicsConfiguration gc; // Class field containing config info
 
     public PlotGraph(String title,String user,Date start,Date end) {
+        //Create a line chart based on the dataset created
+        /*reference:https://www.roseindia.net/tutorial/java/jfreechart/createLineChart.html*/
         super(title);
         JFreeChart lineChart = ChartFactory.createLineChart(
                 "chartTitle",
@@ -53,7 +55,7 @@ public class PlotGraph extends ApplicationFrame {
                 true, true, false);
 
         ChartPanel chartPanel = new ChartPanel(lineChart);
-        chartPanel.setPreferredSize(new java.awt.Dimension(560, 367));
+        chartPanel.setPreferredSize(new java.awt.Dimension(560, 367));//create a new chart panel
 
         JPanel newPanel = new JPanel(new GridBagLayout()); // create a new panel with GridBagLayout manager
 
@@ -160,12 +162,17 @@ public class PlotGraph extends ApplicationFrame {
             // iterate through the java resultset
             while (rs.next())
             {
+                //get specific data from the resultset. 2 and 3 is the column index for datetime and blood sugar level in the database.
                 String datetime= rs.getString(2);
                 int bsl = rs.getInt(3);
-
+                
+                //parse datetime into date format
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
                 java.util.Date dt = null;
                 dt = format.parse(datetime);
+                
+                //compare the date with start date and end date input
+                //if the date is within the interval then the correponding blood sugar level is added into the dataset for plotting
                 if(!dt.before(start) && !dt.after(end)){
                     dataset.addValue(bsl,"blood sugar level",dt);
                 }
