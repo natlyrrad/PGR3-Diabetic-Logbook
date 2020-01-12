@@ -447,7 +447,7 @@ public class pullAzure {
             // Create and execute a SELECT SQL statement.
             // Select the most recent update
             // if no match, return null?????
-            String selectSql = String.format("SELECT * FROM entryDetails WHERE userID='%s' AND entryDateTime >= '%s' " +
+            String selectSql = String.format("SELECT * FROM commentsTable WHERE userID='%s' AND entryDateTime >= '%s' " +
                     "AND entryDateTime <= '%s 23:59:59.9'", userID, date, date);
             System.out.println(selectSql);
 
