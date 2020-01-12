@@ -332,7 +332,7 @@ public class table extends JPanel {
         String a = String.join("/", d[2], d[1], d[0]);
         String[] ref = pullAzure.pullEntryDetails(id, a);
 
-        miniTable t = new miniTable(ref);
+        miniTable m = new miniTable(ref);
         headerTable h = new headerTable();
 
         p1.add(l);
@@ -341,21 +341,31 @@ public class table extends JPanel {
         p1.add(ttext);
         p1.add(delete);
         p1.add(newrow);
+
         ph.add(h);
-        p2.add(t);
+        ph.setVisible(true);
+        p2.add(m);
+
         p4.add(previous);
         p4.add(today);
         p4.add(next);
 
         if(Arrays.toString(ref) == "[]"){
-            JLabel empty = new JLabel("No entries for today");
+            JLabel empty = new JLabel();
             System.out.println(empty);
             p2.add(empty);
-            t.setFillsViewportHeight(false);
+            m.setFillsViewportHeight(false);
             ph.setVisible(false);
         }
+
+        p1.revalidate();
+        p1.repaint();
+        ph.revalidate();
+        ph.repaint();
         p2.revalidate();
         p2.repaint();
+        p4.revalidate();
+        p4.repaint();
     }
 
     private void delete(String id, String datetime) {

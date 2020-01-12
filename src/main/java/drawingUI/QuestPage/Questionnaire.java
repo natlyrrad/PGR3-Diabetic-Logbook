@@ -5,6 +5,7 @@ import drawingUI.detailsPage.DetailsUIController;
 import drawingUI.logPage.createAndShowLog;
 import drawingUI.logPage.table;
 
+import javax.security.auth.Refreshable;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -13,6 +14,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
+
+import static drawingUI.logPage.table.RefreshTable;
 
 public class Questionnaire<max, count1, count2, count3> extends JPanel {
     private List<JComboBox> combos = new ArrayList<>();
@@ -60,6 +63,7 @@ public class Questionnaire<max, count1, count2, count3> extends JPanel {
                         //create new frame to loghistory
                         createAndShowLog uilog = new createAndShowLog();
                         table.enterQscore(score.getText());
+                        RefreshTable();
 
                         load.setVisible(false);
 

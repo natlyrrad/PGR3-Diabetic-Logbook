@@ -22,6 +22,7 @@ import javax.swing.*;
 
 import static SQLDatabase.pullAzure.pullDoctorEmail;
 import static SQLDatabase.pushAzure.pushEntryDetails;
+import static drawingUI.logPage.table.RefreshTable;
 import static drawingUI.logPage.table.ltext;
 
 
@@ -89,6 +90,7 @@ public class PlotGraph extends ApplicationFrame {
                     public void run() {
                         //create new frame to loghistory
                         createAndShowLog uilog = new createAndShowLog();
+                        RefreshTable();
 
                         load.setVisible(false);
 
