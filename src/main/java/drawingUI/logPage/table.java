@@ -30,14 +30,19 @@ import static drawingUI.QuestPage.Questionnaire.score;
 
 public class table extends JPanel {
 
-    JLabel l = new JLabel("Date: ");
+    static JLabel l = new JLabel("Date: ");
     public static JTextField ltext = new JTextField(7);
-    JLabel t = new JLabel("Time: ");
+    static JLabel t = new JLabel("Time: ");
     public static JTextField ttext = new JTextField(7);
-    JButton save = new JButton("Save");
-    JButton delete = new JButton("Delete Recent");
-    JButton newrow = new JButton("New");
+    static JButton save = new JButton("Save");
+    static JButton delete = new JButton("Delete Recent");
+    static JButton newrow = new JButton("New");
     public static JTextArea textbox = new JTextArea("Additional comments: (e.g. Special activities, stress level...)",20, 50);
+
+    static JButton previous = new JButton("<< Previous");
+    static JButton today = new JButton("Today");
+    static JButton next = new JButton("Next >>");
+
 
     //Declare loading frame
     LoadingFrame load = new LoadingFrame();
@@ -156,7 +161,6 @@ public class table extends JPanel {
         pEx.add(exPanel);
 
         //Panel 4 for previous, today and next
-        JButton previous = new JButton("<< Previous");
         previous.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
                 String str = ltext.getText();
@@ -174,7 +178,6 @@ public class table extends JPanel {
         });
         p4.add(previous);
 
-        JButton today = new JButton("Today");
         today.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
                 DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -186,7 +189,6 @@ public class table extends JPanel {
         });
         p4.add(today);
 
-        JButton next = new JButton("Next >>");
         next.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
                 String str = ltext.getText();
@@ -321,13 +323,31 @@ public class table extends JPanel {
     }
 
     public static void RefreshTable() {
+        p1.removeAll();
+        ph.removeAll();
         p2.removeAll();
+        p4.removeAll();
+
         String[] d = ltext.getText().split("/");
         String a = String.join("/", d[2], d[1], d[0]);
         String[] ref = pullAzure.pullEntryDetails(id, a);
+
         miniTable t = new miniTable(ref);
+        headerTable h = new headerTable();
+
+        p1.add(l);
+        p1.add(ltext);
+        p1.add(t);
+        p1.add(ttext);
+        p1.add(delete);
+        p1.add(newrow);
+        ph.add(h);
         p2.add(t);
-        if(Arrays.toString(entry) == "[]"){
+        p4.add(previous);
+        p4.add(today);
+        p4.add(next);
+
+        if(Arrays.toString(ref) == "[]"){
             JLabel empty = new JLabel("No entries for today");
             System.out.println(empty);
             p2.add(empty);
