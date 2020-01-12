@@ -269,10 +269,10 @@ public class table extends JPanel {
         });
         save.setToolTipText("Save Questionnaire score, comments and exercise");
 
-        if(Arrays.toString(entry) != "[]"){
-            textbox.setText(str[1]);
-            exerciseLog(str[2]);
-        }
+//        if(Arrays.toString(entry) != "[]"){
+//            textbox.setText(str[1]);
+//            exerciseLog(str[2]);
+//        }
 
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.insets = new Insets(0, 0, 0, 0);
