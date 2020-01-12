@@ -64,6 +64,8 @@ public class table extends JPanel {
     JPanel p3 = new JPanel(new GridLayout(1, 1));   //comments
     JPanel p4 = new JPanel(new GridLayout(1, 3));   //prev today next
     JPanel ph = new JPanel();                                   // header table
+    JPanel pEx = new JPanel(new GridLayout());                  //
+    JPanel exPanel = new JPanel(new GridBagLayout());           //
 
 
     public static Date date = new Date();
@@ -75,11 +77,11 @@ public class table extends JPanel {
         DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
         ttext.setText(timeFormat.format(date));
 
-        DateFormat dateFormat2 = new SimpleDateFormat("yyyy/MM/dd");        //american format
         //PULL ENTRY HERE//////////////////////////////////////////////////////////////////////////////////////////////////
-        entry = pullAzure.pullEntryDetails(id, dateFormat2.format(date));
+        String[] a = ltext.getText().split("/");
+        String aDate = a[2] + a[1] + a[0];
+        entry = pullAzure.pullEntryDetails(id, aDate);
         //String[] entry = {"dt1;bsl1;Coke:23,Cheese:34,Chicken:8;med;13", "dt2;bsl1;Carrot cake:56,Coke:23,Cheese:34,Chicken:8;med;13", "dt3;bsl1;Chinese Tea:86,Carrot cake:56,Coke:23,Cheese:34,Chicken:8;med;13"};
-
 
         //Panel 1 for date and time
         p1.add(l);
@@ -118,9 +120,7 @@ public class table extends JPanel {
 
 
         //Panel for exercise
-        JPanel pEx = new JPanel(new GridLayout());
 
-        JPanel exPanel = new JPanel(new GridBagLayout());
         entryList.add(new ExerciseEntry());
 
         GridBagConstraints c = new GridBagConstraints();
@@ -353,6 +353,20 @@ public class table extends JPanel {
 
     void exerciseLog(){
         // set up exercise log
+        entryList.add(counter, new ExerciseEntry());
+
+        //remove all then add new components
+        exPanel.removeAll();
+        for(int i=0; i<(counter+1); i++){
+            //c.gridx = 0;
+            //c.gridy = i+1;
+            //exPanel.add(entryList.get(i), c);
+        }
+
+        //revalidate and display new fdPanel
+        exPanel.revalidate();
+        exPanel.repaint();
+        exPanel.setVisible(true);
     }
 
     public static void enterQscore(String sc){
