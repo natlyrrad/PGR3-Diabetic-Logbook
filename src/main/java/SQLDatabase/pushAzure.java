@@ -59,6 +59,7 @@ public class pushAzure {
     }
 }
 
+//data format
 //SQLDatabase.pushAzure.pushUserDetails("here;now;@mail.com;SSS777;123;Type 1;insuline type;pen;@doctor;FFF" +
 //        ";333");
 
