@@ -1,6 +1,7 @@
 package drawingUI.logPage;
 
 import drawingUI.LoadingFrame;
+import drawingUI.QuestPage.Questionnaire;
 import drawingUI.emailPage.emailPanel;
 import drawingUI.detailsPage.DetailsUIController;
 import drawingUI.entryPage.EntryUIController;
@@ -24,6 +25,7 @@ import java.util.Date;
 import SQLDatabase.pullAzure;
 import java.util.concurrent.CountDownLatch;
 
+import static SQLDatabase.pushAzure.pushCommentDetails;
 import static drawingUI.QuestPage.Questionnaire.score;
 
 public class table extends JPanel {
@@ -35,6 +37,7 @@ public class table extends JPanel {
     JButton save = new JButton("Save");
     JButton delete = new JButton("Delete Recent");
     JButton newrow = new JButton("New");
+    public static JTextArea textbox = new JTextArea("Additional comments: (e.g. Special activities, stress level...)",20, 50);
 
     //Declare loading frame
     LoadingFrame load = new LoadingFrame();
@@ -44,14 +47,14 @@ public class table extends JPanel {
     int year = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);; // Get current Year
 
     //ArrayLists to collect data
-    int counter = 0;
-    ArrayList<String> exerciseList = new ArrayList<>();
-    ArrayList<ExerciseEntry> entryList = new ArrayList<>();
+    static int counter = 0;
+    static ArrayList<String> exerciseList = new ArrayList<>();
+    static ArrayList<ExerciseEntry> entryList = new ArrayList<>();
 
     JButton addExercise = new JButton("Add Exercise");
 
     //PULL ID HERE//////////////////////////////////////////////////////////////////////////////////////////////////
-    String id = emailPanel.userID();
+    public static String id = emailPanel.userID();
     String[] entry;
 
     //Panels for layout
@@ -62,10 +65,12 @@ public class table extends JPanel {
     JPanel p4 = new JPanel(new GridLayout(1, 3));   //prev today next
     JPanel ph = new JPanel();                                   // header table
 
+
+    public static Date date = new Date();
+
     public table(String[] str) {
         //Set current date and time
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = new Date();
         ltext.setText(dateFormat.format(date));
         DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
         ttext.setText(timeFormat.format(date));
@@ -105,7 +110,6 @@ public class table extends JPanel {
         //Panel 3 for additional comments
         p3.setPreferredSize(new Dimension(600, 80));
 
-        JTextArea textbox = new JTextArea("Additional comments: (e.g. Special activities, stress level...)",20, 50);
         //// if comments arent empty, set comments
         Border border = BorderFactory.createLineBorder(Color.BLACK);
         textbox.setBorder(BorderFactory.createCompoundBorder(border,
@@ -253,8 +257,9 @@ public class table extends JPanel {
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String str = String.join(";", id, date.toString(), "Questionnaire score", textbox.getText(), getExercise(), " ");
+                String str = String.join(";", id, date.toString(), score.getText(), textbox.getText(), getExercise(), " ");
                 /////// push str
+                pushCommentDetails(str);
                 System.out.println(str);
                 System.out.println("Saved!");
             }
@@ -336,7 +341,7 @@ public class table extends JPanel {
         //delete function for database
     }
 
-    String getExercise(){
+    static String getExercise(){
         String listString = new String();
         for(int i=0; i<(counter+1); i++){
             exerciseList.add(i, entryList.get(i).dataEx());
@@ -348,5 +353,11 @@ public class table extends JPanel {
 
     void exerciseLog(){
         // set up exercise log
+    }
+
+    public static void enterQscore(String sc){
+        String str = String.join(";", id, date.toString(), sc, textbox.getText(), getExercise(), " ");
+        /////// push str
+        pushCommentDetails(str);
     }
 }
