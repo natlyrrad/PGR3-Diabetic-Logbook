@@ -25,7 +25,7 @@ public class Questionnaire<max, count1, count2, count3> extends JPanel {
 
     LoadingFrame load = new LoadingFrame();
 
-    public static JLabel score = new JLabel("12");
+    public static JLabel score = new JLabel("14");
 
     public Questionnaire() {
         GridBagLayout grid = new GridBagLayout();
