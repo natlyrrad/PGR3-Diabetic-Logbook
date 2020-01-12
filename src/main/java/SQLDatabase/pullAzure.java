@@ -447,15 +447,15 @@ public class pullAzure {
             // Create and execute a SELECT SQL statement.
             // Select the most recent update
             // if no match, return null?????
-            String selectSql = String.format("SELECT * FROM commentsTable WHERE userID='%s' AND entryDateTime >= '%s' " +
-                    "AND entryDateTime <= '%s 23:59:59.9'", userID, date, date);
+            String selectSql = String.format("SELECT * FROM commentsTable WHERE userID='%s' AND entryDate >= '%s' " +
+                    "AND entryDate <= '%s 23:59:59.9'", userID, date, date);
             System.out.println(selectSql);
 
             try (Statement statement = connection.createStatement();
                  ResultSet resultSet = statement.executeQuery(selectSql)) {
 
                 while (resultSet.next()) {
-                    for (int i = 2; i < 7; i++) {
+                    for (int i = 2; i < 6; i++) {
                         res += resultSet.getString(i) + ";";
                     }
                     res = "";
