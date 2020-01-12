@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import static drawingUI.calendarPage.DatePicker.dlabel;
+import static drawingUI.calendarPage.DatePicker.logCue;
 import static drawingUI.emailPage.emailPanel.etext;
 
 public class loghistory extends JPanel {
@@ -254,9 +255,12 @@ public class loghistory extends JPanel {
     }
 
     String checkCal(){
-        String[] a = dlabel.getText().split("/");
-        String aDate = a[2] + a[1] + a[0];
-        com = pullAzure.pullComments(table.id, aDate);
+        if(logCue == 1){
+            String[] a = dlabel.getText().split("/");
+            System.out.println(dlabel.getText());
+            String aDate = a[2] + a[1] + a[0];
+            com = pullAzure.pullComments(table.id, aDate);
+        }
         return com;
     }
 }
