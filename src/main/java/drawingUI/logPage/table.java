@@ -69,6 +69,7 @@ public class table extends JPanel {
 
 
     public static Date date = new Date();
+    public static String aDate;
 
     public table(String[] str) {
         //Set current date and time
@@ -79,7 +80,7 @@ public class table extends JPanel {
 
         //PULL ENTRY HERE//////////////////////////////////////////////////////////////////////////////////////////////////
         String[] a = ltext.getText().split("/");
-        String aDate = a[2] + a[1] + a[0];
+        aDate = a[2] + a[1] + a[0];
         entry = pullAzure.pullEntryDetails(id, aDate);
         //String[] entry = {"dt1;bsl1;Coke:23,Cheese:34,Chicken:8;med;13", "dt2;bsl1;Carrot cake:56,Coke:23,Cheese:34,Chicken:8;med;13", "dt3;bsl1;Chinese Tea:86,Carrot cake:56,Coke:23,Cheese:34,Chicken:8;med;13"};
 
@@ -257,7 +258,7 @@ public class table extends JPanel {
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String str = String.join(";", id, date.toString(), score.getText(), textbox.getText(), getExercise(), " ");
+                String str = String.join(";", id, aDate, score.getText(), textbox.getText(), getExercise(), " ");
                 /////// push str
                 pushCommentDetails(str);
                 System.out.println(str);
@@ -370,7 +371,7 @@ public class table extends JPanel {
     }
 
     public static void enterQscore(String sc){
-        String str = String.join(";", id, date.toString(), sc, textbox.getText(), getExercise(), " ");
+        String str = String.join(";", id, aDate, sc, textbox.getText(), getExercise(), " ");
         /////// push str
         pushCommentDetails(str);
     }
