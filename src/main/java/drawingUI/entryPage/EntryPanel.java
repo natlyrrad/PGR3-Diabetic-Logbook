@@ -1,11 +1,14 @@
 package drawingUI.entryPage;
 
+import drawingUI.LoadingFrame;
+import drawingUI.detailsPage.DetailsUIController;
 import drawingUI.logPage.createAndShowLog;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.CountDownLatch;
@@ -33,7 +36,7 @@ public class EntryPanel extends JPanel implements ActionListener{               
     JRadioButton inten = new JRadioButton("Intensive Method");
     int met = 0;
 
-    JFrame load = new JFrame();
+    LoadingFrame load = new LoadingFrame();
 
     CompPanel p2 = new CompPanel();
     public IntenPanel p3 = new IntenPanel();
@@ -57,14 +60,7 @@ public class EntryPanel extends JPanel implements ActionListener{               
                 CountDownLatch latch = new CountDownLatch(2);
                 new Thread(new Runnable() {
                     public void run() {
-                        /* Reference loading frame - https://stackoverflow.com/questions/7634402/creating-a-nice-loading-animation */
-                        ImageIcon loading = new ImageIcon("ajax-loader.gif");
-
-                        JLabel loadlabel = new JLabel(" Connecting... ", loading, JLabel.CENTER);
-                        loadlabel.setFont(new Font("Monospaced", Font.PLAIN, 18));
-
-                        load.add(loadlabel);
-                        load.getContentPane().setBackground( Color.white );
+                        load.createframe();
 
                         /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
                         Component component = (Component) e.getSource(); // Get the source of the current component (panel)
@@ -73,9 +69,7 @@ public class EntryPanel extends JPanel implements ActionListener{               
                         frame.setVisible(false); // set current open frame as invisible
                         /* end of reference 2 */
 
-                        load.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                        load.setSize(400, 300);
-                        load.setVisible(true);
+                        load.showframe();
                         latch.countDown();
                     }
                 }).start();
@@ -105,14 +99,7 @@ public class EntryPanel extends JPanel implements ActionListener{               
                 CountDownLatch latch = new CountDownLatch(2);
                 new Thread(new Runnable() {
                     public void run() {
-                        /* Reference loading frame - https://stackoverflow.com/questions/7634402/creating-a-nice-loading-animation */
-                        ImageIcon loading = new ImageIcon("ajax-loader.gif");
-
-                        JLabel loadlabel = new JLabel(" Connecting... ", loading, JLabel.CENTER);
-                        loadlabel.setFont(new Font("Monospaced", Font.PLAIN, 18));
-
-                        load.add(loadlabel);
-                        load.getContentPane().setBackground( Color.white );
+                        load.createframe();
 
                         /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
                         Component component = (Component) e.getSource(); // Get the source of the current component (panel)
@@ -121,9 +108,7 @@ public class EntryPanel extends JPanel implements ActionListener{               
                         frame.setVisible(false); // set current open frame as invisible
                         /* end of reference 2 */
 
-                        load.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                        load.setSize(400, 300);
-                        load.setVisible(true);
+                        load.showframe();
                         latch.countDown();
                     }
                 }).start();
@@ -132,8 +117,8 @@ public class EntryPanel extends JPanel implements ActionListener{               
                     public void run() {
                         //set date time as one single entry
                         String[] d = ltext.getText().split("/");
-                String americanDate = String.join("/", d[2], d[1], d[0]);
-                String dt = americanDate+ " " + time.getInfo();
+                        String americanDate = String.join("/", d[2], d[1], d[0]);
+                        String dt = americanDate+ " " + time.getInfo();
                         //create three strings for three conditions
                         String m1 = String.join(";" , id, dt, bsl.getInfo(), "", "", "");
                         String m2 = String.join(";" , id, dt, bsl.getInfo(), p2.getFood(), p2.getMed(), "");
@@ -180,7 +165,6 @@ public class EntryPanel extends JPanel implements ActionListener{               
                 }).start();
             }
         });
-
 
         //button actions to get local time
         localTime.addActionListener(new ActionListener(){

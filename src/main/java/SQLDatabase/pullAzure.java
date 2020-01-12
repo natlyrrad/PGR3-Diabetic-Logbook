@@ -70,33 +70,7 @@ public class pullAzure {
         return userID;
     }
 
-    public static String pullDoctorEmail(String id) {                                            //to fetch user id for pulling/ pushing
-        Connection connection;
-        String doctorEmail = "";
-
-        try {
-            connection = DriverManager.getConnection(url);
-
-            // Create and execute a SELECT SQL statement.
-            String selectSql = String.format("SELECT * FROM userDetails WHERE userID='%s'", id);
-
-            try (Statement statement = connection.createStatement();
-                 ResultSet resultSet = statement.executeQuery(selectSql)) {
-
-                while (resultSet.next()) {
-
-                    doctorEmail = resultSet.getString(10);
-                }
-
-                connection.close();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        System.out.println(doctorEmail);
-        return doctorEmail;
-    }
-
+    /////////////// Pull patient individual details
     public static String pullPersonalDetails(String userID) {                              //for users to edit personal details
 //        SQLDatabase.pullAzure.pullEntryDetails("12");
         Connection connection;
@@ -127,10 +101,9 @@ public class pullAzure {
         return res;
     }
 
-    public static String pullPatientName(String id) {                                            //to fetch user id for pulling/ pushing
+    public static String pullPatientFirstName(String id) {                                            //to fetch user id for pulling/ pushing
         Connection connection;
         String PatientfirstName = "";
-        String PatientlastName = "";
 
         try {
             connection = DriverManager.getConnection(url);
@@ -143,6 +116,32 @@ public class pullAzure {
 
                 while (resultSet.next()) {
                     PatientfirstName = resultSet.getString(2);
+                }
+
+                connection.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String FirstName = PatientfirstName;
+        System.out.println(FirstName);
+        return FirstName;
+    }
+
+    public static String pullPatientLastName(String id) {                                            //to fetch user id for pulling/ pushing
+        Connection connection;
+        String PatientlastName = "";
+
+        try {
+            connection = DriverManager.getConnection(url);
+
+            // Create and execute a SELECT SQL statement.
+            String selectSql = String.format("SELECT * FROM userDetails WHERE userID='%s'", id);
+
+            try (Statement statement = connection.createStatement();
+                 ResultSet resultSet = statement.executeQuery(selectSql)) {
+
+                while (resultSet.next()) {
                     PatientlastName = resultSet.getString(3);
                 }
 
@@ -151,9 +150,62 @@ public class pullAzure {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        String Name = PatientfirstName + " " + PatientlastName;
-        System.out.println(Name);
-        return Name;
+        String LastName = PatientlastName;
+        System.out.println(LastName);
+        return LastName;
+    }
+
+    public static String pullPatientEmail(String id) {                                            //to fetch user id for pulling/ pushing
+        Connection connection;
+        String PatientEmail = "";
+        try {
+            connection = DriverManager.getConnection(url);
+
+            // Create and execute a SELECT SQL statement.
+            String selectSql = String.format("SELECT * FROM userDetails WHERE userID='%s'", id);
+
+            try (Statement statement = connection.createStatement();
+                 ResultSet resultSet = statement.executeQuery(selectSql)) {
+
+                while (resultSet.next()) {
+                    PatientEmail = resultSet.getString(4);
+                }
+
+                connection.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String Email = PatientEmail;
+        System.out.println(Email);
+        return Email;
+    }
+
+    public static String pullPatientAddress(String id) {                                            //to fetch user id for pulling/ pushing
+        Connection connection;
+        String PatientAddress = "";
+
+        try {
+            connection = DriverManager.getConnection(url);
+
+            // Create and execute a SELECT SQL statement.
+            String selectSql = String.format("SELECT * FROM userDetails WHERE userID='%s'", id);
+
+            try (Statement statement = connection.createStatement();
+                 ResultSet resultSet = statement.executeQuery(selectSql)) {
+
+                while (resultSet.next()) {
+                    PatientAddress = resultSet.getString(5);
+                }
+
+                connection.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String Address = PatientAddress;
+        System.out.println(Address);
+        return Address;
     }
 
     public static String pullPatientPhone(String id) {                                            //to fetch user id for pulling/ pushing
@@ -182,10 +234,172 @@ public class pullAzure {
         return patientphone;
     }
 
+    ///////////// Pull diabetes individual details
+    public static String pullDiabetesType(String id) {                                            //to fetch user id for pulling/ pushing
+        Connection connection;
+        String type = "";
 
+        try {
+            connection = DriverManager.getConnection(url);
+
+            // Create and execute a SELECT SQL statement.
+            String selectSql = String.format("SELECT * FROM userDetails WHERE userID='%s'", id);
+
+            try (Statement statement = connection.createStatement();
+                 ResultSet resultSet = statement.executeQuery(selectSql)) {
+
+                while (resultSet.next()) {
+
+                    type = resultSet.getString(7);
+                }
+
+                connection.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(type);
+        return type;
+    }
+
+    public static String pullDiabetesInsulin(String id) {                                            //to fetch user id for pulling/ pushing
+        Connection connection;
+        String insulin = "";
+
+        try {
+            connection = DriverManager.getConnection(url);
+
+            // Create and execute a SELECT SQL statement.
+            String selectSql = String.format("SELECT * FROM userDetails WHERE userID='%s'", id);
+
+            try (Statement statement = connection.createStatement();
+                 ResultSet resultSet = statement.executeQuery(selectSql)) {
+
+                while (resultSet.next()) {
+
+                    insulin = resultSet.getString(8);
+                }
+
+                connection.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(insulin);
+        return insulin;
+    }
+
+    public static String pullDiabetesAdmin(String id) {                                            //to fetch user id for pulling/ pushing
+        Connection connection;
+        String admin = "";
+
+        try {
+            connection = DriverManager.getConnection(url);
+
+            // Create and execute a SELECT SQL statement.
+            String selectSql = String.format("SELECT * FROM userDetails WHERE userID='%s'", id);
+
+            try (Statement statement = connection.createStatement();
+                 ResultSet resultSet = statement.executeQuery(selectSql)) {
 
     //////////////////////////////////////////////// SECOND TABLE //////////////////////////////////////////////////
+                while (resultSet.next()) {
 
+                    admin = resultSet.getString(9);
+                }
+
+                connection.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(admin);
+        return admin;
+    }
+
+    ///////////// Pull doctor individual details
+    public static String pullDoctorEmail(String id) {                                            //to fetch user id for pulling/ pushing
+        Connection connection;
+        String doctorEmail = "";
+
+        try {
+            connection = DriverManager.getConnection(url);
+
+            // Create and execute a SELECT SQL statement.
+            String selectSql = String.format("SELECT * FROM userDetails WHERE userID='%s'", id);
+
+            try (Statement statement = connection.createStatement();
+                 ResultSet resultSet = statement.executeQuery(selectSql)) {
+
+                while (resultSet.next()) {
+
+                    doctorEmail = resultSet.getString(10);
+                }
+
+                connection.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(doctorEmail);
+        return doctorEmail;
+    }
+
+    public static String pullDoctorAddress(String id) {                                            //to fetch user id for pulling/ pushing
+        Connection connection;
+        String doctorAddress = "";
+
+        try {
+            connection = DriverManager.getConnection(url);
+
+            // Create and execute a SELECT SQL statement.
+            String selectSql = String.format("SELECT * FROM userDetails WHERE userID='%s'", id);
+
+            try (Statement statement = connection.createStatement();
+                 ResultSet resultSet = statement.executeQuery(selectSql)) {
+
+                while (resultSet.next()) {
+
+                    doctorAddress = resultSet.getString(11);
+                }
+
+                connection.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(doctorAddress);
+        return doctorAddress;
+    }
+
+    public static String pullDoctorPhone(String id) {                                            //to fetch user id for pulling/ pushing
+        Connection connection;
+        String doctorPhone = "";
+
+        try {
+            connection = DriverManager.getConnection(url);
+
+            // Create and execute a SELECT SQL statement.
+            String selectSql = String.format("SELECT * FROM userDetails WHERE userID='%s'", id);
+
+            try (Statement statement = connection.createStatement();
+                 ResultSet resultSet = statement.executeQuery(selectSql)) {
+
+                while (resultSet.next()) {
+
+                    doctorPhone = resultSet.getString(12);
+                }
+
+                connection.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(doctorPhone);
+        return doctorPhone;
+    }
+
+    ///////////////////////////////////
     public static String[] pullEntryDetails(String userID, String date) {                              //to display log history
         Connection connection;
         boolean verifyStatus = false;

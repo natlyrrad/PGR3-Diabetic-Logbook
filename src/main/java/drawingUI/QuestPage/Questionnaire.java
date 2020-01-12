@@ -1,19 +1,31 @@
 package drawingUI.QuestPage;
 
+import drawingUI.LoadingFrame;
+import drawingUI.detailsPage.DetailsUIController;
 import drawingUI.logPage.createAndShowLog;
+import drawingUI.logPage.table;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
-
-public class Questionnaire extends JPanel {
-
+public class Questionnaire<max, count1, count2, count3> extends JPanel {
+    private List<JComboBox> combos = new ArrayList<>();
+    private JTextField resultField = new JTextField(10);
     String[] options = {"1", "2", "3"};
     JLabel[] questions =new JLabel[14];
     JButton back = new JButton("< Back");
+    JPanel scoreboard = new JPanel();
+    int sum = 0;
 
+    LoadingFrame load = new LoadingFrame();
+
+    public static JLabel score = new JLabel("12");
 
     public Questionnaire() {
         GridBagLayout grid = new GridBagLayout();
@@ -25,18 +37,44 @@ public class Questionnaire extends JPanel {
         back.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                //create new frame to loghistory
-                createAndShowLog uilog = new createAndShowLog();
+                /* Reference - https://stackoverflow.com/questions/34906220/running-two-tasks-at-the-same-time-in-java */
+                CountDownLatch latch = new CountDownLatch(2);
+                new Thread(new Runnable() {
+                    public void run() {
+                        load.createframe();
 
-                /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
-                Component component = (Component) e.getSource(); // Get the source of the current component (panel)
-                // declare JFrame currently open as "frame"
-                JFrame frame = (JFrame) SwingUtilities.getRoot(component);
-                frame.setVisible(false); // set current open frame as invisible
-                /* end of reference 2 */
+                        /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
+                        Component component = (Component) e.getSource(); // Get the source of the current component (panel)
+                        // declare JFrame currently open as "frame"
+                        JFrame frame = (JFrame) SwingUtilities.getRoot(component);
+                        frame.setVisible(false); // set current open frame as invisible
+                        /* end of reference 2 */
+
+                        load.showframe();
+                        latch.countDown();
+                    }
+                }).start();
+
+                new Thread(new Runnable() {
+                    public void run() {
+                        //create new frame to loghistory
+                        createAndShowLog uilog = new createAndShowLog();
+                        table.enterQscore(score.getText());
+
+                        load.setVisible(false);
+
+                        /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
+                        Component component = (Component) e.getSource(); // Get the source of the current component (panel)
+                        // declare JFrame currently open as "frame"
+                        JFrame frame = (JFrame) SwingUtilities.getRoot(component);
+                        frame.setVisible(false); // set current open frame as invisible
+                        /* end of reference 2 */
+
+                        latch.countDown();
+                    }
+                }).start();
             }
         });
-
 
         questions[0]  = new JLabel("Questionnaire");
         questions[1] = new JLabel("Instructions: choose 1 for least likely and choose 3 for most likely ");
@@ -64,49 +102,48 @@ public class Questionnaire extends JPanel {
             System.out.println(i);
         }
 
+        JLabel title = new JLabel ("Your questionnaire score is: " );
+        scoreboard.add(title);
+        scoreboard.add(score);
+
+        Border border = BorderFactory.createLineBorder(Color.BLACK, 3);
+        scoreboard.setBorder(border);
+        add(scoreboard);
+
+        ActionListener comboListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // iterate through the list, adding the values
+                for (JComboBox<Integer> jComboBox : combos) {
+                    Integer selection = Integer.parseInt((String) jComboBox.getSelectedItem());
+                    sum += selection;
+                }
+                score.setText(String.valueOf(sum));
+            }
+        };
+
         for (int i =  2; i < 14; i++) {
             constraints.gridx = 1;
             constraints.gridy = i;
-            add(new JComboBox(options), constraints);
+
+            JComboBox<String> combo = new JComboBox<>();
+            combo.setModel(new DefaultComboBoxModel<>(options));
+            combo.setSelectedItem(0);
+            // add the ActionListener to the combo box
+            combo.addActionListener(comboListener);
+            // add the combo box to the list
+            combos.add(combo);
+            constraints.gridx = 1;
+            constraints.gridy = i;
+            add(combo, constraints);
         }
 
         constraints.gridx = 1;
         constraints.gridy = 14;
         add(back,constraints);
-
-        int count1 = 0;
-        int count2 = 0;
-        int count3 = 0;
-
-//        String x = JComboBox.getSelectedItem().toString();
-//        if (x == "1")
-//        {
-//            count1++;
-//            System.out.println("The number of 1's chosen are:" + count1);
-//        }
-//        else if (x == "2")
-//        {
-//            count2++;
-//            System.out.println("The number of 2's chosen are:" + count2);
-//        }
-//       else if (x == "3")
-//        {
-//            count3++;
-//            System.out.println("The number of 3's chosen are:" + count3);
-//        }
-
-
-
     }
 
-
 }
-
-
-
-
-
-
 
 
 

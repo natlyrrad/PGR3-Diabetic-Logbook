@@ -1,11 +1,14 @@
 package drawingUI.logPage;
 
 import SQLDatabase.pullAzure;
+import drawingUI.LoadingFrame;
 import drawingUI.QuestPage.Questionnaire;
 import drawingUI.Graph.PlotGraph;
 import drawingUI.calendarPage.CalendarUIController;
 import drawingUI.calendarPage.DatePicker;
 import drawingUI.detailsPage.DetailsUIController;
+import drawingUI.entryPage.EntryUIController;
+import drawingUI.entryPage.FoodPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +18,7 @@ import java.util.Arrays;
 import java.util.concurrent.CountDownLatch;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import static drawingUI.emailPage.emailPanel.etext;
@@ -26,7 +30,7 @@ public class loghistory extends JPanel {
     FlowLayout flayout = new FlowLayout();
 
     //Declare loading frame
-    JFrame load = new JFrame();
+    LoadingFrame load = new LoadingFrame();
 
     // Declare the buttons included on the panel
     JButton btgraph = new JButton("Graph");
@@ -35,16 +39,12 @@ public class loghistory extends JPanel {
     JButton btedit = new JButton("Edit Details");
 
 
-
-
     ////////////PULL THIRD TABLE HERE
     String com = pullAzure.pullComments("15", "Date");
     //String com = "qscore;Commentsssssss;Exercise 1: 123,Exercise2: 1234";
 
     // Process com
     String[] c = com.split(";");
-
-
 
 
     public loghistory() {
@@ -101,14 +101,7 @@ public class loghistory extends JPanel {
                 CountDownLatch latch = new CountDownLatch(2);
                 new Thread(new Runnable() {
                     public void run() {
-                        /* Reference loading frame - https://stackoverflow.com/questions/7634402/creating-a-nice-loading-animation */
-                        ImageIcon loading = new ImageIcon("ajax-loader.gif");
-
-                        JLabel loadlabel = new JLabel(" Connecting... ", loading, JLabel.CENTER);
-                        loadlabel.setFont(new Font("Monospaced", Font.PLAIN, 18));
-
-                        load.add(loadlabel);
-                        load.getContentPane().setBackground(Color.white);
+                        load.createframe();
 
                         /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
                         Component component = (Component) e.getSource(); // Get the source of the current component (panel)
@@ -117,9 +110,7 @@ public class loghistory extends JPanel {
                         frame.setVisible(false); // set current open frame as invisible
                         /* end of reference 2 */
 
-                        load.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                        load.setSize(400, 300);
-                        load.setVisible(true);
+                        load.showframe();
                         latch.countDown();
                     }
                 }).start();
@@ -172,14 +163,7 @@ public class loghistory extends JPanel {
                 CountDownLatch latch = new CountDownLatch(2);
                 new Thread(new Runnable() {
                     public void run() {
-                        /* Reference loading frame - https://stackoverflow.com/questions/7634402/creating-a-nice-loading-animation */
-                        ImageIcon loading = new ImageIcon("ajax-loader.gif");
-
-                        JLabel loadlabel = new JLabel(" Connecting... ", loading, JLabel.CENTER);
-                        loadlabel.setFont(new Font("Monospaced", Font.PLAIN, 18));
-
-                        load.add(loadlabel);
-                        load.getContentPane().setBackground(Color.white);
+                        load.createframe();
 
                         /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
                         Component component = (Component) e.getSource(); // Get the source of the current component (panel)
@@ -188,9 +172,7 @@ public class loghistory extends JPanel {
                         frame.setVisible(false); // set current open frame as invisible
                         /* end of reference 2 */
 
-                        load.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                        load.setSize(400, 300);
-                        load.setVisible(true);
+                        load.showframe();
                         latch.countDown();
                     }
                 }).start();
@@ -201,7 +183,7 @@ public class loghistory extends JPanel {
                         JFrame details_frame = new JFrame(gc); // Create a new JFrame
                         details_frame.setSize(500, 450);
 
-                        DetailsUIController uidetails = new DetailsUIController(details_frame);
+                        DetailsUIController uidetails = new DetailsUIController(details_frame, 1);
 
                         load.setVisible(false);
 
@@ -264,16 +246,5 @@ public class loghistory extends JPanel {
         newPanel.add(t, constraints);
 
         add(newPanel);
-
-//
-//        if (Arrays.toString(c) != "[]") {
-//            System.out.println(c);
-//            Quest.setText("Questionnaire score: "+ c[0]);
-//            Quest.setEnabled(false);
-//            Quest.setToolTipText("Completed");
-//        }
-
     }
 }
-
-

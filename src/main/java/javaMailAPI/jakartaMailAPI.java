@@ -51,7 +51,7 @@ public class jakartaMailAPI {
             message.setSubject(subject);
             System.out.println(message.getHeader("Subject")[0]);
 
-            String name = pullPatientName(id);
+            String name = pullPatientFirstName(id) + " " + pullPatientLastName(id);
             String phone = pullPatientPhone(id);
 
             String m1 = "Warning!";

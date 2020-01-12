@@ -1,6 +1,7 @@
 package drawingUI.calendarPage; //Part of the calendarPage Package
 //Java classes imports (JDK)
 import drawingUI.logPage.createAndShowLog;
+import drawingUI.LoadingFrame;
 import drawingUI.logPage.table;
 
 import javax.swing.*;
@@ -12,6 +13,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.CountDownLatch;
+
+import static drawingUI.logPage.table.RefreshTable;
 
 /* Reference 5 -  taken from https://examples.javacodegeeks.com/desktop-java/swing/java-swing-date-picker-example/
    (this class was taken from reference 5 and then modified to better suit the project) */
@@ -30,7 +33,8 @@ public class DatePicker extends JPanel
     String day = "";
     JButton[] button = new JButton[49]; // Declare an array of 49 buttons (grid of 7x7)
 
-    JFrame load = new JFrame();
+    //Declare loading frame
+    LoadingFrame load = new LoadingFrame();
 
     public static JLabel clabel = new JLabel("Today's Date: ");
     public static JLabel dlabel = new JLabel();
@@ -71,14 +75,7 @@ public class DatePicker extends JPanel
                         CountDownLatch latch = new CountDownLatch(2);
                         new Thread(new Runnable() {
                             public void run() {
-                                /* Reference loading frame - https://stackoverflow.com/questions/7634402/creating-a-nice-loading-animation */
-                                ImageIcon loading = new ImageIcon("ajax-loader.gif");
-
-                                JLabel loadlabel = new JLabel(" Connecting... ", loading, JLabel.CENTER);
-                                loadlabel.setFont(new Font("Monospaced", Font.PLAIN, 18));
-
-                                load.add(loadlabel);
-                                load.getContentPane().setBackground( Color.white );
+                                load.createframe();
 
                                 /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
                                 Component component = (Component) ae.getSource(); // Get the source of the current component (panel)
@@ -87,9 +84,7 @@ public class DatePicker extends JPanel
                                 frame.setVisible(false); // set current open frame as invisible
                                 /* end of reference 2 */
 
-                                load.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                                load.setSize(400, 300);
-                                load.setVisible(true);
+                                load.showframe();
                                 latch.countDown();
                             }
                         }).start();
@@ -97,10 +92,18 @@ public class DatePicker extends JPanel
                         new Thread(new Runnable() {
                             public void run() {
                                 day = button[selection].getActionCommand(); // the day = day number selected
+                                int d = Integer.valueOf(day);
                                 dlabel.setText(setPickedDate()); // call the setPickedDate method below to display the date
                                 createAndShowLog uilog = new createAndShowLog();
 
+                                String str = dlabel.getText();
+                                String[] a = str.split("/");
+                                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
+                                        "dd/MM/yyyy");
+                                java.util.Calendar cal = java.util.Calendar.getInstance();
+                                cal.set(year, month, d);
                                 table.ltext.setText(setPickedDate());
+                                RefreshTable();
 
                                 load.setVisible(false);
 

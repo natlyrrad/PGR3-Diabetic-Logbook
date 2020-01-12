@@ -11,11 +11,18 @@ public class DetailsUIController
     // Declare the panel with the tabs
     detailsPanel dpanel = new detailsPanel(ptab, dtab, doctab);
 
-    public DetailsUIController(JFrame frame)
+    public DetailsUIController(JFrame frame, int c)
     {
         /* Reference 3 - taken from https://stackoverflow.com/questions/5345609/java-align-jlabel-in-center-of-jpanel */
         dpanel.setLayout(new BoxLayout(dpanel, BoxLayout.X_AXIS)); //Sets the panel at the center
         /* end of reference 3 */
+
+        if(c ==1){
+            ptab.fillPersonal();
+            dtab.fillDiabetes();
+            doctab.fillDoctor();
+        }
+
 
         // Generate the contents of the combined details panel and button into the frame
         frame.getContentPane().add(dpanel);

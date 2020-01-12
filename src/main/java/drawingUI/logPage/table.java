@@ -1,5 +1,7 @@
 package drawingUI.logPage;
 
+import drawingUI.LoadingFrame;
+import drawingUI.QuestPage.Questionnaire;
 import drawingUI.emailPage.emailPanel;
 import drawingUI.detailsPage.DetailsUIController;
 import drawingUI.entryPage.EntryUIController;
@@ -23,6 +25,9 @@ import java.util.Date;
 import SQLDatabase.pullAzure;
 import java.util.concurrent.CountDownLatch;
 
+import static SQLDatabase.pushAzure.pushCommentDetails;
+import static drawingUI.QuestPage.Questionnaire.score;
+
 public class table extends JPanel {
 
     JLabel l = new JLabel("Date: ");
@@ -32,46 +37,50 @@ public class table extends JPanel {
     JButton save = new JButton("Save");
     JButton delete = new JButton("Delete Recent");
     JButton newrow = new JButton("New");
+    public static JTextArea textbox = new JTextArea("Additional comments: (e.g. Special activities, stress level...)",20, 50);
 
     //Declare loading frame
-    JFrame load = new JFrame();
+    LoadingFrame load = new LoadingFrame();
 
     int day = java.util.Calendar.getInstance().get(Calendar.DAY_OF_MONTH); // Get current Day
     int month = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH); // Get current Month
     int year = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);; // Get current Year
 
     //ArrayLists to collect data
-    int counter = 0;
-    ArrayList<String> exerciseList = new ArrayList<>();
-    ArrayList<ExerciseEntry> entryList = new ArrayList<>();
+    static int counter = 0;
+    static ArrayList<String> exerciseList = new ArrayList<>();
+    static ArrayList<ExerciseEntry> entryList = new ArrayList<>();
 
     JButton addExercise = new JButton("Add Exercise");
 
     //PULL ID HERE//////////////////////////////////////////////////////////////////////////////////////////////////
-    String id = emailPanel.userID();
-    String[] entry;
+    public static String id = emailPanel.userID();
+    static String[] entry;
 
     //Panels for layout
-    JPanel newPanel = new JPanel(new GridBagLayout());
-    JPanel p1 = new JPanel();                                   //date time bla bla
-    JPanel p2 = new JPanel();                                   //minitable
-    JPanel p3 = new JPanel(new GridLayout(1, 1));   //comments
-    JPanel p4 = new JPanel(new GridLayout(1, 3));   //prev today next
-    JPanel ph = new JPanel();                                   // header table
+    static JPanel newPanel = new JPanel(new GridBagLayout());
+    static JPanel p1 = new JPanel();                                   //date time bla bla
+    static JPanel p2 = new JPanel();                                   //minitable
+    static JPanel p3 = new JPanel(new GridLayout(1, 1));   //comments
+    static JPanel p4 = new JPanel(new GridLayout(1, 3));   //prev today next
+    static JPanel ph = new JPanel();                                   // header table
+
+
+    public static Date date = new Date();
+    public static String aDate;
 
     public table(String[] str) {
         //Set current date and time
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = new Date();
         ltext.setText(dateFormat.format(date));
         DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
         ttext.setText(timeFormat.format(date));
 
-        DateFormat dateFormat2 = new SimpleDateFormat("yyyy/MM/dd");        //american format
         //PULL ENTRY HERE//////////////////////////////////////////////////////////////////////////////////////////////////
-        entry = pullAzure.pullEntryDetails(id, dateFormat2.format(date));
+        String[] a = ltext.getText().split("/");
+        aDate = a[2] + a[1] + a[0];
+        entry = pullAzure.pullEntryDetails(id, aDate);
         //String[] entry = {"dt1;bsl1;Coke:23,Cheese:34,Chicken:8;med;13", "dt2;bsl1;Carrot cake:56,Coke:23,Cheese:34,Chicken:8;med;13", "dt3;bsl1;Chinese Tea:86,Carrot cake:56,Coke:23,Cheese:34,Chicken:8;med;13"};
-
 
         //Panel 1 for date and time
         p1.add(l);
@@ -102,7 +111,6 @@ public class table extends JPanel {
         //Panel 3 for additional comments
         p3.setPreferredSize(new Dimension(600, 80));
 
-        JTextArea textbox = new JTextArea("Additional comments: (e.g. Special activities, stress level...)",20, 50);
         //// if comments arent empty, set comments
         Border border = BorderFactory.createLineBorder(Color.BLACK);
         textbox.setBorder(BorderFactory.createCompoundBorder(border,
@@ -212,14 +220,7 @@ public class table extends JPanel {
                 CountDownLatch latch = new CountDownLatch(2);
                 new Thread(new Runnable() {
                     public void run() {
-                        /* Reference loading frame - https://stackoverflow.com/questions/7634402/creating-a-nice-loading-animation */
-                        ImageIcon loading = new ImageIcon("ajax-loader.gif");
-
-                        JLabel loadlabel = new JLabel(" Connecting... ", loading, JLabel.CENTER);
-                        loadlabel.setFont(new Font("Monospaced", Font.PLAIN, 18));
-
-                        load.add(loadlabel);
-                        load.getContentPane().setBackground( Color.white );
+                        load.createframe();
 
                         /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
                         Component component = (Component) e.getSource(); // Get the source of the current component (panel)
@@ -228,9 +229,7 @@ public class table extends JPanel {
                         frame.setVisible(false); // set current open frame as invisible
                         /* end of reference 2 */
 
-                        load.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                        load.setSize(400, 300);
-                        load.setVisible(true);
+                        load.showframe();
                         latch.countDown();
                     }
                 }).start();
@@ -259,8 +258,9 @@ public class table extends JPanel {
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String str = String.join(";", id, date.toString(), "Questionnaire score", textbox.getText(), getExercise(), " ");
+                String str = String.join(";", id, aDate, score.getText(), textbox.getText(), getExercise(), " ");
                 /////// push str
+                pushCommentDetails(str);
                 System.out.println(str);
                 System.out.println("Saved!");
             }
@@ -320,7 +320,7 @@ public class table extends JPanel {
         }
     }
 
-    private void RefreshTable() {
+    public static void RefreshTable() {
         p2.removeAll();
         String[] d = ltext.getText().split("/");
         String a = String.join("/", d[2], d[1], d[0]);
@@ -342,7 +342,7 @@ public class table extends JPanel {
         //delete function for database
     }
 
-    String getExercise(){
+    static String getExercise(){
         String listString = new String();
         for(int i=0; i<(counter+1); i++){
             exerciseList.add(i, entryList.get(i).dataEx());
@@ -354,5 +354,25 @@ public class table extends JPanel {
 
     void exerciseLog(){
         // set up exercise log
+//        entryList.add(counter, new ExerciseEntry());
+//
+//        //remove all then add new components
+//        exPanel.removeAll();
+//        for(int i=0; i<(counter+1); i++){
+//            //c.gridx = 0;
+//            //c.gridy = i+1;
+//            //exPanel.add(entryList.get(i), c);
+//        }
+//
+//        //revalidate and display new fdPanel
+//        exPanel.revalidate();
+//        exPanel.repaint();
+//        exPanel.setVisible(true);
+    }
+
+    public static void enterQscore(String sc){
+        String str = String.join(";", id, aDate, sc, textbox.getText(), getExercise(), " ");
+        /////// push str
+        pushCommentDetails(str);
     }
 }
