@@ -351,8 +351,8 @@ public class table extends JPanel {
         p4.add(next);
 
         if(Arrays.toString(ref) == "[]"){
-            JLabel empty = new JLabel();
-            System.out.println(empty);
+            JLabel empty = new JLabel("No entries for today");
+            p2.removeAll();
             p2.add(empty);
             m.setFillsViewportHeight(false);
             ph.setVisible(false);
