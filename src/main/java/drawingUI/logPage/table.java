@@ -72,6 +72,7 @@ public class table extends JPanel {
 
 
     public static Date date = new Date();
+    public static String aDate;
 
     public table(String[] str) {
         //Set current date and time
@@ -80,11 +81,11 @@ public class table extends JPanel {
         DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
         ttext.setText(timeFormat.format(date));
 
-        DateFormat dateFormat2 = new SimpleDateFormat("yyyy/MM/dd");        //american format
         //PULL ENTRY HERE//////////////////////////////////////////////////////////////////////////////////////////////////
-        entry = pullAzure.pullEntryDetails(id, dateFormat2.format(date));
+        String[] a = ltext.getText().split("/");
+        aDate = a[2] + a[1] + a[0];
+        entry = pullAzure.pullEntryDetails(id, aDate);
         //String[] entry = {"dt1;bsl1;Coke:23,Cheese:34,Chicken:8;med;13", "dt2;bsl1;Carrot cake:56,Coke:23,Cheese:34,Chicken:8;med;13", "dt3;bsl1;Chinese Tea:86,Carrot cake:56,Coke:23,Cheese:34,Chicken:8;med;13"};
-
 
         //Panel 1 for date and time
         p1.add(l);
@@ -259,7 +260,7 @@ public class table extends JPanel {
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String str = String.join(";", id, date.toString(), score.getText(), textbox.getText(), getExercise(), " ");
+                String str = String.join(";", id, aDate, score.getText(), textbox.getText(), getExercise(), " ");
                 /////// push str
                 pushCommentDetails(str);
                 System.out.println(str);
@@ -373,10 +374,24 @@ public class table extends JPanel {
 
     void exerciseLog(){
         // set up exercise log
+//        entryList.add(counter, new ExerciseEntry());
+//
+//        //remove all then add new components
+//        exPanel.removeAll();
+//        for(int i=0; i<(counter+1); i++){
+//            //c.gridx = 0;
+//            //c.gridy = i+1;
+//            //exPanel.add(entryList.get(i), c);
+//        }
+//
+//        //revalidate and display new fdPanel
+//        exPanel.revalidate();
+//        exPanel.repaint();
+//        exPanel.setVisible(true);
     }
 
     public static void enterQscore(String sc){
-        String str = String.join(";", id, date.toString(), sc, textbox.getText(), getExercise(), " ");
+        String str = String.join(";", id, aDate, sc, textbox.getText(), getExercise(), " ");
         /////// push str
         pushCommentDetails(str);
     }

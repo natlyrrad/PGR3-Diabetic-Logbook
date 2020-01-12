@@ -39,16 +39,12 @@ public class loghistory extends JPanel {
     JButton btedit = new JButton("Edit Details");
 
 
-
-
     ////////////PULL THIRD TABLE HERE
     String com = pullAzure.pullComments("15", "Date");
     //String com = "qscore;Commentsssssss;Exercise 1: 123,Exercise2: 1234";
 
     // Process com
     String[] c = com.split(";");
-
-
 
 
     public loghistory() {

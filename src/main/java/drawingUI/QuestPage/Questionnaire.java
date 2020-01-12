@@ -102,7 +102,7 @@ public class Questionnaire<max, count1, count2, count3> extends JPanel {
             System.out.println(i);
         }
 
-        JLabel title = new JLabel ("Your questionnaire score is: " );
+        JLabel title = new JLabel ("Your questionnaire score is: " );  //creating a new panel to add the two JComponents into, in a border layout.
         scoreboard.add(title);
         scoreboard.add(score);
 
@@ -115,14 +115,14 @@ public class Questionnaire<max, count1, count2, count3> extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 // iterate through the list, adding the values
                 for (JComboBox<Integer> jComboBox : combos) {
-                    Integer selection = Integer.parseInt((String) jComboBox.getSelectedItem());
+                    Integer selection = Integer.parseInt((String) jComboBox.getSelectedItem());   //Gets selected item from the combobox and converts it to an integer called selection,which is summed.
                     sum += selection;
                 }
                 score.setText(String.valueOf(sum));
             }
         };
 
-        for (int i =  2; i < 14; i++) {
+        for (int i =  2; i < 14; i++) {     //creates a JComboBox per question. comboboxes are stored in an ArrayList.
             constraints.gridx = 1;
             constraints.gridy = i;
 
