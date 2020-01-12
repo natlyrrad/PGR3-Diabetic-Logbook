@@ -39,6 +39,8 @@ public class DatePicker extends JPanel
     public static JLabel clabel = new JLabel("Today's Date: ");
     public static JLabel dlabel = new JLabel();
 
+    public static Integer logCue = 0;
+
     public DatePicker() {
         /* Reference 1 - taken from https://www.codejava.net/java-se/swing/jpanel-basic-tutorial-and-examples */
         JPanel newPanel = new JPanel(new GridBagLayout());
@@ -95,6 +97,7 @@ public class DatePicker extends JPanel
                                 int d = Integer.valueOf(day);
                                 dlabel.setText(setPickedDate()); // call the setPickedDate method below to display the date
                                 createAndShowLog uilog = new createAndShowLog();
+                                logCue = 1;
 
                                 String str = dlabel.getText();
                                 String[] a = str.split("/");

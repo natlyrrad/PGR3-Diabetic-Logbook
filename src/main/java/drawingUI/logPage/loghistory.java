@@ -14,6 +14,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
 import java.util.Arrays;
 import java.util.concurrent.CountDownLatch;
 import java.text.ParseException;
@@ -21,6 +22,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static drawingUI.calendarPage.DatePicker.dlabel;
+import static drawingUI.calendarPage.DatePicker.logCue;
 import static drawingUI.emailPage.emailPanel.etext;
 
 public class loghistory extends JPanel {
@@ -38,17 +41,20 @@ public class loghistory extends JPanel {
     public JButton Quest = new JButton(" Questionnaire");
     JButton btedit = new JButton("Edit Details");
 
+    public static Date date = new Date();
+    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+    String com;
 
-    ////////////PULL THIRD TABLE HERE
-    String com = pullAzure.pullComments("15", "Date");
-    //String com = "qscore;Commentsssssss;Exercise 1: 123,Exercise2: 1234";
-
-    // Process com
-    String[] c = com.split(";");
 
 
     public loghistory() {
+        ////////////PULL THIRD TABLE HERE
+        com = pullAzure.pullComments(table.id, dateFormat.format(date));
+        //com = "qscore;Commentsssssss;Exercise 1: 123,Exercise2: 1234";
 
+        checkCal();
+        // Process com
+        String[] c = com.split(";");
 
         if (com != "") {
             System.out.println(Arrays.toString(c));
@@ -58,8 +64,9 @@ public class loghistory extends JPanel {
             System.out.println("in");
 
             //default questionnaire textbox + default
+            ;
+            System.out.println(Arrays.toString(c));
         }
-        c[0] = "0";
         System.out.println("out");
         table t = new table(c);
 
@@ -246,5 +253,16 @@ public class loghistory extends JPanel {
         newPanel.add(t, constraints);
 
         add(newPanel);
+    }
+
+    // pull entry details with inputted date from cal
+    String checkCal(){
+        if(logCue == 1){
+            String[] a = dlabel.getText().split("/");
+            System.out.println(dlabel.getText());
+            String aDate = a[2] + a[1] + a[0];
+            com = pullAzure.pullComments(table.id, aDate);
+        }
+        return com;
     }
 }
