@@ -55,15 +55,15 @@ public class table extends JPanel {
 
     //PULL ID HERE//////////////////////////////////////////////////////////////////////////////////////////////////
     public static String id = emailPanel.userID();
-    String[] entry;
+    static String[] entry;
 
     //Panels for layout
-    JPanel newPanel = new JPanel(new GridBagLayout());
-    JPanel p1 = new JPanel();                                   //date time bla bla
-    JPanel p2 = new JPanel();                                   //minitable
-    JPanel p3 = new JPanel(new GridLayout(1, 1));   //comments
-    JPanel p4 = new JPanel(new GridLayout(1, 3));   //prev today next
-    JPanel ph = new JPanel();                                   // header table
+    static JPanel newPanel = new JPanel(new GridBagLayout());
+    static JPanel p1 = new JPanel();                                   //date time bla bla
+    static JPanel p2 = new JPanel();                                   //minitable
+    static JPanel p3 = new JPanel(new GridLayout(1, 1));   //comments
+    static JPanel p4 = new JPanel(new GridLayout(1, 3));   //prev today next
+    static JPanel ph = new JPanel();                                   // header table
 
 
     public static Date date = new Date();
@@ -319,7 +319,7 @@ public class table extends JPanel {
         }
     }
 
-    private void RefreshTable() {
+    public static void RefreshTable() {
         p2.removeAll();
         String[] d = ltext.getText().split("/");
         String a = String.join("/", d[2], d[1], d[0]);
