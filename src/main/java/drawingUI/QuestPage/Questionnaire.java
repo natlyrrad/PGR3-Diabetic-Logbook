@@ -20,6 +20,7 @@ public class Questionnaire<max, count1, count2, count3> extends JPanel {
     JLabel[] questions =new JLabel[14];
     JButton back = new JButton("< Back");
     JPanel scoreboard = new JPanel();
+    int sum = 0;
 
     LoadingFrame load = new LoadingFrame();
 
@@ -112,7 +113,6 @@ public class Questionnaire<max, count1, count2, count3> extends JPanel {
         ActionListener comboListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int sum = 0;
                 // iterate through the list, adding the values
                 for (JComboBox<Integer> jComboBox : combos) {
                     Integer selection = Integer.parseInt((String) jComboBox.getSelectedItem());
@@ -141,7 +141,11 @@ public class Questionnaire<max, count1, count2, count3> extends JPanel {
         constraints.gridx = 1;
         constraints.gridy = 14;
         add(back,constraints);
-}
+    }
+
+    public Integer returnScore(){
+        return sum;
+    }
 }
 
 

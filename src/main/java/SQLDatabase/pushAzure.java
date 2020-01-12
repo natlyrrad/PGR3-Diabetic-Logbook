@@ -48,6 +48,15 @@ public class pushAzure {
 
         push(queryStatement);
     }
+
+    public static void pushCommentDetails(String entryDetails) {
+        String[] entryArray = entryDetails.split(";", -2);
+        String queryStatement = String.format("INSERT INTO entryDetails " +
+                        "VALUES ('%s', '%s', '%s', '%s', '%s', '%s');", entryArray[0],
+                entryArray[1], entryArray[2], entryArray[3], entryArray[4], entryArray[5]);
+
+        //push(queryStatement);
+    }
 }
 
 //SQLDatabase.pushAzure.pushUserDetails("here;now;@mail.com;SSS777;123;Type 1;insuline type;pen;@doctor;FFF" +
