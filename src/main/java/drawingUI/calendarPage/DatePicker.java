@@ -185,11 +185,13 @@ public class DatePicker extends JPanel
         for (int x = 6 + dayOfWeek, day = 1; day <= daysInMonth; x++, day++)
         {
             button[x].setText("" + day);
+            // Highlight the current day
             if ((day == cday) && (cmonth == month) && (year == cyear))
             {
                 button[x].setBackground(Color.pink);
                 button[x].setForeground(Color.black);
             }
+            // Set all other numbers as black on white
             else if ((month == (cmonth + 1)) || (month == (cmonth - 1)))
             {
                 button[x].setBackground(Color.white);
@@ -197,7 +199,6 @@ public class DatePicker extends JPanel
             }
         }
         l.setText(sdf.format(cal.getTime()));
-
     }
 
     /* The following method will take in the selection and declare the date, month, and year in
@@ -211,7 +212,6 @@ public class DatePicker extends JPanel
         cal.set(year, month, Integer.parseInt(day));
         return sdf.format(cal.getTime());
     }
-
 }
 
 

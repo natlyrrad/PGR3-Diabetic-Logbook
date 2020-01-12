@@ -48,8 +48,7 @@ public class loghistory extends JPanel {
 
 
     public loghistory() {
-
-
+        
         if (com != "") {
             System.out.println(Arrays.toString(c));
             Quest.setText("Questionnaire score: "+ c[0]);

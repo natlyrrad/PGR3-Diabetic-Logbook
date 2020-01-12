@@ -101,7 +101,7 @@ public class pullAzure {
         return res;
     }
 
-    public static String pullPatientFirstName(String id) {                                            //to fetch user id for pulling/ pushing
+    public static String pullPatientFirstName(String id) {  //to fetch user first name
         Connection connection;
         String PatientfirstName = "";
 
@@ -128,7 +128,7 @@ public class pullAzure {
         return FirstName;
     }
 
-    public static String pullPatientLastName(String id) {                                            //to fetch user id for pulling/ pushing
+    public static String pullPatientLastName(String id) {    //to fetch user last name
         Connection connection;
         String PatientlastName = "";
 
@@ -155,7 +155,7 @@ public class pullAzure {
         return LastName;
     }
 
-    public static String pullPatientEmail(String id) {                                            //to fetch user id for pulling/ pushing
+    public static String pullPatientEmail(String id) {   //to fetch user email
         Connection connection;
         String PatientEmail = "";
         try {
@@ -181,7 +181,7 @@ public class pullAzure {
         return Email;
     }
 
-    public static String pullPatientAddress(String id) {                                            //to fetch user id for pulling/ pushing
+    public static String pullPatientAddress(String id) {  //to fetch user address
         Connection connection;
         String PatientAddress = "";
 
@@ -208,7 +208,7 @@ public class pullAzure {
         return Address;
     }
 
-    public static String pullPatientPhone(String id) {                                            //to fetch user id for pulling/ pushing
+    public static String pullPatientPhone(String id) {    //to fetch user phone number
         Connection connection;
         String patientphone = "";
 
@@ -234,8 +234,8 @@ public class pullAzure {
         return patientphone;
     }
 
-    ///////////// Pull diabetes individual details
-    public static String pullDiabetesType(String id) {                                            //to fetch user id for pulling/ pushing
+    // Pull diabetes individual details
+    public static String pullDiabetesType(String id) {
         Connection connection;
         String type = "";
 
@@ -262,7 +262,7 @@ public class pullAzure {
         return type;
     }
 
-    public static String pullDiabetesInsulin(String id) {                                            //to fetch user id for pulling/ pushing
+    public static String pullDiabetesInsulin(String id) {
         Connection connection;
         String insulin = "";
 
@@ -289,7 +289,7 @@ public class pullAzure {
         return insulin;
     }
 
-    public static String pullDiabetesAdmin(String id) {                                            //to fetch user id for pulling/ pushing
+    public static String pullDiabetesAdmin(String id) {
         Connection connection;
         String admin = "";
 
@@ -317,8 +317,8 @@ public class pullAzure {
         return admin;
     }
 
-    ///////////// Pull doctor individual details
-    public static String pullDoctorEmail(String id) {                                            //to fetch user id for pulling/ pushing
+    // Pull doctor individual details
+    public static String pullDoctorEmail(String id) {
         Connection connection;
         String doctorEmail = "";
 
@@ -345,7 +345,7 @@ public class pullAzure {
         return doctorEmail;
     }
 
-    public static String pullDoctorAddress(String id) {                                            //to fetch user id for pulling/ pushing
+    public static String pullDoctorAddress(String id) {
         Connection connection;
         String doctorAddress = "";
 
@@ -372,7 +372,7 @@ public class pullAzure {
         return doctorAddress;
     }
 
-    public static String pullDoctorPhone(String id) {                                            //to fetch user id for pulling/ pushing
+    public static String pullDoctorPhone(String id) {
         Connection connection;
         String doctorPhone = "";
 
@@ -400,7 +400,7 @@ public class pullAzure {
     }
 
     ///////////////////////////////////
-    public static String[] pullEntryDetails(String userID, String date) {                              //to display log history
+    public static String[] pullEntryDetails(String userID, String date) {     //to display log history
         Connection connection;
         boolean verifyStatus = false;
         String res = "";
@@ -436,7 +436,7 @@ public class pullAzure {
 
 
     //////////////////////////////////////////////// THIRD TABLE //////////////////////////////////////////////////
-    public static String pullComments(String userID, String date) {                              //to display log history
+    public static String pullComments(String userID, String date) {
         Connection connection;
         boolean verifyStatus = false;
         String res = "";
