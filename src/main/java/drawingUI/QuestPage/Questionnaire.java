@@ -21,7 +21,7 @@ public class Questionnaire<max, count1, count2, count3> extends JPanel {
     private List<JComboBox> combos = new ArrayList<>();
     private JTextField resultField = new JTextField(10);
     String[] options = {"1", "2", "3"};
-    JLabel[] questions =new JLabel[16];
+    JLabel[] questions =new JLabel[17];
     JButton back = new JButton("< Back");
     JPanel scoreboard = new JPanel();
     int sum = 0;
