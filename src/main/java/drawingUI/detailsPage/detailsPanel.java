@@ -11,6 +11,7 @@ import java.util.concurrent.CountDownLatch;
 
 import static SQLDatabase.pushAzure.pushUserDetails;
 import static drawingUI.emailPage.emailPanel.etext;
+import static drawingUI.logPage.table.RefreshTable;
 
 public class detailsPanel extends JPanel
 {
@@ -81,6 +82,7 @@ public class detailsPanel extends JPanel
 
                         //create new frame to loghistory
                         createAndShowLog uilog = new createAndShowLog();
+                        RefreshTable();
 
                         load.setVisible(false);
 
