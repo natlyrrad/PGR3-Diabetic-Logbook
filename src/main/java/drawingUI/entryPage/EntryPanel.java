@@ -18,6 +18,7 @@ import javaMailAPI.jakartaMailAPI;
 import static SQLDatabase.pullAzure.*;
 import static SQLDatabase.pushAzure.pushEntryDetails;
 import static drawingUI.emailPage.emailPanel.etext;
+import static drawingUI.logPage.table.RefreshTable;
 import static drawingUI.logPage.table.ltext;
 
 
@@ -78,14 +79,17 @@ public class EntryPanel extends JPanel implements ActionListener{               
                         createAndShowLog uilog = new createAndShowLog();
                         uilog.showDate(ltext.getText());
 
-                        load.setVisible(false);
-
                         /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
                         Component component = (Component) e.getSource(); // Get the source of the current component (panel)
                         // declare JFrame currently open as "frame"
                         JFrame frame = (JFrame) SwingUtilities.getRoot(component);
                         frame.setVisible(false); // set current open frame as invisible
                         /* end of reference 2 */
+
+                        RefreshTable();
+
+                        load.setVisible(false);
+
                         latch.countDown();
                     }
                 }).start();
@@ -151,6 +155,7 @@ public class EntryPanel extends JPanel implements ActionListener{               
                         //return to log page
                         createAndShowLog uihis = new createAndShowLog();
                         uihis.showDate(ltext.getText());
+                        RefreshTable();
 
                         load.setVisible(false);
 
@@ -160,6 +165,7 @@ public class EntryPanel extends JPanel implements ActionListener{               
                         JFrame frame = (JFrame) SwingUtilities.getRoot(component);
                         frame.setVisible(false); // set current open frame as invisible
                         /* end of reference 2 */
+
                         latch.countDown();
                     }
                 }).start();

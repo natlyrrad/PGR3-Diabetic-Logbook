@@ -25,6 +25,7 @@ import java.util.Date;
 import SQLDatabase.pullAzure;
 import java.util.concurrent.CountDownLatch;
 
+import static SQLDatabase.pushAzure.deleteRecent;
 import static SQLDatabase.pushAzure.pushCommentDetails;
 import static drawingUI.QuestPage.Questionnaire.score;
 
@@ -209,7 +210,7 @@ public class table extends JPanel {
         delete.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                //delete function del(id, datetime)
+                deleteRecent();
                 RefreshTable();
             }
         });
@@ -347,37 +348,51 @@ public class table extends JPanel {
     }
 
     public static void RefreshTable() {
+        p1.removeAll();
         ph.removeAll();
         p2.removeAll();
+        p4.removeAll();
 
         String[] d = ltext.getText().split("/");
         String a = String.join("/", d[2], d[1], d[0]);
         String[] ref = pullAzure.pullEntryDetails(loghistory.id, a);
 
-        miniTable t = new miniTable(ref);
+        miniTable m = new miniTable(ref);
         headerTable h = new headerTable();
 
-        ph.add(h);
-        p2.add(t);
+        p1.add(l);
+        p1.add(ltext);
+        p1.add(t);
+        p1.add(ttext);
+        p1.add(delete);
+        p1.add(newrow);
 
+        ph.add(h);
+        ph.setVisible(true);
+        p2.add(m);
+
+        p4.add(previous);
+        p4.add(today);
+        p4.add(next);
+
+        if(Arrays.toString(ref) == "[]"){
+            JLabel empty = new JLabel("No entries for today");
+            p2.removeAll();
+            p2.add(empty);
+            m.setFillsViewportHeight(false);
+            ph.setVisible(false);
+        }
+
+        p1.revalidate();
+        p1.repaint();
         ph.revalidate();
         ph.repaint();
         p2.revalidate();
         p2.repaint();
-
-        if(Arrays.toString(ref) == "[]"){
-            JLabel empty = new JLabel("No entries for today");
-            System.out.println(empty);
-            p2.add(empty);
-            t.setFillsViewportHeight(false);
-            ph.setVisible(false);
-        }
-
+        p4.revalidate();
+        p4.repaint();
     }
 
-    private void delete(String id, String datetime) {
-        //delete function for database
-    }
 
     static String getExercise(){
         String listString = new String();

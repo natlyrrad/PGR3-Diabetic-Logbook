@@ -51,15 +51,20 @@ public class pushAzure {
 
     public static void pushCommentDetails(String entryDetails) {
         String[] entryArray = entryDetails.split(";", -2);
-        String queryStatement = String.format("INSERT INTO commentsTable " +
+        String queryStatement = String.format("INSERT INTO entryDetails " +
                         "VALUES ('%s', '%s', '%s', '%s', '%s');", entryArray[0],
                 entryArray[1], entryArray[2], entryArray[3], entryArray[4]);
 
         push(queryStatement);
     }
+
+    public static void deleteRecent() {
+        String queryStatement = "DELETE FROM entryDetails WHERE entryDateTime=(SELECT MAX(entryDateTime) FROM entryDetails)"
+
+        push(queryStatement);
+    }
 }
 
-//data format
 //SQLDatabase.pushAzure.pushUserDetails("here;now;@mail.com;SSS777;123;Type 1;insuline type;pen;@doctor;FFF" +
 //        ";333");
 
