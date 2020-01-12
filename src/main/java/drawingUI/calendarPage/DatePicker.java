@@ -14,6 +14,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.CountDownLatch;
 
+import static drawingUI.logPage.table.RefreshTable;
+
 /* Reference 5 -  taken from https://examples.javacodegeeks.com/desktop-java/swing/java-swing-date-picker-example/
    (this class was taken from reference 5 and then modified to better suit the project) */
 
@@ -90,10 +92,18 @@ public class DatePicker extends JPanel
                         new Thread(new Runnable() {
                             public void run() {
                                 day = button[selection].getActionCommand(); // the day = day number selected
+                                int d = Integer.valueOf(day);
                                 dlabel.setText(setPickedDate()); // call the setPickedDate method below to display the date
                                 createAndShowLog uilog = new createAndShowLog();
 
+                                String str = dlabel.getText();
+                                String[] a = str.split("/");
+                                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
+                                        "dd/MM/yyyy");
+                                java.util.Calendar cal = java.util.Calendar.getInstance();
+                                cal.set(year, month, d);
                                 table.ltext.setText(setPickedDate());
+                                RefreshTable();
 
                                 load.setVisible(false);
 
