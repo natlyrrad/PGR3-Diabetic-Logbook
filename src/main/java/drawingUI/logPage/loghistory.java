@@ -254,6 +254,7 @@ public class loghistory extends JPanel {
         add(newPanel);
     }
 
+    // pull entry details with inputted date from cal
     String checkCal(){
         if(logCue == 1){
             String[] a = dlabel.getText().split("/");
