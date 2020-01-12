@@ -55,7 +55,13 @@ public class pushAzure {
                         "VALUES ('%s', '%s', '%s', '%s', '%s');", entryArray[0],
                 entryArray[1], entryArray[2], entryArray[3], entryArray[4]);
 
-        //push(queryStatement);
+        push(queryStatement);
+    }
+
+    public static void deleteRecent() {
+        String queryStatement = "DELETE FROM entryDetails WHERE entryDateTime=(SELECT MAX(entryDateTime) FROM entryDetails)"
+
+        push(queryStatement);
     }
 }
 

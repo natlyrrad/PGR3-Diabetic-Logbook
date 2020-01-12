@@ -25,6 +25,7 @@ import java.util.Date;
 import SQLDatabase.pullAzure;
 import java.util.concurrent.CountDownLatch;
 
+import static SQLDatabase.pushAzure.deleteRecent;
 import static SQLDatabase.pushAzure.pushCommentDetails;
 import static drawingUI.QuestPage.Questionnaire.score;
 
@@ -210,7 +211,7 @@ public class table extends JPanel {
         delete.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                //delete function del(id, datetime)
+                deleteRecent();
                 RefreshTable();
             }
         });
@@ -369,7 +370,7 @@ public class table extends JPanel {
     }
 
     private void delete(String id, String datetime) {
-        //delete function for database
+
     }
 
     static String getExercise(){
