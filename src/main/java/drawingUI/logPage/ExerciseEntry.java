@@ -25,4 +25,9 @@ public class ExerciseEntry extends JPanel{
         String exa= exCombo.getSelectedItem().toString() + ":" + duration.getText();
         return exa;
     }
+
+    public void setEx(String e, String dur){
+        ex.setText(e);
+        duration.setText(dur);
+    }
 }

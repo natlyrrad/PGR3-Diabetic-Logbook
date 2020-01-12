@@ -269,6 +269,11 @@ public class table extends JPanel {
         });
         save.setToolTipText("Save Questionnaire score, comments and exercise");
 
+        if(Arrays.toString(entry) != "[]"){
+            textbox.setText(str[1]);
+            exerciseLog(str[2]);
+        }
+
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.insets = new Insets(0, 0, 0, 0);
 
@@ -316,10 +321,7 @@ public class table extends JPanel {
         grid.gridy = 3;
         add(p4, grid);
 
-        if(str[0] != "0"){
-            textbox.setText(str[1]);
-            exerciseLog(str[2]);
-        }
+
     }
 
     public static void RefreshTable() {
@@ -385,11 +387,13 @@ public class table extends JPanel {
             eList[i] = temp[i].split(":");
         }
 
-//        for(int i=0; i<(counter+1); i++){
-//            //c.gridx = 0;
-//            //c.gridy = i+1;
-//            //exPanel.add(entryList.get(i), c);
-//        }
+        for(int i=0; i<(temp.length); i++){
+//            ExerciseEntry
+//            ExerciseEntry.setEx(eList[i][0], eList[i][1]);
+            //c.gridx = 0;
+            //c.gridy = i+1;
+            //exPanel.add(entryList.get(i), c);
+        }
 //
 //        //revalidate and display new fdPanel
 //        exPanel.revalidate();
