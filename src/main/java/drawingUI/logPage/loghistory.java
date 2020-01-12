@@ -14,6 +14,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
 import java.util.Arrays;
 import java.util.concurrent.CountDownLatch;
 import java.text.ParseException;
@@ -21,6 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static drawingUI.calendarPage.DatePicker.dlabel;
 import static drawingUI.emailPage.emailPanel.etext;
 
 public class loghistory extends JPanel {
@@ -38,16 +40,21 @@ public class loghistory extends JPanel {
     public JButton Quest = new JButton(" Questionnaire");
     JButton btedit = new JButton("Edit Details");
 
+    public static Date date = new Date();
+    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+    String com;
 
-    ////////////PULL THIRD TABLE HERE
-    String com = pullAzure.pullComments(table.id, table.aDate);
-    //String com = "qscore;Commentsssssss;Exercise 1: 123,Exercise2: 1234";
-
-    // Process com
-    String[] c = com.split(";");
 
 
     public loghistory() {
+        ////////////PULL THIRD TABLE HERE
+        com = pullAzure.pullComments(table.id, dateFormat.format(date));
+        //String com = "qscore;Commentsssssss;Exercise 1: 123,Exercise2: 1234";
+
+        checkCal();
+        // Process com
+        String[] c = com.split(";");
+
         if (com != "") {
             System.out.println(Arrays.toString(c));
             Quest.setText("Questionnaire score: "+ c[0]);
@@ -244,5 +251,12 @@ public class loghistory extends JPanel {
         newPanel.add(t, constraints);
 
         add(newPanel);
+    }
+
+    String checkCal(){
+        String[] a = dlabel.getText().split("/");
+        String aDate = a[2] + a[1] + a[0];
+        com = pullAzure.pullComments(table.id, aDate);
+        return com;
     }
 }
