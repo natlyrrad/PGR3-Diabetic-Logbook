@@ -64,7 +64,6 @@ public class loghistory extends JPanel {
             System.out.println("in");
 
             //default questionnaire textbox + default
-            //c[0] = "0";
         }
         System.out.println("out");
         table t = new table(c);

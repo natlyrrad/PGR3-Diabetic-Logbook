@@ -314,7 +314,7 @@ public class table extends JPanel {
         grid.gridy = 3;
         add(p4, grid);
 
-        if(str[0] != "0"){
+        if(Arrays.toString(entry) != "[]"){
             textbox.setText(str[1]);
             exerciseLog();
         }
