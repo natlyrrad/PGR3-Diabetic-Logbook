@@ -7,6 +7,7 @@ import drawingUI.Graph.PlotGraph;
 import drawingUI.calendarPage.CalendarUIController;
 import drawingUI.calendarPage.DatePicker;
 import drawingUI.detailsPage.DetailsUIController;
+import drawingUI.emailPage.emailPanel;
 import drawingUI.entryPage.EntryUIController;
 import drawingUI.entryPage.FoodPanel;
 
@@ -41,18 +42,18 @@ public class loghistory extends JPanel {
     public JButton Quest = new JButton(" Questionnaire");
     JButton btedit = new JButton("Edit Details");
 
-    public static Date date = new Date();
-    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
     String com;
 
+    public static String id = emailPanel.userID();
 
 
-    public loghistory() {
+
+    public loghistory(String date) {
         ////////////PULL THIRD TABLE HERE
-        com = pullAzure.pullComments(table.id, dateFormat.format(date));
+        com = pullAzure.pullComments(id, date);
         //com = "qscore;Commentsssssss;Exercise 1: 123,Exercise2: 1234";
 
-        checkCal();
+        //checkCal();
         // Process com
         String[] c = com.split(";");
 
@@ -68,7 +69,7 @@ public class loghistory extends JPanel {
             System.out.println(Arrays.toString(c));
         }
         System.out.println("out");
-        table t = new table(c);
+        table t = new table(c, date);
 
         JPanel newPanel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
@@ -222,7 +223,7 @@ public class loghistory extends JPanel {
                 JFrame details_frame = new JFrame(gc); // Create a new JFrame
                 details_frame.setSize(800, 900);
 
-                drawingUI.QuestPage.Questionnaire q = new Questionnaire();
+                drawingUI.QuestPage.Questionnaire q = new Questionnaire(date);
                 q.setVisible(true);
                 details_frame.add(q);
                 details_frame.setVisible(true);
@@ -256,13 +257,13 @@ public class loghistory extends JPanel {
     }
 
     // pull entry details with inputted date from cal
-    String checkCal(){
-        if(logCue == 1){
-            String[] a = dlabel.getText().split("/");
-            System.out.println(dlabel.getText());
-            String aDate = a[2] + a[1] + a[0];
-            com = pullAzure.pullComments(table.id, aDate);
-        }
-        return com;
-    }
+//    String checkCal(){
+//        if(logCue == 1){
+//            String[] a = dlabel.getText().split("/");
+//            System.out.println(dlabel.getText());
+//            String aDate = a[2] + a[1] + a[0];
+//            com = pullAzure.pullComments(id, aDate);
+//        }
+//        return com;
+//    }
 }

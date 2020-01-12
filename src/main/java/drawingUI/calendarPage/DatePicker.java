@@ -97,7 +97,7 @@ public class DatePicker extends JPanel
                                 int d = Integer.valueOf(day);
                                 dlabel.setText(setPickedDate()); // call the setPickedDate method below to display the date
                                 createAndShowLog uilog = new createAndShowLog();
-                                logCue = 1;
+                                uilog.showDate(setPickedDate());
 
                                 String str = dlabel.getText();
                                 String[] a = str.split("/");

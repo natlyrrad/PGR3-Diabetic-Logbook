@@ -13,6 +13,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.CountDownLatch;
 
+import drawingUI.logPage.loghistory;
 import javaMailAPI.jakartaMailAPI;
 import static SQLDatabase.pullAzure.*;
 import static SQLDatabase.pushAzure.pushEntryDetails;
@@ -40,9 +41,6 @@ public class EntryPanel extends JPanel implements ActionListener{               
 
     CompPanel p2 = new CompPanel();
     public IntenPanel p3 = new IntenPanel();
-
-    //set patient id
-    public String id = pullUserID(etext.getText());
 
 
     public EntryPanel(){
@@ -78,6 +76,7 @@ public class EntryPanel extends JPanel implements ActionListener{               
                     public void run() {
                         //create new frame to loghistory
                         createAndShowLog uilog = new createAndShowLog();
+                        uilog.showDate(ltext.getText());
 
                         load.setVisible(false);
 
@@ -120,16 +119,16 @@ public class EntryPanel extends JPanel implements ActionListener{               
                         String americanDate = String.join("/", d[2], d[1], d[0]);
                         String dt = americanDate+ " " + time.getInfo();
                         //create three strings for three conditions
-                        String m1 = String.join(";" , id, dt, bsl.getInfo(), "", "", "");
-                        String m2 = String.join(";" , id, dt, bsl.getInfo(), p2.getFood(), p2.getMed(), "");
-                        String m3 = String.join(";" , id, dt, bsl.getInfo(), p3.getFood(), p3.getMed(), "");
+                        String m1 = String.join(";" , loghistory.id, dt, bsl.getInfo(), "", "", "");
+                        String m2 = String.join(";" , loghistory.id, dt, bsl.getInfo(), p2.getFood(), p2.getMed(), "");
+                        String m3 = String.join(";" , loghistory.id, dt, bsl.getInfo(), p3.getFood(), p3.getMed(), "");
 
                         //Alert if blood sugar level is high
                         int ibsl= Integer.parseInt(bsl.getInfo());
                         if(ibsl>9){
                             jakartaMailAPI email=new jakartaMailAPI();
                             try {
-                                email.sendMail(pullDoctorEmail(id));
+                                email.sendMail(pullDoctorEmail(loghistory.id));
                             } catch (Exception ex) {
                                 ex.printStackTrace();
                             }
@@ -151,6 +150,7 @@ public class EntryPanel extends JPanel implements ActionListener{               
 
                         //return to log page
                         createAndShowLog uihis = new createAndShowLog();
+                        uihis.showDate(ltext.getText());
 
                         load.setVisible(false);
 

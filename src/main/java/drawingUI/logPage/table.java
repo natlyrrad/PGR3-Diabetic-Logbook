@@ -37,6 +37,7 @@ public class table extends JPanel {
     static JButton save = new JButton("Save");
     static JButton delete = new JButton("Delete Recent");
     static JButton newrow = new JButton("New");
+
     public static JTextArea textbox = new JTextArea("Additional comments: (e.g. Special activities, stress level...)",20, 50);
 
     static JButton previous = new JButton("<< Previous");
@@ -59,7 +60,6 @@ public class table extends JPanel {
     JButton addExercise = new JButton("Add Exercise");
 
     //PULL ID HERE//////////////////////////////////////////////////////////////////////////////////////////////////
-    public static String id = emailPanel.userID();
     static String[] entry;
 
     //Panels for layout
@@ -70,21 +70,18 @@ public class table extends JPanel {
     static JPanel p4 = new JPanel(new GridLayout(1, 3));   //prev today next
     static JPanel ph = new JPanel();                                   // header table
 
-
-    public static Date date = new Date();
-    public static String aDate;
-
-    public table(String[] str) {
+    public table(String[] str, String date) {
         //Set current date and time
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        ltext.setText(dateFormat.format(date));
+        String[] a = date.split("/");
+        System.out.println(a);
+        String aDate = String.join("/", a[2] ,a[1] ,a[0]);
+        ltext.setText(aDate);
+        Date time = new Date();
         DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-        ttext.setText(timeFormat.format(date));
+        ttext.setText(timeFormat.format(time));
 
         //PULL ENTRY HERE//////////////////////////////////////////////////////////////////////////////////////////////////
-        String[] a = ltext.getText().split("/");
-        aDate = a[2] + a[1] + a[0];
-        entry = pullAzure.pullEntryDetails(id, aDate);
+        entry = pullAzure.pullEntryDetails(loghistory.id, date);
         //String[] entry = {"dt1;bsl1;Coke:23,Cheese:34,Chicken:8;med;13", "dt2;bsl1;Carrot cake:56,Coke:23,Cheese:34,Chicken:8;med;13", "dt3;bsl1;Chinese Tea:86,Carrot cake:56,Coke:23,Cheese:34,Chicken:8;med;13"};
 
         //Panel 1 for date and time
@@ -182,8 +179,10 @@ public class table extends JPanel {
             public void actionPerformed(ActionEvent ae) {
                 DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 Date date = new Date();
-                ltext.setText(dateFormat.format(date));
-                RefreshTable();
+                if(ltext.getText() != dateFormat.format(date)){
+                    ltext.setText(dateFormat.format(date));
+                    RefreshTable();
+                }
             }
 
         });
@@ -260,7 +259,7 @@ public class table extends JPanel {
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String str = String.join(";", id, aDate, score.getText(), textbox.getText(), getExercise(), " ");
+                String str = String.join(";", loghistory.id, date, score.getText(), textbox.getText(), getExercise(), " ");
                 /////// push str
                 pushCommentDetails(str);
                 System.out.println(str);
@@ -269,10 +268,33 @@ public class table extends JPanel {
         });
         save.setToolTipText("Save Questionnaire score, comments and exercise");
 
-//        if(Arrays.toString(entry) != "[]"){
-//            textbox.setText(str[1]);
-//            exerciseLog(str[2]);
-//        }
+        //if data is pulled, replace default UI set up with data
+        if(str.length != 1){
+            textbox.setText(str[1]);
+
+            //Display exercise
+            String exercise = str[2];
+            exPanel.removeAll();
+            String[] temp = exercise.split(",");
+            String[][] eList = new String[temp.length][2];
+
+            for(int i = 0; i < temp.length; i++){
+                eList[i] = temp[i].split(":");
+            }
+
+            for(int i=0; i<(temp.length); i++){
+                entryList.add(new ExerciseEntry());
+                entryList.get(i).setEx(eList[i][0], eList[i][1]);
+                c.gridx = 0;
+                c.gridy = i+1;
+                exPanel.add(entryList.get(i), c);
+            }
+
+            //revalidate and display new fdPanel
+            exPanel.revalidate();
+            exPanel.repaint();
+            exPanel.setVisible(true);
+        }
 
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.insets = new Insets(0, 0, 0, 0);
@@ -325,29 +347,23 @@ public class table extends JPanel {
     }
 
     public static void RefreshTable() {
-        p1.removeAll();
         ph.removeAll();
         p2.removeAll();
-        p4.removeAll();
 
         String[] d = ltext.getText().split("/");
         String a = String.join("/", d[2], d[1], d[0]);
-        String[] ref = pullAzure.pullEntryDetails(id, a);
+        String[] ref = pullAzure.pullEntryDetails(loghistory.id, a);
 
         miniTable t = new miniTable(ref);
         headerTable h = new headerTable();
 
-        p1.add(l);
-        p1.add(ltext);
-        p1.add(t);
-        p1.add(ttext);
-        p1.add(delete);
-        p1.add(newrow);
         ph.add(h);
         p2.add(t);
-        p4.add(previous);
-        p4.add(today);
-        p4.add(next);
+
+        ph.revalidate();
+        ph.repaint();
+        p2.revalidate();
+        p2.repaint();
 
         if(Arrays.toString(ref) == "[]"){
             JLabel empty = new JLabel("No entries for today");
@@ -356,8 +372,7 @@ public class table extends JPanel {
             t.setFillsViewportHeight(false);
             ph.setVisible(false);
         }
-        p2.revalidate();
-        p2.repaint();
+
     }
 
     private void delete(String id, String datetime) {
@@ -379,30 +394,11 @@ public class table extends JPanel {
 //        entryList.add(counter, new ExerciseEntry());
 //
 //        //remove all then add new components
-//        exPanel.removeAll();
-        String[] temp = exercise.split(",");
-        String[][] eList = new String[temp.length][2];
 
-        for(int i = 0; i < temp.length; i++){
-            eList[i] = temp[i].split(":");
-        }
-
-        for(int i=0; i<(temp.length); i++){
-//            ExerciseEntry
-//            ExerciseEntry.setEx(eList[i][0], eList[i][1]);
-            //c.gridx = 0;
-            //c.gridy = i+1;
-            //exPanel.add(entryList.get(i), c);
-        }
-//
-//        //revalidate and display new fdPanel
-//        exPanel.revalidate();
-//        exPanel.repaint();
-//        exPanel.setVisible(true);
     }
 
-    public static void enterQscore(String sc){
-        String str = String.join(";", id, aDate, sc, textbox.getText(), getExercise(), " ");
+    public static void enterQscore(String sc, String date){
+        String str = String.join(";", loghistory.id, date, sc, textbox.getText(), getExercise(), " ");
         /////// push str
         pushCommentDetails(str);
     }

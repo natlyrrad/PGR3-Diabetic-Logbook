@@ -89,6 +89,7 @@ public class PlotGraph extends ApplicationFrame {
                     public void run() {
                         //create new frame to loghistory
                         createAndShowLog uilog = new createAndShowLog();
+                        uilog.showToday();
 
                         load.setVisible(false);
 

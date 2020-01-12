@@ -96,6 +96,7 @@ public class emailPanel extends JPanel {
                         else if (email_verify == true)
                         {
                             createAndShowLog uilog = new createAndShowLog();
+                            uilog.showToday();
 
                             load.setVisible(false);
 

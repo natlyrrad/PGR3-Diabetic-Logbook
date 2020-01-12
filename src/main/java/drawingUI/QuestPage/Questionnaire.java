@@ -18,7 +18,7 @@ public class Questionnaire<max, count1, count2, count3> extends JPanel {
     private List<JComboBox> combos = new ArrayList<>();
     private JTextField resultField = new JTextField(10);
     String[] options = {"1", "2", "3"};
-    JLabel[] questions =new JLabel[16];
+    JLabel[] questions =new JLabel[17];
     JButton back = new JButton("< Back");
     JPanel scoreboard = new JPanel();
     int sum = 0;
@@ -27,7 +27,7 @@ public class Questionnaire<max, count1, count2, count3> extends JPanel {
 
     public static JLabel score = new JLabel("12");
 
-    public Questionnaire() {
+    public Questionnaire(String date) {
         GridBagLayout grid = new GridBagLayout();
         this.setLayout(grid);
         GridBagConstraints constraints = new GridBagConstraints();
@@ -58,8 +58,9 @@ public class Questionnaire<max, count1, count2, count3> extends JPanel {
                 new Thread(new Runnable() {
                     public void run() {
                         //create new frame to loghistory
-                        table.enterQscore(score.getText());
+                        table.enterQscore(score.getText(), date);
                         createAndShowLog uilog = new createAndShowLog();
+                        uilog.showDate(date);
 
                         load.setVisible(false);
 
