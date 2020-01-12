@@ -2,7 +2,9 @@
 A Java and Swing UI based app which logs your blood sugar level in a cloud database and alerts your doctor if the blood sugar level becomes too high. You can view previous entries and view trends in your blood sugar levels with an in-built graph.
 
 ## KNOWN ISSUES :warning:
-Due to firewall issues with the Imperial College network, the Azure Database servers cannot connect to the application. It is recommended that you use a **private internet connection** or **hotspot**. 
+Due to firewall issues with the Imperial College network, the Azure Database servers cannot connect to the application. 
+
+For best performance, it is recommended that you use a wired **private internet connection** or **hotspot**. 
 
 ## Getting Started
 Download the repository using the download link from the GitHub website and make sure you have all the prerequisite software installed.
