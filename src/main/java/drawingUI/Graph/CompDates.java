@@ -42,6 +42,7 @@ public class CompDates extends JPanel {
     public CompDates() {
         JPanel newPanel = new JPanel(new GridBagLayout());
 
+        //when click enter button, a graph within the interval input will be plotted
         buttonenter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -65,12 +66,11 @@ public class CompDates extends JPanel {
 
                 new Thread(new Runnable() {
                     public void run() {
+                        //get the input start date and end date. The interval is inclusive.
                         String a = startdate.getText()+" 00:00:00.0";
                         String b = enddate.getText()+" 23:59:59.9";
-
-                        System.out.println(a);
-                        System.out.println(b);
-
+                        
+                        //parse the date input into date format. 
                         java.util.Date start = null;
                         try {
                             start = df.parse(a);
@@ -85,6 +85,7 @@ public class CompDates extends JPanel {
                             System.out.print("Please enter dates in the correct format");
                         }
 
+                        //plot graph within the time interval
                         PlotGraph chart = new PlotGraph("title", SQLDatabase.pullAzure.pullUserID(etext.getText()), start, end);
                         chart.pack();
                         chart.setVisible(true);
