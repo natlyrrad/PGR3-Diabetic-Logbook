@@ -318,7 +318,7 @@ public class table extends JPanel {
 
         if(str[0] != "0"){
             textbox.setText(str[1]);
-            exerciseLog();
+            exerciseLog(str[2]);
         }
     }
 
@@ -372,12 +372,19 @@ public class table extends JPanel {
         return listString;
     }
 
-    void exerciseLog(){
+    void exerciseLog(String exercise){
         // set up exercise log
 //        entryList.add(counter, new ExerciseEntry());
 //
 //        //remove all then add new components
 //        exPanel.removeAll();
+        String[] temp = exercise.split(",");
+        String[][] eList = new String[temp.length][2];
+
+        for(int i = 0; i < temp.length; i++){
+            eList[i] = temp[i].split(":");
+        }
+
 //        for(int i=0; i<(counter+1); i++){
 //            //c.gridx = 0;
 //            //c.gridy = i+1;
