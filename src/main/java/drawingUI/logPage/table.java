@@ -327,7 +327,7 @@ public class table extends JPanel {
         String[] ref = pullAzure.pullEntryDetails(id, a);
         miniTable t = new miniTable(ref);
         p2.add(t);
-        if(Arrays.toString(entry) == "[]"){
+        if(Arrays.toString(ref) == "[]"){
             JLabel empty = new JLabel("No entries for today");
             System.out.println(empty);
             p2.add(empty);
