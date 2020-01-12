@@ -72,6 +72,8 @@ public class DatePicker extends JPanel
                 button[x].addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent ae) {
                         /* Reference - https://stackoverflow.com/questions/34906220/running-two-tasks-at-the-same-time-in-java */
+                        /* The following code will run two threads at the same time in order to display the loading screen
+                          while the program connects with the database */
                         CountDownLatch latch = new CountDownLatch(2);
                         new Thread(new Runnable() {
                             public void run() {
@@ -96,14 +98,14 @@ public class DatePicker extends JPanel
                                 dlabel.setText(setPickedDate()); // call the setPickedDate method below to display the date
                                 createAndShowLog uilog = new createAndShowLog();
 
-                                String str = dlabel.getText();
+                                String str = dlabel.getText(); // get the day selected from calendar
                                 String[] a = str.split("/");
                                 java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
                                         "dd/MM/yyyy");
                                 java.util.Calendar cal = java.util.Calendar.getInstance();
                                 cal.set(year, month, d);
-                                table.ltext.setText(setPickedDate());
-                                RefreshTable();
+                                table.ltext.setText(setPickedDate()); // modify textfield to day selected
+                                RefreshTable(); // refresh the table to the day's logs
 
                                 load.setVisible(false);
 

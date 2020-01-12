@@ -38,6 +38,7 @@ public class emailPanel extends JPanel {
         constraints.gridx = 1;
         newPanel.add(etext, constraints);
 
+        // set constraints for the button
         constraints.gridx = 0;
         constraints.gridy = 2;
         constraints.gridwidth = 2;
@@ -49,25 +50,28 @@ public class emailPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 /* Reference - https://stackoverflow.com/questions/34906220/running-two-tasks-at-the-same-time-in-java */
+                /* The following code will run two threads at the same time in order to display the loading screen
+                * while the program connects with the database */
                 CountDownLatch latch = new CountDownLatch(2);
                 new Thread(new Runnable() {
                     public void run() {
-                        load.createframe();
+                        load.createframe(); // create the loading frame
 
-                        /* Reference 2 - takn from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
+                        /* Reference 2 - taken from http://www.java2s.com/Code/Java/Swing-JFC/GettheJFrameofacomponent.htm */
                         Component component = (Component) e.getSource(); // Get the source of the current component (panel)
                         // declare JFrame currently open as "frame"
                         JFrame frame = (JFrame) SwingUtilities.getRoot(component);
                         frame.setVisible(false); // set current open frame as invisible
                         /* end of reference 2 */
 
-                        load.showframe();
+                        load.showframe(); // display the loading frame
                         latch.countDown();
                     }
                 }).start();
 
                 new Thread(new Runnable() {
                     public void run() {
+                        // Verify the email log in input, and function according to the verification
                         boolean email_verify = SQLDatabase.pullAzure.verifyEmail(setEmail());
 
                         if (email_verify == false)
@@ -125,6 +129,7 @@ public class emailPanel extends JPanel {
         /* end of reference 1 */
     }
 
+    /* Will return the email input in the log in as a string to be input into the database*/
     public String setEmail()
     {
         String email = etext.getText();
@@ -132,6 +137,7 @@ public class emailPanel extends JPanel {
         return email;
     }
 
+    /* Will get the id from the email */
     public static String userID(){
         return pullUserID(etext.getText());
     }
