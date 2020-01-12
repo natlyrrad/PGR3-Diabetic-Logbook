@@ -94,6 +94,7 @@ public class loghistory extends JPanel {
         bp.add(calendar);
 
         /* Button Action: button will open the graph application frame */
+        //A default graph of blood sugar level versus time until today is plotted
         btgraph.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -120,12 +121,12 @@ public class loghistory extends JPanel {
                         SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.S");
                         Date start = null;
                         try {
-                            start = df.parse("0000/00/00 00:00:00.0");
+                            start = df.parse("0000/00/00 00:00:00.0");//set the default start date as 0
                         } catch (ParseException ex) {
                             ex.printStackTrace();
                         }
                         Date d = new Date();
-                        String dt = df.format(d) + " 23:59:59.9";
+                        String dt = df.format(d) + " 23:59:59.9";//set the default end date as today
                         Date end = null;
                         try {
                             end = df.parse(dt);
