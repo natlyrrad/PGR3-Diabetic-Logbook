@@ -18,7 +18,7 @@ public class Questionnaire<max, count1, count2, count3> extends JPanel {
     private List<JComboBox> combos = new ArrayList<>();
     private JTextField resultField = new JTextField(10);
     String[] options = {"1", "2", "3"};
-    JLabel[] questions =new JLabel[14];
+    JLabel[] questions =new JLabel[16];
     JButton back = new JButton("< Back");
     JPanel scoreboard = new JPanel();
     int sum = 0;
@@ -79,24 +79,27 @@ public class Questionnaire<max, count1, count2, count3> extends JPanel {
         questions[0]  = new JLabel("Questionnaire");
         questions[1] = new JLabel("Instructions: choose 1 for least likely and choose 3 for most likely ");
         questions[2] = new JLabel("1. I check my blood sugar levels daily");
-        questions[3]= new JLabel("2. The food I choose to eat daily makes it easy to achieve optimal blood sugar levels.");
+        questions[3]= new JLabel("2. There have not been major fluctuations in my weight (no unexplained weight losses.");
         questions[4] = new JLabel("3. I take my diabetes medication (e. g. insulin, tablets) as prescribed");
-        questions[5]= new JLabel("4. I tend to eat foods rich in carbohydrates and sweets daily");
-        questions[6] = new JLabel("5. I tend to avoid diabetes-related doctor appointments.");
+        questions[5]= new JLabel("4. I do not tend to eat foods rich in carbohydrates and sweets daily and experience extreme hunger");
+        questions[6] = new JLabel("5. I try to make it to all my diabetes-related doctor appointments.");
         questions[7] = new JLabel("6. I strictly follow the dietary recommendations given by my doctor or diabetes specialist daily.");
-        questions[8] = new JLabel("7. Sometimes I have real 'food binges' (not triggered by hypoglycaemia).");
+        questions[8] = new JLabel("7. I have not experienced very dry skin levels.");
         questions[9] = new JLabel("8. I do regular physical activity to achieve optimal blood sugar levels.");
-        questions[10]= new JLabel("9. I tend to miss my dose of diabetes");
+        questions[10]= new JLabel("9. I do not tend to get very tired quite often.");
         questions[11] = new JLabel("10. I get good support system for it including  my doctors, family and friends");
-        questions[12]= new JLabel("11. I tend to smoke daily");
-        questions[13] = new JLabel("12. I have good diabetes self care");
+        questions[12]= new JLabel("11. I do not tend to smoke daily");
+        questions[13] = new JLabel("12. I have not experienced sores that take a long time to heal");
+        questions[14] = new JLabel ("13. I have not experienced sudden vision changes");
+        questions[15] = new JLabel ("14. I have not recently experienced tingling in my hands or feet.");
+        questions[16] = new JLabel ("12. I have good diabetes self care");
 
         questions[0].setFont(new Font("Dialog", Font.BOLD, 16));
         questions[0].setForeground(Color.BLUE);
         questions[1].setFont(new Font("Dialog", Font.BOLD, 14));
 
         //positioning of components
-        for (int i =  0; i < 14; i++) {
+        for (int i =  0; i < 16; i++) {
             constraints.gridx = 0;
             add(questions[i],constraints);
             System.out.println(i);
@@ -122,7 +125,7 @@ public class Questionnaire<max, count1, count2, count3> extends JPanel {
             }
         };
 
-        for (int i =  2; i < 14; i++) {     //creates a JComboBox per question. comboboxes are stored in an ArrayList.
+        for (int i =  2; i < 16; i++) {     //creates a JComboBox per question. comboboxes are stored in an ArrayList.
             constraints.gridx = 1;
             constraints.gridy = i;
 
@@ -139,7 +142,7 @@ public class Questionnaire<max, count1, count2, count3> extends JPanel {
         }
 
         constraints.gridx = 1;
-        constraints.gridy = 14;
+        constraints.gridy = 16;
         add(back,constraints);
     }
 
