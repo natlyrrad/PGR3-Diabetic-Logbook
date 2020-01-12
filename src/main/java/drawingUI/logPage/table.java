@@ -97,7 +97,7 @@ public class table extends JPanel {
         //Panel 2 for table
         miniTable mtable = new miniTable(entry);
         mtable.setFillsViewportHeight(true);
-        System.out.println(Arrays.toString(entry));
+        System.out.println(Arrays.toString(entry) + "entry");
 
         if(Arrays.toString(entry) == "[]"){
             JLabel empty = new JLabel("No entries for today");
@@ -314,12 +314,11 @@ public class table extends JPanel {
         grid.gridy = 3;
         add(p4, grid);
 
-//        if(str[1] != null){
-//            textbox.setText(str[1]);
-//            exerciseLog();
-//        }
-
-
+        System.out.println("str" + Arrays.toString(str));
+        if(Arrays.toString(str) != "[]"){
+            textbox.setText(str[1]);
+            exerciseLog();
+        }
     }
 
     public static void RefreshTable() {
