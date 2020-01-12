@@ -1,7 +1,6 @@
 package drawingUI.detailsPage; //Part of the detailsPage Package
 //Java classes imports (JDK)
 import drawingUI.LoadingFrame;
-import drawingUI.logPage.LogUIController;
 import drawingUI.logPage.createAndShowLog;
 
 import javax.swing.*;

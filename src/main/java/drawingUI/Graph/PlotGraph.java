@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.concurrent.CountDownLatch;
 
 import drawingUI.LoadingFrame;
-import drawingUI.logPage.LogUIController;
+import drawingUI.logPage.createAndShowLog;
 import javaMailAPI.jakartaMailAPI;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;

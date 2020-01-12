@@ -1,7 +1,6 @@
 package drawingUI.Graph;
 
 import drawingUI.LoadingFrame;
-import drawingUI.logPage.LogUIController;
 import javaMailAPI.jakartaMailAPI;
 import org.jfree.date.DateUtilities;
 import sun.java2d.pipe.SpanShapeRenderer;

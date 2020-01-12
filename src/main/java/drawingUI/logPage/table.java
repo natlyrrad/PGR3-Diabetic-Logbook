@@ -70,8 +70,6 @@ public class table extends JPanel {
         DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
         ttext.setText(timeFormat.format(date));
 
-        qtext.setText(score.getText());
-
         DateFormat dateFormat2 = new SimpleDateFormat("yyyy/MM/dd");        //american format
         //PULL ENTRY HERE//////////////////////////////////////////////////////////////////////////////////////////////////
         entry = pullAzure.pullEntryDetails(id, dateFormat2.format(date));

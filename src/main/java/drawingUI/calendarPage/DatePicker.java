@@ -2,7 +2,6 @@ package drawingUI.calendarPage; //Part of the calendarPage Package
 //Java classes imports (JDK)
 import drawingUI.logPage.createAndShowLog;
 import drawingUI.LoadingFrame;
-import drawingUI.logPage.LogUIController;
 import drawingUI.logPage.table;
 
 import javax.swing.*;

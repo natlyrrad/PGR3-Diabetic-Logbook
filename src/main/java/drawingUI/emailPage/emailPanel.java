@@ -83,7 +83,7 @@ public class emailPanel extends JPanel {
                             frame.setVisible(false); // set current open frame as invisible
                             /* end of reference 2 */
 
-                            DetailsUIController uidetails = new DetailsUIController(details_frame);
+                            DetailsUIController uidetails = new DetailsUIController(details_frame, 0);
 
                             details_frame.setVisible(true);
 

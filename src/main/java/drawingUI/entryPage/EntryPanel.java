@@ -2,7 +2,6 @@ package drawingUI.entryPage;
 
 import drawingUI.LoadingFrame;
 import drawingUI.detailsPage.DetailsUIController;
-import drawingUI.logPage.LogUIController;
 import drawingUI.logPage.createAndShowLog;
 
 import javax.swing.*;

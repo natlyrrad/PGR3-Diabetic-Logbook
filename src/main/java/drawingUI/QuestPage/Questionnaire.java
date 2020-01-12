@@ -2,7 +2,6 @@ package drawingUI.QuestPage;
 
 import drawingUI.LoadingFrame;
 import drawingUI.detailsPage.DetailsUIController;
-import drawingUI.logPage.LogUIController;
 import drawingUI.logPage.createAndShowLog;
 
 import javax.swing.*;
@@ -59,14 +58,7 @@ public class Questionnaire<max, count1, count2, count3> extends JPanel {
                 new Thread(new Runnable() {
                     public void run() {
                         //create new frame to loghistory
-                        JFrame logframe= new JFrame(); // Create a new JFrame
-                        logframe.setSize(800,1020);
-
-                        LogUIController uilog = new LogUIController(logframe);
-
-                        logframe.setVisible(true);
-                        //This next line closes the program when the frame is closed
-                        logframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                        createAndShowLog uilog = new createAndShowLog();
 
                         load.setVisible(false);
 

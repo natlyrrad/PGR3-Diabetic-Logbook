@@ -187,7 +187,7 @@ public class loghistory extends JPanel {
                         JFrame details_frame = new JFrame(gc); // Create a new JFrame
                         details_frame.setSize(500, 450);
 
-                        DetailsUIController uidetails = new DetailsUIController(details_frame);
+                        DetailsUIController uidetails = new DetailsUIController(details_frame, 1);
 
                         load.setVisible(false);
 
