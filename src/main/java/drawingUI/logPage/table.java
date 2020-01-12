@@ -354,6 +354,7 @@ public class table extends JPanel {
         p4.removeAll();
 
         String[] d = ltext.getText().split("/");
+        System.out.println(Arrays.toString(d));
         String a = String.join("/", d[2], d[1], d[0]);
         String[] ref = pullAzure.pullEntryDetails(loghistory.id, a);
 

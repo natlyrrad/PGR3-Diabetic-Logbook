@@ -59,7 +59,7 @@ public class pushAzure {
     }
 
     public static void deleteRecent() {
-        String queryStatement = "DELETE FROM entryDetails WHERE entryDateTime=(SELECT MAX(entryDateTime) FROM entryDetails)"
+        String queryStatement = "DELETE FROM entryDetails WHERE entryDateTime=(SELECT MAX(entryDateTime) FROM entryDetails)";
 
         push(queryStatement);
     }

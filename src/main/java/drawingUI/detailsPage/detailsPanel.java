@@ -82,7 +82,7 @@ public class detailsPanel extends JPanel
 
                         //create new frame to loghistory
                         createAndShowLog uilog = new createAndShowLog();
-                        RefreshTable();
+                        uilog.showToday();
 
                         load.setVisible(false);
 

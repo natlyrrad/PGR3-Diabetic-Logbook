@@ -51,7 +51,7 @@ public class loghistory extends JPanel {
     public loghistory(String date) {
         ////////////PULL THIRD TABLE HERE
         com = pullAzure.pullComments(id, date);
-        //com = "qscore;Commentsssssss;Exercise 1: 123,Exercise2: 1234";
+        //com = "qscore;Commentsssssss;1: 123,0: 1234";
 
         //checkCal();
         // Process com
@@ -65,7 +65,6 @@ public class loghistory extends JPanel {
             System.out.println("in");
 
             //default questionnaire textbox + default
-            ;
             System.out.println(Arrays.toString(c));
         }
         System.out.println("out");

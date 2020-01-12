@@ -22,12 +22,12 @@ public class ExerciseEntry extends JPanel{
 
     ///// get exercise data method
     public String dataEx(){
-        String exa= exCombo.getSelectedItem().toString() + ":" + duration.getText();
+        String exa= exCombo.getSelectedIndex() + ":" + duration.getText();
         return exa;
     }
 
     public void setEx(String e, String dur){
-        ex.setText(e);
+        exCombo.setSelectedIndex(Integer.parseInt(e));
         duration.setText(dur);
     }
 }
