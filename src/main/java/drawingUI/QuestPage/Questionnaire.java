@@ -58,8 +58,8 @@ public class Questionnaire<max, count1, count2, count3> extends JPanel {
                 new Thread(new Runnable() {
                     public void run() {
                         //create new frame to loghistory
-                        createAndShowLog uilog = new createAndShowLog();
                         table.enterQscore(score.getText());
+                        createAndShowLog uilog = new createAndShowLog();
 
                         load.setVisible(false);
 

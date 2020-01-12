@@ -314,10 +314,12 @@ public class table extends JPanel {
         grid.gridy = 3;
         add(p4, grid);
 
-        if(Arrays.toString(entry) != "[]"){
-            textbox.setText(str[1]);
-            exerciseLog();
-        }
+//        if(str[1] != null){
+//            textbox.setText(str[1]);
+//            exerciseLog();
+//        }
+
+
     }
 
     public static void RefreshTable() {
